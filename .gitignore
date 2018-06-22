@@ -14,6 +14,7 @@ Thumbs.db
 
 # dependencies
 /node_modules
+package-lock.json
 
 # IDEs and editors
 /.idea
@@ -43,8 +44,3 @@ testem.log
 # e2e
 /e2e/*.js
 /e2e/*.map
-
-# System Files
-.DS_Store
-Thumbs.db
-package-lock.json
