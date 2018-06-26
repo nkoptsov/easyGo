@@ -4,6 +4,7 @@
 # System Files
 .DS_Store
 Thumbs.db
+.env
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
@@ -26,6 +27,7 @@ package-lock.json
 *.sublime-workspace
 
 # IDE - VSCode
+.vscode/
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
