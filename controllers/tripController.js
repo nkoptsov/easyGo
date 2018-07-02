@@ -3,6 +3,7 @@ const { Trip } = require('../models');
 module.exports = {
   // Create and Save a new Trip
   createTrip(req, res) {
+    console.log(req.body);
     return Trip.create({
       name: req.body.name,
       dateStart: req.body.dateStart,
