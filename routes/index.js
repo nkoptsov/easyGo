@@ -1,4 +1,8 @@
+const trips = require('./tripRoutes');
 
-const app = require('./router');
-
-module.exports = app;
+module.exports = (app) => {
+  app.get('/', (req, res) => res.status(200).send({
+    message: 'Welcome to the Our API!',
+  }));
+  app.use('/trips', trips);
+};
