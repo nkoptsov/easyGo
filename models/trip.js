@@ -1,13 +1,16 @@
-'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  var Trip = sequelize.define('Trip', {
+  const Trip = sequelize.define('Trip', {
     name: DataTypes.STRING,
     dateStart: DataTypes.DATEONLY,
     dateEnd: DataTypes.DATEONLY,
+    locationStart: DataTypes.STRING,
+    locationEnd: DataTypes.STRING,
+    tripCost: DataTypes.DOUBLE,
     description: DataTypes.TEXT,
-    idUser: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
   }, {});
-  Trip.associate = function(models) {
+  Trip.associate = (models) => {
     // associations can be defined here
   };
   return Trip;
