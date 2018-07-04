@@ -4,6 +4,10 @@ const passport = require('passport');
 const userRouter = express.Router();
 const { userController } = require('../controllers');
 
+userRouter.get('/', (req, res) => {
+  res.render('index', { message: 'easyGo!' });
+});
+
 userRouter.get('/register', (req, res) => {
   res.render('register');
 });
