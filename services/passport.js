@@ -5,14 +5,14 @@ const { User } = require('../models');
 module.exports = (passport) => {
   passport.use('local', new LocalStrategy(
     {
-      usernameField: 'firstName',
+      usernameField: 'login',
       passwordField: 'password',
       passReqToCallback: true,
     },
-    (req, firstName, password, done) => {
+    (req, login, password, done) => {
       User.findOne({
         where: {
-          firstName,
+          login,
         },
       }).then((user) => {
         if (!user) {
