@@ -12,11 +12,11 @@ userRouter.get('/register', (req, res) => {
   res.render('register');
 });
 
+userRouter.post('/register', userController.createUser);
+
 userRouter.get('/login', (req, res) => {
   res.render('login');
 });
-
-userRouter.post('/register', userController.createUser);
 
 userRouter.post('/login', (req, res, next) => {
   passport.authenticate('local', {

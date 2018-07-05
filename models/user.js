@@ -5,12 +5,15 @@ module.exports = (sequelize, DataTypes) => {
     login: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         notEmpty: true,
+        len: [3, 15],
       },
     },
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
       unique: true,
       validate: {
         isEmail: true,
@@ -21,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: true,
+        len: [3, 15],
       },
     },
   });
@@ -29,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   User.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8));
   User.comparePassword = (candidatePassword, hash) => {
-    bcrypt.compareSync(candidatePassword, hash);
+    return bcrypt.compareSync(candidatePassword, hash);
   };
   return User;
 };
