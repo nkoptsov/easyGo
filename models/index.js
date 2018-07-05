@@ -35,5 +35,8 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+db.users = require('./users.js')(sequelize, Sequelize);  
+db.trips = require('./trip.js')(sequelize, Sequelize);
+db.users.hasMany(db.trips);
 
 module.exports = db;
