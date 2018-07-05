@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   User.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8));
   User.comparePassword = (candidatePassword, hash) => {
-    bcrypt.compareSync(candidatePassword, hash);
+    return bcrypt.compareSync(candidatePassword, hash);
   };
   return User;
 };
