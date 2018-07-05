@@ -1,20 +1,14 @@
 const { User, Profile } = require('../models');
 
-
 module.exports = {
   createUser(req, res) {
-    console.log(req.body);
     User
       .create({
         login: req.body.login,
         email: req.body.email,
         password: User.generateHash(req.body.password),
       }).then((object) => {
-        // this code work 
-        console.log(typeof object.id);
-        console.log(Profile.rawAttributes);
-        Profile.create({ userId: 1 }).then();
-        //
+        Profile.create({ UserId: object.id }).then();
         res.status(201);
         res.redirect('/');
       })
