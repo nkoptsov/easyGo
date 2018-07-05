@@ -19,9 +19,17 @@ if (config.use_env_variable) {
 }
 
 fs.readdirSync(__dirname)
+<<<<<<< HEAD
   .filter(file => (
     file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
   ))
+=======
+  .filter((file) => {
+    return (
+      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
+    );
+  })
+>>>>>>> userAuthentication
   .forEach((file) => {
     const model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;

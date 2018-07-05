@@ -1,3 +1,4 @@
+
 const trips = require('./tripRoutes');
 
 module.exports = (app) => {
