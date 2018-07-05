@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 
 const userRouter = express.Router();
-const { userController } = require('../controllers');
+const { userController, authController } = require('../controllers');
 
 userRouter.get('/', (req, res) => {
   res.render('index', { message: 'easyGo!' });
@@ -19,10 +19,7 @@ userRouter.get('/login', (req, res) => {
 });
 
 userRouter.post('/login', (req, res, next) => {
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/users/login',
-  })(req, res, next);
+  authController.loginUser(req, res, next);
 });
 
 

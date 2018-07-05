@@ -10,7 +10,7 @@ const app = express();
 
 const routes = require('./routes/index');
 
-require('./services/passport')(passport);
+// require('./services/passport')(passport);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
