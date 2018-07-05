@@ -1,22 +1,21 @@
 const express = require('express');
+const bodyParser = require('body-parser')
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
-
+const routes = require('./routes/');
 const app = express();
 
-const routes = require('./routes/index');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.urlencoded({ extended: false }));
 
 require('./services/passport')(passport);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(session({
   secret: 'secret',
@@ -37,7 +36,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/', routes);
-
 
 app.listen(3000);
 
