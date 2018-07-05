@@ -3,22 +3,16 @@ const { User, Profile } = require('../models');
 
 module.exports = {
   createUser(req, res) {
-    console.log(req.body);
     User
       .create({
         login: req.body.login,
         email: req.body.email,
         password: User.generateHash(req.body.password),
-      }).then((object) => {
-        // this code work 
-        console.log(typeof object.id);
-        console.log(Profile.rawAttributes);
-        Profile.create({ userId: 1 }).then();
-        //
-        res.status(201);
-        res.redirect('/');
+      }).then((user) => {
+        Profile.create({ userId: user.id });
+        res.status(201).location(`/${user.id}/profile`).json({ locatedAt: `/${user.id}/profile` });
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => res.status(404).send(error.message));
   },
   getUserById(req, res) {
     User
@@ -31,6 +25,6 @@ module.exports = {
         }
         return user;
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => res.status(404).send(error.message));
   },
 };

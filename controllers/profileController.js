@@ -13,9 +13,10 @@ module.exports = {
       .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
   },
 
-  // check id if not number if has this id  
+  // check id if not number if has this id
   create(req, res) {
-    Profile.create(req.body).then(element => res.status(201).location(`/${element.id}/profile`).send())
+    Profile.create(req.body)
+      .then(element => res.status(201).location(`/${element.id}/profile`))
       .catch(() => res.status(404).send('Not found'));
   },
 
@@ -37,6 +38,21 @@ module.exports = {
         return element
           .update(req.body)
           .then(() => res.status(200).send());
+      })
+      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
+  },
+
+  patch(req, res) {
+    const { id } = req.params;
+
+    Profile.findById(id)
+      .then((element) => {
+        if (!element) {
+          return res.status(404).json({ massage: `User not found with id ${id}` });
+        }
+        return element
+          .patch(req.body)
+          .then(() => res.status(200));
       })
       .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
   },
