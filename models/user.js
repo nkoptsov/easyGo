@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       validate: {
         notEmpty: true,
-        len: [3, 15],
       },
     },
     email: {
@@ -24,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [3, 15],
       },
     },
   });
@@ -32,8 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
   User.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8));
-  User.comparePassword = (candidatePassword, hash) => {
-    return bcrypt.compareSync(candidatePassword, hash);
-  };
+  User.comparePassword = (candidatePassword, hash) => bcrypt.compareSync(candidatePassword, hash);
   return User;
 };
