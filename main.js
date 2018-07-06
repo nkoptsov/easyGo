@@ -6,12 +6,17 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 const routes = require('./routes/');
+const { sequelize } = require('./models');
+
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(bodyParser.urlencoded({ extended: false }));
 
+sequelize.sync()
+  .then(() =>  console.log('connected'))
+  .catch(error => console.log(error));
 require('./services/passport')(passport);
 
 app.set('views', path.join(__dirname, 'views'));

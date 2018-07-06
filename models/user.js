@@ -26,10 +26,10 @@ module.exports = (sequelize, DataTypes) => {
   });
   User.associate = (models) => {
     // associations can be defined here
+    User.hasMany(models.Trip, { foreignKey: 'userId', sourceKey: 'id' });
+    User.belongsToMany(models.Trip, { through: 'UsersTrips' });
   };
   User.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8));
-  User.comparePassword = (candidatePassword, hash) => {
-    bcrypt.compareSync(candidatePassword, hash);
-  };
+  User.comparePassword = (candidatePassword, hash) => bcrypt.compareSync(candidatePassword, hash);
   return User;
 };
