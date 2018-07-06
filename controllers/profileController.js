@@ -41,6 +41,18 @@ module.exports = {
       });
     });
   },
+  patch(req, res) {
+    const { id } = req.params;
+
+    Profile.findById(id).then((userProfile) => {
+      if (!userProfile) {
+        res.status(404).json({ message: `UserProfile with id ${req.params.id} not found.` });
+      }
+      userProfile.update(req.body).then(() => {
+        res.status(200).json({ message: 'UserProfile updated successfully.' });
+      });
+    });
+  },
 
   remove(req, res) {
     const { id } = req.params; //
