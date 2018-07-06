@@ -6,18 +6,17 @@ module.exports = {
     Profile.findById(id)
       .then((element) => {
         if (!element) {
-          return res.status(404).json({ message: `User not found with id ${id}` });
+          return res.status(404).json({ massage: `User not found with id ${id}` });
         }
-        return res.status(200).json(element);
+        return res.status(200).json(element).send();
       })
-      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
+      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
   },
 
   // check id if not number if has this id
   create(req, res) {
-    Profile.create(req.body)
-      .then(element => res.status(201).location(`/${element.id}/profile`))
-      .catch(() => res.status(404).json({ message: 'Not found' }));
+    Profile.create(req.body).then(element => res.status(201).location(`/${element.id}/profile`).send())
+      .catch(() => res.status(404).send('Not found'));
   },
 
   update(req, res) {
@@ -31,37 +30,6 @@ module.exports = {
       return res.status(400).json('Request body no include all columns');
     }
     const { id } = req.params;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // const { [gendr, age, about]} = req.body;
-    Profile.findById(id)
-      .then((element) => {
-        if (!element) {
-          return res.status(404).json({ message: `User not found with id ${id}` });
-        }
-        return element
-          .update(req.body)
-          .then(() => res.status(200).json({ message: `${id} updated` }));
-      })
-      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
-  },
-
-  patch(req, res) {
-    const { id } = req.params;
-
-    Profile.findById(id)
-      .then((element) => {
-        if (!element) {
-          return res.status(404).json({ message: `User not found with id ${id}` });
-        }
-        return element
-          .patch(req.body)
-          .then(() => res.status(200).json({ message: `${id} updated` }));
-      })
-      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
-=======
-=======
->>>>>>> 81fb1be110440053a4dce8c5fca79a05b53c64af
     const profile = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -81,10 +49,6 @@ module.exports = {
         res.status(200).json({ message: 'UserProfile updated successfully.' });
       });
     });
-<<<<<<< HEAD
->>>>>>> 81fb1be110440053a4dce8c5fca79a05b53c64af
-=======
->>>>>>> 81fb1be110440053a4dce8c5fca79a05b53c64af
   },
 
   remove(req, res) {
@@ -92,11 +56,11 @@ module.exports = {
     Profile.findById(id)
       .then((element) => {
         if (!element) {
-          return res.status(404).json({ message: `User not found with id ${id}` });
+          return res.status(404).json({ massage: `User not found with id ${id}` });
         }
         return element.destroy()
-          .then(() => res.status(200));
+          .then(() => res.status(400).send());
       })
-      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
+      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
   },
 };
