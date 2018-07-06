@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
     about: DataTypes.TEXT,
   }, {});
   Profile.associate = (models) => {
-    Profile.belongsTo(models.User);
     // associations can be defined here
   };
   return Profile;
