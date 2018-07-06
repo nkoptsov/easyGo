@@ -6,17 +6,18 @@ module.exports = {
     Profile.findById(id)
       .then((element) => {
         if (!element) {
-          return res.status(404).json({ massage: `User not found with id ${id}` });
+          return res.status(404).json({ message: `User not found with id ${id}` });
         }
-        return res.status(200).json(element).send();
+        return res.status(200).json(element);
       })
-      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
   },
 
-  // check id if not number if has this id  
+  // check id if not number if has this id
   create(req, res) {
-    Profile.create(req.body).then(element => res.status(201).location(`/${element.id}/profile`).send())
-      .catch(() => res.status(404).send('Not found'));
+    Profile.create(req.body)
+      .then(element => res.status(201).location(`/${element.id}/profile`))
+      .catch(() => res.status(404).json({ message: 'Not found' }));
   },
 
   update(req, res) {
@@ -32,13 +33,28 @@ module.exports = {
     Profile.findById(id)
       .then((element) => {
         if (!element) {
-          return res.status(404).json({ massage: `User not found with id ${id}` });
+          return res.status(404).json({ message: `User not found with id ${id}` });
         }
         return element
           .update(req.body)
-          .then(() => res.status(200).send());
+          .then(() => res.status(200).json({ message: `${id} updated` }));
       })
-      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
+  },
+
+  patch(req, res) {
+    const { id } = req.params;
+
+    Profile.findById(id)
+      .then((element) => {
+        if (!element) {
+          return res.status(404).json({ message: `User not found with id ${id}` });
+        }
+        return element
+          .patch(req.body)
+          .then(() => res.status(200).json({ message: `${id} updated` }));
+      })
+      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
   },
 
   remove(req, res) {
@@ -46,11 +62,11 @@ module.exports = {
     Profile.findById(id)
       .then((element) => {
         if (!element) {
-          return res.status(404).json({ massage: `User not found with id ${id}` });
+          return res.status(404).json({ message: `User not found with id ${id}` });
         }
         return element.destroy()
-          .then(() => res.status(400).send());
+          .then(() => res.status(200));
       })
-      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
   },
 };

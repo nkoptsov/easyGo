@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   User.associate = (models) => {
-    // associations can be defined here
+    User.hasOne(models.Profile, { foreignKey: 'userId' });
   };
   User.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8));
   User.comparePassword = (candidatePassword, hash) => {
