@@ -21,7 +21,7 @@ userRouter.post('/login', (req, res) => {
   authController.loginUser(req, res);
 });
 
-userRouter.get('/logout', authController.logoutUser);
+// userRouter.get('/logout', authController.logoutUser);
 
 
 module.exports = userRouter;
