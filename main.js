@@ -5,10 +5,11 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
+const expressMessages = require('express-messages');
 
 const { sequelize } = require('./models');
 const routes = require('./routes');
-require('./services/passport')(passport);
+
 
 const app = express();
 sequelize.sync().then(() => {
@@ -35,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash());
 app.use((req, res, next) => {
-  res.locals.messages = require('express-messages')(req, res);
+  res.locals.messages = expressMessages(req, res);
   next();
 });
 
