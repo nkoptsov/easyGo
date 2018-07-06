@@ -5,12 +5,10 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
-
-const app = express();
-
+const expressMessages = require('express-messages');
 const routes = require('./routes/index');
 
-require('./services/passport')(passport);
+const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -32,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash());
 app.use((req, res, next) => {
-  res.locals.messages = require('express-messages')(req, res);
+  res.locals.messages = expressMessages(req, res);
   next();
 });
 
