@@ -6,11 +6,11 @@ module.exports = {
     Profile.findById(id)
       .then((element) => {
         if (!element) {
-          return res.status(404).json({ massage: `User not found with id ${id}` });
+          return res.status(404).json({ message: `User not found with id ${id}` });
         }
         return res.status(200).json(element).send();
       })
-      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
   },
 
   // check id if not number if has this id
