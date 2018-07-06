@@ -7,7 +7,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 
 const { sequelize } = require('./models');
-const routes = require('./routes/index');
+const routes = require('./routes');
 require('./services/passport')(passport);
 
 const app = express();
