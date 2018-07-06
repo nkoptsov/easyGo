@@ -6,9 +6,15 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 const expressMessages = require('express-messages');
-const routes = require('./routes/index');
+
+const { sequelize } = require('./models');
+const routes = require('./routes');
+
 
 const app = express();
+sequelize.sync().then(() => {
+  console.log('connecting has been successfully');
+});
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
