@@ -32,6 +32,7 @@ module.exports = {
     }
     const { id } = req.params;
 <<<<<<< HEAD
+<<<<<<< HEAD
     // const { [gendr, age, about]} = req.body;
     Profile.findById(id)
       .then((element) => {
@@ -59,6 +60,8 @@ module.exports = {
       })
       .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
 =======
+=======
+>>>>>>> 81fb1be110440053a4dce8c5fca79a05b53c64af
     const profile = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -78,6 +81,9 @@ module.exports = {
         res.status(200).json({ message: 'UserProfile updated successfully.' });
       });
     });
+<<<<<<< HEAD
+>>>>>>> 81fb1be110440053a4dce8c5fca79a05b53c64af
+=======
 >>>>>>> 81fb1be110440053a4dce8c5fca79a05b53c64af
   },
 
