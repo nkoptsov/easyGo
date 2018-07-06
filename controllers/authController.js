@@ -12,9 +12,9 @@ module.exports = {
       successFlash: 'Welcome!',
     })(req, res);
   },
-  // logoutUser(req, res) {
-  //   req.session.destroy((err) => {
-  //     res.redirect('login');
-  //   });
-  // },
+  logoutUser(req, res) {
+    req.session.destroy((err) => {
+      res.redirect('login');
+    });
+  },
 };
