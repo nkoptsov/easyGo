@@ -33,13 +33,13 @@ module.exports = {
     Profile.findById(id)
       .then((element) => {
         if (!element) {
-          return res.status(404).json({ massage: `User not found with id ${id}` });
+          return res.status(404).json({ message: `User not found with id ${id}` });
         }
         return element
           .update(req.body)
           .then(() => res.status(200).send());
       })
-      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
   },
 
   patch(req, res) {
@@ -48,13 +48,13 @@ module.exports = {
     Profile.findById(id)
       .then((element) => {
         if (!element) {
-          return res.status(404).json({ massage: `User not found with id ${id}` });
+          return res.status(404).json({ message: `User not found with id ${id}` });
         }
         return element
           .patch(req.body)
           .then(() => res.status(200));
       })
-      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
   },
 
   remove(req, res) {
@@ -62,11 +62,11 @@ module.exports = {
     Profile.findById(id)
       .then((element) => {
         if (!element) {
-          return res.status(404).json({ massage: `User not found with id ${id}` });
+          return res.status(404).json({ message: `User not found with id ${id}` });
         }
         return element.destroy()
           .then(() => res.status(400).send());
       })
-      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
   },
 };
