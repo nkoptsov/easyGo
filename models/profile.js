@@ -9,9 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     birthday: DataTypes.DATEONLY,
     photo: DataTypes.STRING,
     about: DataTypes.TEXT,
-    // userId: DataTypes.INTEGER, // allowNull: false
   }, {});
-  Profile.associate = function (models) {
+  Profile.associate = (models) => {
     Profile.belongsTo(models.User);
     // associations can be defined here
   };
