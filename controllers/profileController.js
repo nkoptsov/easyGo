@@ -10,7 +10,7 @@ module.exports = {
         }
         return res.status(200).json(element);
       })
-      .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
   },
 
   // check id if not number if has this id
@@ -37,9 +37,9 @@ module.exports = {
         }
         return element
           .update(req.body)
-          .then(() => res.status(200));
+          .then(() => res.status(200).json({ message: `${id} updated` }));
       })
-      .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
   },
 
   patch(req, res) {
@@ -52,9 +52,9 @@ module.exports = {
         }
         return element
           .patch(req.body)
-          .then(() => res.status(200));
+          .then(() => res.status(200).json({ message: `${id} updated` }));
       })
-      .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
   },
 
   remove(req, res) {
@@ -67,6 +67,6 @@ module.exports = {
         return element.destroy()
           .then(() => res.status(200));
       })
-      .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `Somthing went wrong with id ${id}` }));
   },
 };

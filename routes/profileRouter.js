@@ -5,7 +5,7 @@ const controler = require('../controllers/profileController');
 const router = express.Router();
 
 router.get('/users/:id/profile', controler.read);
-router.post('/users/profile', controler.create);
+router.post('/users/profile', controler.create);// ??
 router.put('/users/:id/profile', controler.update);
 router.patch('/users/:id/profile', controler.patch);
 router.delete('/users/:id/profile', controler.remove);
