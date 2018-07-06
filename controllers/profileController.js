@@ -8,7 +8,7 @@ module.exports = {
         if (!element) {
           return res.status(404).json({ message: `User not found with id ${id}` });
         }
-        return res.status(200).json(element).send();
+        return res.status(200).json(element);
       })
       .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
   },
@@ -17,7 +17,7 @@ module.exports = {
   create(req, res) {
     Profile.create(req.body)
       .then(element => res.status(201).location(`/${element.id}/profile`))
-      .catch(() => res.status(404).send('Not found'));
+      .catch(() => res.status(404).json({ message: 'Not found' }));
   },
 
   update(req, res) {
@@ -37,7 +37,7 @@ module.exports = {
         }
         return element
           .update(req.body)
-          .then(() => res.status(200).send());
+          .then(() => res.status(200));
       })
       .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
   },
@@ -65,7 +65,7 @@ module.exports = {
           return res.status(404).json({ message: `User not found with id ${id}` });
         }
         return element.destroy()
-          .then(() => res.status(400).send());
+          .then(() => res.status(400));
       })
       .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
   },
