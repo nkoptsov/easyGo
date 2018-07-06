@@ -65,7 +65,7 @@ module.exports = {
           return res.status(404).json({ message: `User not found with id ${id}` });
         }
         return element.destroy()
-          .then(() => res.status(400));
+          .then(() => res.status(200));
       })
       .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
   },
