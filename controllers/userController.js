@@ -11,7 +11,10 @@ module.exports = {
         res.status(201);
         res.redirect('/');
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(() => {
+        res.status(400);
+        res.redirect('/users/register');
+      });
   },
   getUserById(req, res) {
     User
