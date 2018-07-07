@@ -13,7 +13,7 @@ const routes = require('./routes');
 
 const app = express();
 sequelize.sync().then(() => {
-  console.log('connecting has been successfully');
+  console.log('Connected to database');
 });
 
 app.set('views', path.join(__dirname, 'views'));
