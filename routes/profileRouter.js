@@ -4,9 +4,9 @@ const controler = require('../controllers/profileController');
 
 const router = express.Router();
 
-router.get('/users/:id/profile', controler.read);
-router.post('/users/profile', controler.create);
-router.put('/users/:id/profile', controler.update);
-router.delete('/users/:id/profile', controler.remove);
+router.get('/:id/profile', controler.getProfile);
+// router.post('/profile', controler.create);
+router.put('/:id/profile', controler.updateProfile);
+router.delete('/:id/profile', controler.removeProfile);
 
 module.exports = router;

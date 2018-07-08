@@ -1,4 +1,4 @@
-const { User, Profile } = require('../models');
+const { User } = require('../models');
 
 
 module.exports = {
@@ -9,15 +9,7 @@ module.exports = {
         login: req.body.login,
         email: req.body.email,
         password: User.generateHash(req.body.password),
-      }).then((object) => {
-        // this code work 
-        console.log(typeof object.id);
-        console.log(Profile.rawAttributes);
-        Profile.create({ userId: 1 }).then();
-        //
-        res.status(201);
-        res.redirect('/');
-      })
+      }).then(object => res.status(201).location(`/${object.id}/profile`).send())
       .catch(error => res.status(400).send(error.message));
   },
   getUserById(req, res) {

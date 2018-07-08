@@ -23,7 +23,14 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-  });
+  },
+    {
+      hooks: {
+        afterCreate: (user, profile) => {
+          sequelize.models.Profile.create({ UserId: user.id }).catch(() => console.log());
+        },
+      },
+    });
   User.associate = (models) => {
     // associations can be defined here
   };
