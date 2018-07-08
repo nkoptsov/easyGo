@@ -1,36 +1,28 @@
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcryptjs');
 const { User } = require('../models');
-
 
 module.exports = (passport) => {
   passport.use('local', new LocalStrategy(
     {
-      usernameField: 'firstName',
+      usernameField: 'login',
       passwordField: 'password',
       passReqToCallback: true,
     },
-    (req, firstName, password, done) => {
+    (req, login, password, done) => {
       User.findOne({
         where: {
-          firstName,
+          login,
         },
       }).then((user) => {
         if (!user) {
-          return done(null, false, {
-            message: 'User does not exist',
-          });
+          return done(null, false);
         }
         if (!User.comparePassword(password, user.password)) {
-          return done(null, false, {
-            message: 'Incorrect password.',
-          });
+          return done(null, false);
         }
         return done(null, user);
-      }).catch(() => {
-        return done(null, false, {
-          message: 'Something went wrong with your Signin',
-        });
-      });
+      }).catch(() => done(null, false));
     },
   ));
   passport.serializeUser((user, done) => {

@@ -1,12 +1,11 @@
 const express = require('express');
-// const model = require('../models');
-const controler = require('../controllers/profileController');
+const controller = require('../controllers/profileController');
 
 const router = express.Router();
 
-router.get('/:id/profile', controler.getProfile);
+router.get('/:id/profile', controller.getProfile);
 // router.post('/profile', controler.create);
-router.put('/:id/profile', controler.updateProfile);
-router.delete('/:id/profile', controler.removeProfile);
+router.put('/:id/profile', controller.updateProfile);
+router.delete('/:id/profile', controller.removeProfile);
 
 module.exports = router;

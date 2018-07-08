@@ -1,9 +1,7 @@
 const { User } = require('../models');
 
-
 module.exports = {
   createUser(req, res) {
-    console.log(req.body);
     User
       .create({
         login: req.body.login,
@@ -23,6 +21,6 @@ module.exports = {
         }
         return user;
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => res.status(404).send(error.message));
   },
 };
