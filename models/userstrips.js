@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   UsersTrips.associate = (models) => {
     // associations can be defined here
-    // UsersTrips.hasMany(models.Trip, { foreignKey: 'tripId' });
-    // UsersTrips.hasMany(models.User, { foreignKey: 'userId' });
+    UsersTrips.belongsTo(models.User, { as: 'Creator', foreignKey: 'userId' });
+    UsersTrips.belongsTo(models.Trip, { foreignKey: 'tripId' });
   };
   return UsersTrips;
 };

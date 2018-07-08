@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
         len: [3, 15],
       },
-
     },
     dateStart: {
       type: DataTypes.DATEONLY,
@@ -20,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
           }
         },
       },
-
     },
     locationStart: DataTypes.STRING,
     locationEnd: DataTypes.STRING,
@@ -33,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Trip.associate = (models) => {
     Trip.belongsTo(models.User, { foreignKey: 'userId', targetKey: 'id' });
-    Trip.belongsToMany(models.User, { through: 'UsersTrips' });
+    Trip.belongsToMany(models.User, { through: 'UsersTrips', foreignKey: 'tripId' });
   };
   return Trip;
 };
