@@ -49,14 +49,15 @@ module.exports = {
     // }
 
     const { id } = req.params;
-    const { email, username } = req.body;
+    // const { email, username } = req.body;
     console.log(req.body);
-    Profile.findOne({ where: { id }, include: [User], required: true })
-      .then((value) => {
-        if (!value) {
-          return res.status(404).json({ message: `UserProfile with id ${req.params.id} not found.` });
-        }
-      })
+    // Profile.findOne({ where: { id }, include: [User], required: true })
+    //   .then((value) => {
+    //     if (!value) {
+    //       return res.status(404)
+    // .json({ message: `UserProfile with id ${req.params.id} not found.` });
+    //     }
+    //   });
     return Profile.findById(id).then((profile) => {
       if (!profile) {
         return res.status(404).json({ message: `UserProfile with id ${req.params.id} not found.` });
