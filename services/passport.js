@@ -15,6 +15,7 @@ module.exports = (passport) => {
           login,
         },
       }).then((user) => {
+        
         if (!user) {
           return done(null, false);
         }
