@@ -17,11 +17,11 @@ module.exports = {
     if (!req.body) {
       return res.status(400).json('No request body');
     }
-    if (!(req.body.firstName && req.body.lastName && req.body.phoneNumber && req.body.city
+    /* if (!(req.body.firstName && req.body.lastName && req.body.phoneNumber && req.body.city
       && req.body.country && req.body.birthday && req.body.gender && req.body.photo
       && req.body.about)) {
       return res.status(400).json({ message: 'Request body not includes all columns' });
-    }
+    } */
     const { id } = req.params;
     return Profile.findById(id).then((userProfile) => {
       if (!userProfile) {
