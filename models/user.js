@@ -29,12 +29,13 @@ module.exports = (sequelize, DataTypes) => {
   {
     hooks: {
       afterCreate: (user) => {
-        sequelize.models.Profile.create({ UserId: user.id }).catch(() => console.log());
+        sequelize.models.Profile.create({ UserId: user.id });
       },
     },
   });
   User.associate = (models) => {
-
+    User.hasMany(models.Trip, { foreignKey: 'userId', sourceKey: 'id' });
+    User.belongsToMany(models.Trip, { through: 'UsersTrips', foreignKey: 'userId' });
   };
   User.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8));
   User.comparePassword = (candidatePassword, hash) => bcrypt.compareSync(candidatePassword, hash);
