@@ -38,11 +38,11 @@ module.exports = {
     Profile.findById(id)
       .then((userProfile) => {
         if (!userProfile) {
-          return res.status(404).json({ massage: `User not found with id ${id}` });
+          return res.status(404).json({ message: `User not found with id ${id}` });
         }
         return userProfile.destroy()
-          .then(() => res.status(400).send());
+          .then(() => res.status(200).json({ message: 'User deleted' }));
       })
-      .catch(() => res.status(404).json({ massage: `User not found with id ${id}` }));
+      .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
   },
 };
