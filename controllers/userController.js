@@ -11,6 +11,7 @@ module.exports = {
       .catch(error => res.status(400).send(error.message));
   },
   getUserById(req, res) {
+    //  const {id} = req
     User
       .findById(req.params.id)
       .then((user) => {

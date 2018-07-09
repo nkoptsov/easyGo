@@ -14,16 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     //   allowNull: false,
     // }, // allowNull: false
   }, {
-      hooks: {
-        afterDestroy: (profile, options) => {
-          // console.log(sequelize);
-          sequelize.models.User
-            .findById(profile.UserId)
-            .then(value => value.destroy());
-          // error
-        },
-      }
-    });
+    hooks: {
+      afterDestroy: (profile) => {
+        // console.log(sequelize);
+        sequelize.models.User
+          .findById(profile.UserId)
+          .then(value => value.destroy());
+        // error
+      },
+    },
+  });
   Profile.associate = function (models) {
     Profile.belongsTo(models.User, { foreignKey: 'UserId' });
     // associations can be defined here

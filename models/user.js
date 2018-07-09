@@ -26,13 +26,13 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   },
-    {
-      hooks: {
-        afterCreate: (user, profile) => {
-          sequelize.models.Profile.create({ UserId: user.id }).catch(() => console.log());
-        },
+  {
+    hooks: {
+      afterCreate: (user) => {
+        sequelize.models.Profile.create({ UserId: user.id }).catch(() => console.log());
       },
-    });
+    },
+  });
   User.associate = (models) => {
 
   };
