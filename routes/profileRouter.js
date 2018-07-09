@@ -4,7 +4,6 @@ const controller = require('../controllers/profileController');
 const router = express.Router();
 
 router.get('/:id/profile', controller.getProfile);
-// router.post('/profile', controler.create);
 router.put('/:id/profile', controller.updateProfile);
 router.delete('/:id/profile', controller.removeProfile);
 

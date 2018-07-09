@@ -9,24 +9,18 @@ module.exports = (sequelize, DataTypes) => {
     birthday: DataTypes.DATEONLY,
     photo: DataTypes.STRING,
     about: DataTypes.TEXT,
-    // userId: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    // }, // allowNull: false
+
   }, {
-      hooks: {
-        afterDestroy: (profile, options) => {
-          // console.log(sequelize);
-          sequelize.models.User
-            .findById(profile.UserId)
-            .then(value => value.destroy());
-          // error
-        },
-      }
-    });
-  Profile.associate = function (models) {
+    hooks: {
+      afterDestroy: (profile) => {
+        sequelize.models.User
+          .findById(profile.UserId)
+          .then(value => value.destroy());
+      },
+    },
+  });
+  Profile.associate = (models) => {
     Profile.belongsTo(models.User, { foreignKey: 'UserId' });
-    // associations can be defined here
   };
   return Profile;
 };
