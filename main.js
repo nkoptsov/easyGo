@@ -1,13 +1,14 @@
 const express = require('express');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 const expressMessages = require('express-messages');
-const routes = require('./routes/');
+
 const { sequelize } = require('./models');
+const routes = require('./routes');
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 sequelize.sync()
-  .then(() =>  console.log('connected'))
+  .then(() => console.log('Connected to database'))
   .catch(error => console.log(error));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -42,4 +43,3 @@ app.use((req, res, next) => {
 app.use('/', routes);
 
 app.listen(3000);
-

@@ -7,14 +7,8 @@ module.exports = {
         login: req.body.login,
         email: req.body.email,
         password: User.generateHash(req.body.password),
-      }).then(() => {
-        res.status(201);
-        res.redirect('/');
-      })
-      .catch(() => {
-        res.status(400);
-        res.redirect('/users/register');
-      });
+      }).then(object => res.status(201).location(`/${object.id}/profile`).send())
+      .catch(error => res.status(400).send(error.message));
   },
   getUserById(req, res) {
     User
@@ -27,6 +21,6 @@ module.exports = {
         }
         return user;
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => res.status(404).send(error.message));
   },
 };

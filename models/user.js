@@ -25,9 +25,15 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
+  },
+  {
+    hooks: {
+      afterCreate: (user) => {
+        sequelize.models.Profile.create({ UserId: user.id });
+      },
+    },
   });
   User.associate = (models) => {
-    // associations can be defined here
     User.hasMany(models.Trip, { foreignKey: 'userId', sourceKey: 'id' });
     User.belongsToMany(models.Trip, { through: 'UsersTrips', foreignKey: 'userId' });
   };
