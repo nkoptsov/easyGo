@@ -37,8 +37,17 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     birthday: DataTypes.DATEONLY,
-    photo: DataTypes.STRING,
-    about: DataTypes.TEXT,
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        isUrl: true,
+      },
+    },
+    about: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     deletedAt: {
       type: DataTypes.DATE,
     },
