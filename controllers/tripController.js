@@ -3,8 +3,18 @@ const { Trip, UsersTrips, User } = require('../models');
 module.exports = {
   // Create and Save a new Trip
   createTrip(req, res) {
-    Trip.create(req.body).then((trip) => {
-      res.status(201).location(`${req.url}${trip.id}`).end();
+    const { id: reqUserId } = req.params;
+    Trip.create({
+      name: req.body.name,
+      dateStart: req.body.dateStart,
+      dateEnd: req.body.dateEnd,
+      locationStart: req.body.locationStart,
+      locationEnd: req.body.locationEnd,
+      tripCost: req.body.tripCost,
+      description: req.body.description,
+      userId: reqUserId,
+    }).then(() => {
+      res.status(201).location(`${req.url}`).end();
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
   },
 
@@ -17,10 +27,10 @@ module.exports = {
 
   // Find a single trip with a tripId
   getTripById(req, res) {
-    const { tripId } = req.params;
-    Trip.findById(tripId).then((trip) => {
+    const { tripId: reqTripId } = req.params;
+    Trip.findById(reqTripId).then((trip) => {
       if (!trip) {
-        return res.status(404).send({ message: `Trip with id ${tripId} not found` });
+        return res.status(404).send({ message: `Trip with id ${reqTripId} not found` });
       }
       return res.status(200).json(trip);
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
@@ -28,14 +38,14 @@ module.exports = {
 
   // Update a trip identified by the tripId in the request
   updateTrip(req, res) {
-    const { tripId } = req.params;
+    const { tripId: reqTripId } = req.params;
     Trip.update(req.body, {
       where: {
-        id: tripId,
+        id: reqTripId,
       },
     }).then((number) => {
       if (number[0] === 0) {
-        return res.status(404).send({ message: `Trip with id ${tripId} not found` });
+        return res.status(404).send({ message: `Trip with id ${reqTripId} not found` });
       }
       return res.status(200).send({ message: 'Trip updated successfully.' });
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
@@ -43,39 +53,39 @@ module.exports = {
 
   // Delete a trip with the specified tripId in the request
   deleteTrip(req, res) {
-    const { tripId } = req.params;
+    const { tripId: reqTripId } = req.params;
     Trip.destroy({
       where: {
-        id: tripId,
+        id: reqTripId,
       },
     }).then((numberOfRows) => {
       if (!numberOfRows) {
-        return res.status(404).send({ message: `Trip with id ${tripId} not found` });
+        return res.status(404).send({ message: `Trip with id ${reqTripId} not found` });
       }
       return res.status(200).send({ message: 'Trip deleted successfully.' }).end();
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
   },
 
   getTripsCreatedByUser(req, res) {
-    const { id } = req.params;
+    const { id: reqUserId } = req.params;
     Trip.findAll({
       where: {
-        userId: id,
+        userId: reqUserId,
       },
     }).then((trips) => {
       if (!trips.length) {
-        return res.status(404).send({ message: `Trips of User with user id ${id} not found` });
+        return res.status(404).send({ message: `Trips of User with user id ${reqUserId} not found` });
       }
       return res.status(200).json(trips);
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
   },
 
   getOneTripOfUser(req, res) {
-    const { id, tripId } = req.params;
+    const { id: reqUserId, tripId: reqTripId } = req.params;
     Trip.findOne({
       where: {
-        id: tripId,
-        userId: id,
+        id: reqTripId,
+        userId: reqUserId,
       },
     }).then((trip) => {
       if (!trip) {
@@ -86,39 +96,41 @@ module.exports = {
   },
 
   updateTripOfUser(req, res) {
-    const { id, tripId } = req.params;
+    const { id: reqUserId, tripId: reqTripId } = req.params;
     Trip.update(req.body, {
       where: {
-        id: tripId,
-        userId: id,
+        id: reqTripId,
+        userId: reqUserId,
       },
     }).then((number) => {
+      console.log(number);
+
       if (number[0] === 0) {
-        return res.status(404).send({ message: `Trip with id ${tripId} not found` });
+        return res.status(404).send({ message: `Trip with id ${reqTripId} not found` });
       }
       return res.status(200).send({ message: 'Trip updated successfully.' });
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
   },
 
   deleteTripOfUser(req, res) {
-    const { id, tripId } = req.params;
+    const { id: reqUserId, tripId: reqTripId } = req.params;
     Trip.destroy({
       where: {
-        id: tripId,
-        userId: id,
+        id: reqTripId,
+        userId: reqUserId,
       },
     }).then((numberOfRows) => {
       if (!numberOfRows) {
-        return res.status(404).send({ message: `Trip with id ${tripId} not found` });
+        return res.status(404).send({ message: `Trip with id ${reqTripId} not found` });
       }
       return res.status(200).send({ message: 'Trip deleted successfully.' }).end();
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
   },
 
   subscribeToTrip(req, res) {
-    const { id, tripId: reqTripId } = req.params;
+    const { id: reqUserId, tripId: reqTripId } = req.params;
     UsersTrips.create({
-      userId: id,
+      userId: reqUserId,
       tripId: reqTripId,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
@@ -126,10 +138,10 @@ module.exports = {
   },
 
   unsubscribeToTrip(req, res) {
-    const { id, tripId: reqTripId } = req.params;
+    const { id: reqUserId, tripId: reqTripId } = req.params;
     UsersTrips.destroy({
       where: {
-        userId: id,
+        userId: reqUserId,
         tripId: reqTripId,
       },
     }).then((numberOfRows) => {
@@ -141,10 +153,10 @@ module.exports = {
   },
 
   getTripsSubscribedByUser(req, res) {
-    const { id } = req.params;
+    const { id: reqUserId } = req.params;
     UsersTrips.findAll({
       where: {
-        userId: id,
+        userId: reqUserId,
       },
       attributes: ['tripId'],
       include: [{
@@ -154,13 +166,13 @@ module.exports = {
         model: User,
         as: 'Creator',
         where: {
-          id: req.params.id,
+          id: reqUserId,
         },
         attributes: ['login', 'email'],
       }],
     }).then((trips) => {
       if (!trips.length) {
-        return res.status(404).send({ message: `Trips of User with id ${req.params.id} not found` });
+        return res.status(404).send({ message: `Trips of User with id ${reqUserId} not found` });
       }
       return res.status(200).json(trips);
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
