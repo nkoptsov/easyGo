@@ -39,8 +39,13 @@ module.exports = (sequelize, DataTypes) => {
     birthday: DataTypes.DATEONLY,
     photo: DataTypes.STRING,
     about: DataTypes.TEXT,
+    deletedAt: {
+      type: DataTypes.DATE,
+    },
 
   }, {
+    timestamps: true,
+    paranoid: true,
     hooks: {
       afterDestroy: (profile) => {
         sequelize.models.User
