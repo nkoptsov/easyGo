@@ -49,15 +49,15 @@ module.exports = {
     const { id } = req.params;
 
     const { lastPassword, newPassword, repeatPassword } = req.body;
-    if (newPassword !== repeatPassword) {
-      return res.status(404).json('bed');
-    }
     return User.findById(id).then((user) => {
       if (!user) {
         return res.status(404).json(`user not found with id ${id}`);
       }
       if (!User.comparePassword(lastPassword, user.password)) {
         return res.status(404).json('password bad');
+      }
+      if (newPassword !== repeatPassword) {
+        return res.status(404).json('pasword not');
       }
       user.update({ password: User.generateHash(newPassword) });
       return res.status(200).json('goood');
