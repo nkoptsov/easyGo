@@ -3,7 +3,7 @@ const { Profile, User } = require('../models');
 module.exports = {
   getProfile(req, res) {
     const { id } = req.params;
-    Profile.findOne({ where: { id }, include: [{ model: User, attributes: ['login', 'email', 'password'], required: true }] })
+    Profile.findOne({ where: { id }, include: [{ model: User, attributes: ['login', 'email'], required: true }] })
       .then((userProfile) => {
         if (!userProfile) {
           return res.status(404).json({ massage: `User not found with id ${id}` });
