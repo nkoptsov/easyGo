@@ -1,4 +1,5 @@
 const { Profile, User } = require('../models');
+const validateBody = require('../services/validateBody');
 
 module.exports = {
   getProfile(req, res) {
@@ -6,9 +7,9 @@ module.exports = {
     Profile.findOne({ where: { id }, include: [{ model: User, attributes: ['login', 'email'], required: true }] })
       .then((userProfile) => {
         if (!userProfile) {
-          return res.status(404).json({ massage: `User not found with id ${id}` });
+          return res.status(404).json({ message: `User not found with id ${id}` });
         }
-        return res.status(200).json(userProfile).send();
+        return res.status(200).json(userProfile);
       })
       .catch(error => res.status(404).json({ message: `Something went wrong with id ${id}, ${error}` }));
   },
@@ -17,16 +18,15 @@ module.exports = {
     if (!req.body) {
       return res.status(400).json('No request body');
     }
-    /* if (!(req.body.firstName && req.body.lastName && req.body.phoneNumber && req.body.city
-      && req.body.country && req.body.birthday && req.body.gender && req.body.photo
-      && req.body.about)) {
+    if (!validateBody(req)) {
       return res.status(400).json({ message: 'Request body not includes all columns' });
-    } */
+    }
     const { id } = req.params;
     return Profile.findById(id).then((userProfile) => {
       if (!userProfile) {
         return res.status(404).json({ message: `UserProfile with id ${req.params.id} not found.` });
       }
+
       return userProfile.update(req.body)
         .then(() => res.status(200).json({ message: 'UserProfile updated successfully.' }));
     })
@@ -40,11 +40,13 @@ module.exports = {
         if (!userProfile) {
           return res.status(404).json({ message: `User not found with id ${id}` });
         }
+
         return userProfile.destroy()
-          .then(() => res.status(200).json({ message: 'User deleted' }));
+          .then(() => res.status(200).end());
       })
       .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
   },
+
   changePassword(req, res) {
     const { id } = req.params;
 
