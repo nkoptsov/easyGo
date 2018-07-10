@@ -8,5 +8,6 @@ router.route('/:id/profile')
   .put(controller.updateProfile)
   .delete(controller.removeProfile);
 
+router.put('/:id/profile/password', controller.changePassword);
 
 module.exports = router;

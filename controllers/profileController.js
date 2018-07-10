@@ -34,7 +34,7 @@ module.exports = {
   },
 
   removeProfile(req, res) {
-    const { id } = req.params; //
+    const { id } = req.params;
     Profile.findById(id)
       .then((userProfile) => {
         if (!userProfile) {
@@ -44,5 +44,23 @@ module.exports = {
           .then(() => res.status(200).json({ message: 'User deleted' }));
       })
       .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
+  },
+  changePassword(req, res) {
+    const { id } = req.params;
+
+    const { lastPassword, newPassword, repeatPassword } = req.body;
+    if (newPassword !== repeatPassword) {
+      return res.status(404).json('bed');
+    }
+    return User.findById(id).then((user) => {
+      if (!user) {
+        return res.status(404).json(`user not found with id ${id}`);
+      }
+      if (!User.comparePassword(lastPassword, user.password)) {
+        return res.status(404).json('password bad');
+      }
+      user.update({ password: User.generateHash(newPassword) });
+      return res.status(200).json('goood');
+    });
   },
 };
