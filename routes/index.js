@@ -2,7 +2,7 @@ const express = require('express');
 
 const userRouter = require('./userRouter');
 const profileRouter = require('./profileRouter');
-const tripRouter = require('./tripRoutes');
+const tripRouter = require('./tripRouter');
 
 const router = express.Router();
 

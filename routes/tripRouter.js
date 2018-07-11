@@ -7,7 +7,6 @@ const router = express.Router();
 router.get('/trips', tripController.getAllTrips);
 router.get('/trips/:tripId', tripController.getTripById);
 router.get('/users/:id/trips', tripController.getAllTrips);
-router.get('/users/:id/trips/:tripId', tripController.getTripById);
 
 router.route('/users/:id/trips/created')
   .get(tripController.getTripsCreatedByUser)
