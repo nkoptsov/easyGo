@@ -4,6 +4,7 @@ const validateBody = require('../services/validateBody');
 module.exports = {
   getProfile(req, res) {
     const { id } = req.params;
+
     Profile.findOne({ where: { id }, include: [{ model: User, attributes: ['login', 'email'], required: true }] })
       .then((userProfile) => {
         if (!userProfile) {
@@ -15,13 +16,11 @@ module.exports = {
   },
 
   updateProfile(req, res) {
-    if (!req.body) {
-      return res.status(400).json('No request body');
-    }
     if (!validateBody(req)) {
-      return res.status(400).json({ message: 'Request body not includes all columns' });
+      return res.status(400).json({ message: 'Wrong request body' });
     }
     const { id } = req.params;
+
     return Profile.findById(id).then((userProfile) => {
       if (!userProfile) {
         return res.status(404).json({ message: `UserProfile with id ${req.params.id} not found.` });
@@ -35,6 +34,7 @@ module.exports = {
 
   removeProfile(req, res) {
     const { id } = req.params;
+
     Profile.findById(id)
       .then((userProfile) => {
         if (!userProfile) {
@@ -49,20 +49,20 @@ module.exports = {
 
   changePassword(req, res) {
     const { id } = req.params;
-
     const { lastPassword, newPassword, repeatPassword } = req.body;
+
     return User.findById(id).then((user) => {
       if (!user) {
-        return res.status(404).json(`user not found with id ${id}`);
+        return res.status(404).json(`User not found with id ${id}`);
       }
       if (!User.comparePassword(lastPassword, user.password)) {
-        return res.status(404).json('password bad');
+        return res.status(404).json('Incorrect old password');
       }
       if (newPassword !== repeatPassword) {
-        return res.status(404).json('pasword not');
+        return res.status(404).json('Entered password does not match');
       }
       user.update({ password: User.generateHash(newPassword) });
-      return res.status(200).json('goood');
+      return res.status(200).json('Password successfully changed');
     });
   },
 };
