@@ -25,8 +25,13 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
+    deletedAt: {
+      type: DataTypes.DATE,
+    },
   },
   {
+    timestamps: true,
+    paranoid: true,
     hooks: {
       afterCreate: (user) => {
         sequelize.models.Profile.create({ UserId: user.id });

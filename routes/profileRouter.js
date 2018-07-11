@@ -3,8 +3,11 @@ const controller = require('../controllers/profileController');
 
 const router = express.Router();
 
-router.get('/:id/profile', controller.getProfile);
-router.put('/:id/profile', controller.updateProfile);
-router.delete('/:id/profile', controller.removeProfile);
+router.route('/:id/profile')
+  .get(controller.getProfile)
+  .put(controller.updateProfile)
+  .delete(controller.removeProfile);
+
+router.put('/:id/profile/password', controller.changePassword);
 
 module.exports = router;
