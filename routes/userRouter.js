@@ -7,19 +7,13 @@ userRouter.get('/', (req, res) => {
   res.render('index', { message: 'easyGo!' });
 });
 
-userRouter.get('/register', (req, res) => {
-  res.render('register');
-});
+userRouter.route('/register')
+  .get((req, res) => res.render('register'))
+  .post(userController.createUser);
 
-userRouter.post('/register', userController.createUser);
-
-userRouter.get('/login', (req, res) => {
-  res.render('login');
-});
-
-userRouter.post('/login', (req, res) => {
-  authController.loginUser(req, res);
-});
+userRouter.route('/login')
+  .get((req, res) => res.render('login'))
+  .post((req, res) => authController.loginUser(req, res));
 
 userRouter.get('/logout', authController.logoutUser);
 
