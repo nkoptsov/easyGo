@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'noname',
       validate: {
         is: ['^[a-z]+$', 'i'],
       },
@@ -19,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'nolastname',
       validate: {
         is: ['^[a-z]+$', 'i'],
       },
@@ -27,9 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     phoneNumber: {
       type: DataTypes.STRING,
       allowNull: false,
-      /* validate: {
-        isMobilePhone: true,
-      }, */
+      validate: {
+        is: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+      },
     },
     city: {
       type: DataTypes.STRING,
