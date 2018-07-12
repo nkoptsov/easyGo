@@ -10,14 +10,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
-    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -32,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
   {
     timestamps: true,
     paranoid: true,
-    hooks: {
+    /* hooks: {
       afterCreate: (user) => {
-        sequelize.models.Profile.create({ UserId: user.id });
+        sequelize.models.Profile.create({ userId: user.id });
       },
-    },
+    }, */
   });
   User.associate = (models) => {
     User.hasMany(models.Trip, { foreignKey: 'userId', sourceKey: 'id' });

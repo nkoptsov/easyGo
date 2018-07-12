@@ -1,20 +1,36 @@
 module.exports = (sequelize, DataTypes) => {
   const Profile = sequelize.define('Profile', {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 'noname',
       validate: {
         is: ['^[a-z]+$', 'i'],
       },
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 'nolastname',
       validate: {
         is: ['^[a-z]+$', 'i'],
       },
     },
-    phoneNumber: DataTypes.STRING,
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      /* validate: {
+        isMobilePhone: true,
+      }, */
+    },
     city: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -58,13 +74,13 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       afterDestroy: (profile) => {
         sequelize.models.User
-          .findById(profile.UserId)
+          .findById(profile.userId)
           .then(value => value.destroy());
       },
     },
   });
   Profile.associate = (models) => {
-    Profile.belongsTo(models.User, { foreignKey: 'UserId' });
+    Profile.belongsTo(models.User, { foreignKey: 'userId' });
   };
   return Profile;
 };
