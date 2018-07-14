@@ -42,4 +42,19 @@ app.use((req, res, next) => {
 
 app.use('/', routes);
 
+app.use((err, req, res, next) => {
+  // handle error
+  console.log(err);
+
+  switch (err.nameM) {
+    case 'trip':
+      res.status(404).send({ message: 'trip not found' });
+      break;
+    case 'tripBadRequest':
+      res.status(400).send({ message: 'bad request' });
+      break;
+    default: res.status(500).send({ message: `BAD SITUATION, ${err.message}` });
+  }
+});
+
 app.listen(3000);
