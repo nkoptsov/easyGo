@@ -9,7 +9,7 @@ userRouter.get('/', (req, res) => {
 
 userRouter.route('/register')
   .get((req, res) => res.render('register'))
-  .post(userController.createUser);
+  .post(userController.create);
 
 userRouter.route('/login')
   .get((req, res) => res.render('login'))

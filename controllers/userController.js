@@ -1,22 +1,26 @@
-const { User, Profile } = require('../models');
+// const { User, Profile } = require('../models');
+const { createUserProfile } = require('../services/userService');
 
 module.exports = {
-  createUser(req, res) {
-    User
-      .create({
-        login: req.body.login,
-        password: User.generateHash(req.body.password),
-      })
-      .then((user) => {
-        Profile.create({
-          userId: user.id,
-          email: req.body.email,
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          phoneNumber: req.body.phoneNumber,
-        })
-          .then(res.status(200).json(user));
-      })
-      .catch(error => res.status(400).json({ message: `${error.message}` }));
+  create(req, res) {
+    const { body } = req;
+    const result = createUserProfile(body);
+    console.log(result);
+    // User
+    //   .create({
+    //     login: req.body.login,
+    //     password: User.generateHash(req.body.password),
+    //   })
+    //   .then((user) => {
+    //     Profile.create({
+    //       userId: user.id,
+    //       email: req.body.email,
+    //       firstName: req.body.firstName,
+    //       lastName: req.body.lastName,
+    //       phoneNumber: req.body.phoneNumber,
+    //     })
+    //       .then(res.status(200).json(user));
+    //   })
+    //   .catch(error => res.status(400).json({ message: `${error.message}` }));
   },
 };
