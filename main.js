@@ -24,8 +24,8 @@ app.set('view engine', 'jade');
 
 app.use(session({
   secret: 'secret',
-  saveUninitialized: true,
   resave: true,
+  saveUninitialized: false,
 }));
 
 app.use(passport.initialize());
