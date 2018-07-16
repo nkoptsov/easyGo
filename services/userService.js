@@ -9,13 +9,15 @@ module.exports = {
       }, { transaction: tr })
         .then((createdUser) => {
           reqBody.userId = createdUser.id;
-          Profile.create(reqBody, { transaction: tr });
+          return Profile.create(reqBody, { transaction: tr });
         })
     )).then(ceatedObject => {
-      return ceatedObject
+      console.log(ceatedObject);
+      console.log('yes');
     })
       .catch(err => {
-        return err
+        console.log(err);
+        console.log('fuck you');
       });
   },
 };
