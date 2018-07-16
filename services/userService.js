@@ -2,7 +2,7 @@ const { User, Profile, sequelize } = require('../models');
 
 module.exports = {
   createUserProfile(reqBody) {
-    return new Promise(() => {
+    return new Promise((res, rej) => {
       sequelize.transaction(tr => (
         User.create({
           login: reqBody.login,
@@ -12,14 +12,8 @@ module.exports = {
             reqBody.userId = createdUser.id;
             return Profile.create(reqBody, { transaction: tr });
           })
-      )).then(ceatedObject => {
-        console.log(ceatedObject);
-        console.log('yes');
-      })
-        .catch(err => {
-          console.log(err);
-          console.log('fuck you');
-        });
+      )).then(ceatedObject => res(ceatedObject))
+        .catch(err => rej(err));
     });
   },
 };
