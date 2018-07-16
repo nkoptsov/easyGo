@@ -12,10 +12,10 @@ module.exports = {
           Profile.create(reqBody, { transaction: tr });
         })
     )).then(ceatedObject => {
-      ceatedObject
+      return ceatedObject
     })
       .catch(err => {
-        err
+        return err
       });
   },
 };

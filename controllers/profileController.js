@@ -16,9 +16,9 @@ module.exports = {
   },
 
   updateProfile(req, res) {
-    if (!validateBody(req)) {
-      return res.status(400).json({ message: 'Wrong request body' });
-    }
+    // if (!validateBody(req)) {
+    //   return res.status(400).json({ message: 'Wrong request body' });
+    // }
     const { id } = req.params;
 
     return Profile.findById(id).then((userProfile) => {
@@ -26,7 +26,7 @@ module.exports = {
         return res.status(404).json({ message: `UserProfile with id ${req.params.id} not found.` });
       }
 
-      return userProfile.update(req.body)
+      return userProfile.update(req.bodyç)
         .then(() => res.status(200).json({ message: 'UserProfile updated successfully.' }));
     })
       .catch(error => res.status(404).json({ message: `Something went wrong with id ${id}, ${error}` }));
