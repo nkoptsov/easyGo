@@ -1,4 +1,3 @@
-const Boom = require('boom');
 const { User } = require('../models');
 
 module.exports = {
@@ -10,6 +9,6 @@ module.exports = {
         password: User.generateHash(req.body.password),
       })
       .then(user => res.status(200).json(user))
-      .catch(error => next(Boom.badRequest(`${error.message}`)));
+      .catch(error => next(error));
   },
 };

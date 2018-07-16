@@ -1,8 +1,15 @@
-const Boom = require('boom');
 
 module.exports = (err, req, res, next) => {
-  if (Boom.isBoom(err)) {
-    return res.status(err.output.statusCode).send({ message: `${err.output.payload.message}` });
+
+  switch (err.flag) {
+    case 'trip':
+      res.status(404).send({ message: 'trip not found' });
+      break;
+    case 'tripBadRequest':
+      res.status(400).send({ message: `bad request for trip, ${err.message}` });
+      break;
+
+    default:
+      res.status(500).send({ message: 'Something broke!' });
   }
-  res.status(500).send({ message: `${err.message}` });
 };
