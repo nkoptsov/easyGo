@@ -5,7 +5,14 @@ module.exports = {
   create(req, res) {
     const { body } = req;
     const result = createUserProfile(body);
-    console.log(result);
+    result()
+      .then((value) => {
+        console.log(value);
+        res.status(200).send();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // User
     //   .create({
     //     login: req.body.login,
