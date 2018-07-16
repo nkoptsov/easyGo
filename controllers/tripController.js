@@ -3,7 +3,6 @@ const { Trip, UsersTrips, User } = require('../models');
 module.exports = {
   // Create and Save a new Trip
   createTrip(req, res) {
-    const { id: reqUserId } = req.params;
     Trip.create({
       name: req.body.name,
       dateStart: req.body.dateStart,
@@ -12,7 +11,7 @@ module.exports = {
       locationEnd: req.body.locationEnd,
       tripCost: req.body.tripCost,
       description: req.body.description,
-      userId: reqUserId,
+      userId: req.session.userId,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
@@ -67,25 +66,24 @@ module.exports = {
   },
 
   getTripsCreatedByUser(req, res) {
-    const { id: reqUserId } = req.params;
     Trip.findAll({
       where: {
-        userId: reqUserId,
+        userId: req.session.userId,
       },
     }).then((trips) => {
       if (!trips.length) {
-        return res.status(404).send({ message: `Trips of User with user id ${reqUserId} not found` });
+        return res.status(404).send({ message: `Trips of User with user id ${req.session.userId} not found` });
       }
       return res.status(200).json(trips);
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
   },
 
   getOneTripOfUser(req, res) {
-    const { id: reqUserId, tripId: reqTripId } = req.params;
+    const { tripId: reqTripId } = req.params;
     Trip.findOne({
       where: {
         id: reqTripId,
-        userId: reqUserId,
+        userId: req.session.userId,
       },
     }).then((trip) => {
       if (!trip) {
@@ -96,11 +94,11 @@ module.exports = {
   },
 
   updateTripOfUser(req, res) {
-    const { id: reqUserId, tripId: reqTripId } = req.params;
+    const { tripId: reqTripId } = req.params;
     Trip.update(req.body, {
       where: {
         id: reqTripId,
-        userId: reqUserId,
+        userId: req.session.userId,
       },
     }).then((number) => {
       console.log(number);
@@ -113,11 +111,11 @@ module.exports = {
   },
 
   deleteTripOfUser(req, res) {
-    const { id: reqUserId, tripId: reqTripId } = req.params;
+    const { tripId: reqTripId } = req.params;
     Trip.destroy({
       where: {
         id: reqTripId,
-        userId: reqUserId,
+        userId: req.session.userId,
       },
     }).then((numberOfRows) => {
       if (!numberOfRows) {
@@ -128,9 +126,9 @@ module.exports = {
   },
 
   subscribeToTrip(req, res) {
-    const { id: reqUserId, tripId: reqTripId } = req.params;
+    const { tripId: reqTripId } = req.params;
     UsersTrips.create({
-      userId: reqUserId,
+      userId: req.session.userId,
       tripId: reqTripId,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
@@ -138,10 +136,10 @@ module.exports = {
   },
 
   unsubscribeToTrip(req, res) {
-    const { id: reqUserId, tripId: reqTripId } = req.params;
+    const { tripId: reqTripId } = req.params;
     UsersTrips.destroy({
       where: {
-        userId: reqUserId,
+        userId: req.session.userId,
         tripId: reqTripId,
       },
     }).then((numberOfRows) => {
@@ -153,10 +151,9 @@ module.exports = {
   },
 
   getTripsSubscribedByUser(req, res) {
-    const { id: reqUserId } = req.params;
     UsersTrips.findAll({
       where: {
-        userId: reqUserId,
+        userId: req.session.userId,
       },
       attributes: ['tripId'],
       include: [{
@@ -166,23 +163,23 @@ module.exports = {
         model: User,
         as: 'Creator',
         where: {
-          id: reqUserId,
+          id: req.session.userId,
         },
         attributes: ['login', 'email'],
       }],
     }).then((trips) => {
       if (!trips.length) {
-        return res.status(404).send({ message: `Trips of User with id ${reqUserId} not found` });
+        return res.status(404).send({ message: `Trips of User with id ${req.session.userId} not found` });
       }
       return res.status(200).json(trips);
     }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
   },
 
   getOneTripSubscribedByUser(req, res) {
-    const { id, tripId: reqTripId } = req.params;
+    const { tripId: reqTripId } = req.params;
     UsersTrips.findAll({
       where: {
-        userId: id,
+        userId: req.session.userId,
         tripId: reqTripId,
       },
       attributes: ['tripId'],
@@ -192,7 +189,7 @@ module.exports = {
         model: User,
         as: 'Creator',
         where: {
-          id: req.params.id,
+          id: req.session.userId,
         },
         attributes: ['login', 'email'],
       }],
