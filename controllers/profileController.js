@@ -1,5 +1,5 @@
 const { Profile, User } = require('../models');
-const validateBody = require('../services/validateBody');
+// const validateBody = require('../services/validateBody');
 
 module.exports = {
   getProfile(req, res) {
@@ -16,9 +16,11 @@ module.exports = {
   },
 
   updateProfile(req, res) {
+
     // if (!validateBody(req)) {
     //   return res.status(400).json({ message: 'Wrong request body' });
     // }
+
     const { id } = req.params;
 
     return Profile.findById(id).then((userProfile) => {
