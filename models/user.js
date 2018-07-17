@@ -21,15 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
     },
   },
-  {
-    timestamps: true,
-    paranoid: true,
-    /* hooks: {
-      afterCreate: (user) => {
-        sequelize.models.Profile.create({ userId: user.id });
-      },
-    }, */
-  });
+    {
+      timestamps: true,
+      paranoid: true,
+    });
   User.associate = (models) => {
     User.hasMany(models.Trip, { foreignKey: 'userId', sourceKey: 'id' });
     User.belongsToMany(models.Trip, { through: 'UsersTrips', foreignKey: 'userId' });
