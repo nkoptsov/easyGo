@@ -6,7 +6,7 @@ module.exports = {
     const result = createUserProfile(body);
 
     result
-      .then(value => res.status(200).send(value))
+      .then(value => res.status(200).location(`${value.userId}`))
       .catch(error => next(error));
   },
 };

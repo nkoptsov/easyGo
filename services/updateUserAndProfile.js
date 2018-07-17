@@ -10,14 +10,8 @@ module.exports = {
           Profile.update(obj, { where: { userId: id }, fields: ['email', 'firstName', 'lastName', 'phoneNumber', 'city', 'country', 'gender', 'birthday', 'photo', 'about'] }, { transaction: tr }),
         ])
       )
-        .then((value) => {
-          console.log(value);
-          res(value);
-        })
-        .catch((err) => {
-          console.log(err);
-          rej(err);
-        }));
+        .then(value => res(value))
+        .catch(err => rej(err)));
     });
   },
 };
