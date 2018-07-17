@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true,
     hooks: {
       afterCreate: (user) => {
-        sequelize.models.Profile.create({ UserId: user.id });
+        sequelize.models.Profile.create({ userId: user.id });
       },
     },
   });

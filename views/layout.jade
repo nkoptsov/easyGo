@@ -22,8 +22,10 @@ html(lang='en')
               a(href='/users/register') Register
             li(class=(title == 'Login' ? 'active' : ''))
               a(href='/users/login') Login
+            li(class=(title == 'Password' ? 'active' : ''))
+              a(href='/users/profile/password') Password
           ul.nav.navbar-nav.navbar-right
-           li
+            li
               a(href='/users/logout') Logout
     .container
      != messages()

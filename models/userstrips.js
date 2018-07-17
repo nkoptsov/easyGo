@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     tripId: DataTypes.INTEGER,
   }, {});
   UsersTrips.associate = (models) => {
-    // associations can be defined here
     UsersTrips.belongsTo(models.User, { as: 'Creator', foreignKey: 'userId' });
     UsersTrips.belongsTo(models.Trip, { foreignKey: 'tripId' });
   };

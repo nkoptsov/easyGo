@@ -3,11 +3,13 @@ const controller = require('../controllers/profileController');
 
 const router = express.Router();
 
-router.route('/:id/profile')
+router.route('/profile/password')
+  .get((req, res) => res.render('password'))
+  .post(controller.changePassword);
+
+router.route('/profile')
   .get(controller.getProfile)
   .put(controller.updateProfile)
   .delete(controller.removeProfile);
-
-router.put('/:id/profile/password', controller.changePassword);
 
 module.exports = router;

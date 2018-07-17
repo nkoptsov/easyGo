@@ -1,65 +1,76 @@
 const { Profile, User } = require('../models');
 const validateBody = require('../services/validateBody');
 
-module.exports = {
-  getProfile(req, res) {
-    const { id } = req.params;
+const error = new Error();
 
-    Profile.findOne({ where: { id }, include: [{ model: User, attributes: ['login', 'email'], required: true }] })
+module.exports = {
+  getProfile(req, res, next) {
+    const { id } = req.user;
+
+    Profile.findOne({ where: { userId: id }, include: [{ model: User, attributes: ['login', 'email'], required: true }] })
       .then((userProfile) => {
         if (!userProfile) {
-          return res.status(404).json({ message: `User not found with id ${id}` });
+          error.name = 'profileNotFound';
+          next(error);
         }
         return res.status(200).json(userProfile);
       })
-      .catch(error => res.status(404).json({ message: `Something went wrong with id ${id}, ${error}` }));
+      .catch(err => next(err));
   },
 
-  updateProfile(req, res) {
+  updateProfile(req, res, next) {
     if (!validateBody(req)) {
-      return res.status(400).json({ message: 'Wrong request body' });
+      error.name = 'profileBadRequest';
+      next(error);
     }
-    const { id } = req.params;
+    const { id } = req.user;
 
     return Profile.findById(id).then((userProfile) => {
       if (!userProfile) {
-        return res.status(404).json({ message: `UserProfile with id ${req.params.id} not found.` });
+        error.name = 'profileNotFound';
+        next(error);
       }
 
       return userProfile.update(req.body)
         .then(() => res.status(200).json({ message: 'UserProfile updated successfully.' }));
     })
-      .catch(error => res.status(404).json({ message: `Something went wrong with id ${id}, ${error}` }));
+      .catch(err => next(err));
   },
 
-  removeProfile(req, res) {
-    const { id } = req.params;
+  removeProfile(req, res, next) {
+    const { id } = req.user;
 
     Profile.findById(id)
       .then((userProfile) => {
         if (!userProfile) {
-          return res.status(404).json({ message: `User not found with id ${id}` });
+          error.name = 'profileNotFound';
+          next(error);
         }
 
         return userProfile.destroy()
           .then(() => res.status(200).end());
       })
-      .catch(() => res.status(404).json({ message: `User not found with id ${id}` }));
+      .catch(err => next(err));
   },
 
-  changePassword(req, res) {
-    const { id } = req.params;
+
+  changePassword(req, res, next) {
+    const { id } = req.user;
+
     const { lastPassword, newPassword, repeatPassword } = req.body;
 
     return User.findById(id).then((user) => {
       if (!user) {
-        return res.status(404).json(`User not found with id ${id}`);
+        error.name = 'profileNotFound';
+        next(error);
       }
       if (!User.comparePassword(lastPassword, user.password)) {
-        return res.status(404).json('Incorrect old password');
+        error.name = 'profileBadRequest';
+        next(error);
       }
       if (newPassword !== repeatPassword) {
-        return res.status(404).json('Entered password does not match');
+        error.name = 'profileBadRequest';
+        next(error);
       }
       user.update({ password: User.generateHash(newPassword) });
       return res.status(200).json('Password successfully changed');

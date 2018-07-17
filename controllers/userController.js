@@ -1,7 +1,7 @@
 const { User } = require('../models');
 
 module.exports = {
-  createUser(req, res) {
+  createUser(req, res, next) {
     User
       .create({
         login: req.body.login,
@@ -9,6 +9,6 @@ module.exports = {
         password: User.generateHash(req.body.password),
       })
       .then(user => res.status(200).json(user))
-      .catch(error => res.status(400).json({ message: `${error.message}` }));
+      .catch(error => next(error));
   },
 };
