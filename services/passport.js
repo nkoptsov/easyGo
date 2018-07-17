@@ -9,13 +9,11 @@ module.exports = (passport) => {
       passReqToCallback: true,
     },
     (req, login, password, done) => {
-      console.log(login);
       User.findOne({
         where: {
           login,
         },
       }).then((user) => {
-        console.log(user);
         if (!user) {
           return done(null, false);
         }
@@ -23,9 +21,7 @@ module.exports = (passport) => {
           return done(null, false);
         }
         return done(null, user);
-      }).catch((err) => {
-        console.log(err.stack);
-        done(null, false)});
+      }).catch(() => done(null, false));
     },
   ));
   passport.serializeUser((user, done) => {
