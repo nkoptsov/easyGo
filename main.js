@@ -7,6 +7,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const expressMessages = require('express-messages');
 
+const { errorHandler } = require('./middlewares');
 const { sequelize } = require('./models');
 const routes = require('./routes');
 
@@ -23,7 +24,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(session({
-  secret: 'secret',
+  secret: process.env.SECRET,
   resave: true,
   saveUninitialized: false,
 }));
@@ -41,5 +42,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', routes);
+
+app.use(errorHandler);
 
 app.listen(3000);
