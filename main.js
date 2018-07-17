@@ -7,6 +7,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const expressMessages = require('express-messages');
 
+const { errorHandler } = require('./middlewares');
 const { sequelize } = require('./models');
 const routes = require('./routes');
 
@@ -31,6 +32,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -41,5 +43,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', routes);
+
+app.use(errorHandler);
 
 app.listen(3000);

@@ -1,4 +1,3 @@
-// const LocalStrategy = require('passport-local').Strategy;
 const { Strategy: LocalStrategy } = require('passport-local');
 const { User } = require('../models');
 
@@ -10,11 +9,13 @@ module.exports = (passport) => {
       passReqToCallback: true,
     },
     (req, login, password, done) => {
+      console.log(login);
       User.findOne({
         where: {
           login,
         },
       }).then((user) => {
+        console.log(user);
         if (!user) {
           return done(null, false);
         }
@@ -22,7 +23,9 @@ module.exports = (passport) => {
           return done(null, false);
         }
         return done(null, user);
-      }).catch(() => done(null, false));
+      }).catch((err) => {
+        console.log(err.stack);
+        done(null, false)});
     },
   ));
   passport.serializeUser((user, done) => {
