@@ -7,7 +7,7 @@ router.route('/profile/password')
   .get((req, res) => res.render('password'))
   .post(controller.changePassword);
 
-router.route('/:id/profile')
+router.route('/profile')
   .get(controller.getProfile)
   .put(controller.updateProfile)
   .delete(controller.removeProfile);

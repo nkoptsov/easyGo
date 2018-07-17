@@ -7,7 +7,7 @@ module.exports = {
   getProfile(req, res, next) {
     const { id } = req.user;
 
-    Profile.findOne({ where: { id }, include: [{ model: User, attributes: ['login', 'email'], required: true }] })
+    Profile.findOne({ where: { userId: id }, include: [{ model: User, attributes: ['login', 'email'], required: true }] })
       .then((userProfile) => {
         if (!userProfile) {
           error.name = 'profileNotFound';
@@ -38,7 +38,7 @@ module.exports = {
   },
 
   removeProfile(req, res, next) {
-    const { id } = req.params;
+    const { id } = req.user;
 
     Profile.findById(id)
       .then((userProfile) => {
@@ -56,6 +56,7 @@ module.exports = {
 
   changePassword(req, res, next) {
     const { id } = req.user;
+
     const { lastPassword, newPassword, repeatPassword } = req.body;
 
     return User.findById(id).then((user) => {
