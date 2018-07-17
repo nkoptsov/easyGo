@@ -1,6 +1,6 @@
 const { Trip, UsersTrips, User } = require('../models');
 
-const err = new Error();
+const error = new Error();
 
 module.exports = {
   // Create and Save a new Trip
@@ -17,17 +17,14 @@ module.exports = {
       userId: reqUserId,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
+    }).catch(err => next(err));
   },
 
   // Retrieve and return all trips from the database.
   getAllTrips(req, res, next) {
     Trip.findAll().then((trips) => {
       res.status(200).json(trips);
-    }).catch((err) => { next(err); });
+    }).catch(err => next(err));
   },
 
   // Find a single trip with a tripId
@@ -35,53 +32,13 @@ module.exports = {
     const { tripId: reqTripId } = req.params;
     Trip.findById(reqTripId).then((trip) => {
       if (!trip) {
-        err.flag = 'trip';
-        return next(err);
+        error.name = 'tripNotFound';
+        return next(error);
       }
       return res.status(200).json(trip);
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
+    }).catch(err => next(err));
   },
 
-  // Update a trip identified by the tripId in the request
-  updateTrip(req, res, next) {
-    const { tripId: reqTripId } = req.params;
-    Trip.update(req.body, {
-      where: {
-        id: reqTripId,
-      },
-    }).then((number) => {
-      if (number[0] === 0) {
-        err.flag = 'trip';
-        return next(err);
-      }
-      return res.status(200).send({ message: 'Trip updated successfully.' });
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
-  },
-
-  // Delete a trip with the specified tripId in the request
-  deleteTrip(req, res, next) {
-    const { tripId: reqTripId } = req.params;
-    Trip.destroy({
-      where: {
-        id: reqTripId,
-      },
-    }).then((numberOfRows) => {
-      if (!numberOfRows) {
-        err.flag = 'trip';
-        return next(err);
-      }
-      return res.status(200).send({ message: 'Trip deleted successfully.' }).end();
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
-  },
 
   getTripsCreatedByUser(req, res, next) {
     const { id: reqUserId } = req.params;
@@ -91,14 +48,11 @@ module.exports = {
       },
     }).then((trips) => {
       if (!trips.length) {
-        err.flag = 'trip';
-        return next(err);
+        error.name = 'tripNotFound';
+        return next(error);
       }
       return res.status(200).json(trips);
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
+    }).catch(err => next(err));
   },
 
   getOneTripOfUser(req, res, next) {
@@ -110,14 +64,11 @@ module.exports = {
       },
     }).then((trip) => {
       if (!trip) {
-        err.flag = 'trip';
-        return next(err);
+        error.name = 'tripNotFound';
+        return next(error);
       }
       return res.status(200).json(trip);
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
+    }).catch(err => next(err));
   },
 
   updateTripOfUser(req, res, next) {
@@ -128,16 +79,12 @@ module.exports = {
         userId: reqUserId,
       },
     }).then((number) => {
-
       if (number[0] === 0) {
-        err.flag = 'trip';
-        return next(err);
+        error.name = 'tripNotFound';
+        return next(error);
       }
       return res.status(200).send({ message: 'Trip updated successfully.' });
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
+    }).catch(err => next(err));
   },
 
   deleteTripOfUser(req, res, next) {
@@ -149,14 +96,11 @@ module.exports = {
       },
     }).then((numberOfRows) => {
       if (!numberOfRows) {
-        err.flag = 'trip';
-        return next(err);
+        error.name = 'tripNotFound';
+        return next(error);
       }
       return res.status(200).send({ message: 'Trip deleted successfully.' }).end();
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
+    }).catch(err => next(err));
   },
 
   subscribeToTrip(req, res, next) {
@@ -166,10 +110,7 @@ module.exports = {
       tripId: reqTripId,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
+    }).catch(err => next(err));
   },
 
   unsubscribeToTrip(req, res, next) {
@@ -181,13 +122,11 @@ module.exports = {
       },
     }).then((numberOfRows) => {
       if (!numberOfRows) {
-        return res.status(404).send({ message: '404 not found' });
+        error.name = 'tripNotFound';
+        return next(error);
       }
       return res.status(200).send({ message: 'UserTrip deleted successfully.' }).end();
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
+    }).catch(err => next(err));
   },
 
   getTripsSubscribedByUser(req, res, next) {
@@ -210,11 +149,11 @@ module.exports = {
       }],
     }).then((trips) => {
       if (!trips.length) {
-        err.flag = 'trip';
-        return next(err);
+        error.name = 'tripNotFound';
+        return next(error);
       }
       return res.status(200).json(trips);
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch(err => next(err));
   },
 
   getOneTripSubscribedByUser(req, res, next) {
@@ -237,14 +176,11 @@ module.exports = {
       }],
     }).then((trips) => {
       if (!trips.length) {
-        err.flag = 'trip';
-        return next(err);
+        error.name = 'tripNotFound';
+        return next(error);
       }
       return res.status(200).json(trips);
-    }).catch((err) => {
-      err.flag = 'tripBadRequest';
-      next(err);
-    });
+    }).catch(err => next(err));
   },
 
 };
