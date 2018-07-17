@@ -38,7 +38,7 @@ module.exports = {
   },
 
   removeProfile(req, res, next) {
-    const { id } = req.params;
+    const { id } = req.user;
 
     Profile.findById(id)
       .then((userProfile) => {
