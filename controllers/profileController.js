@@ -23,7 +23,7 @@ module.exports = {
 
     return Profile.findById(id).then((userProfile) => {
       if (!userProfile) {
-        return res.status(404).json({ message: `UserProfile with id ${req.params.id} not found.` });
+        return res.status(404).json({ message: `UserProfile with id ${id} not found.` });
       }
 
       return userProfile.update(req.body)
@@ -48,7 +48,7 @@ module.exports = {
   },
 
   changePassword(req, res) {
-    const { id } = req.params;
+    const { id } = req.user;
     const { lastPassword, newPassword, repeatPassword } = req.body;
 
     return User.findById(id).then((user) => {

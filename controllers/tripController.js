@@ -14,14 +14,18 @@ module.exports = {
       userId: req.session.userId,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   // Retrieve and return all trips from the database.
   getAllTrips(req, res) {
     Trip.findAll().then((trips) => {
       res.status(200).json(trips);
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   // Find a single trip with a tripId
@@ -32,7 +36,9 @@ module.exports = {
         return res.status(404).send({ message: `Trip with id ${reqTripId} not found` });
       }
       return res.status(200).json(trip);
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   // Update a trip identified by the tripId in the request
@@ -47,7 +53,9 @@ module.exports = {
         return res.status(404).send({ message: `Trip with id ${reqTripId} not found` });
       }
       return res.status(200).send({ message: 'Trip updated successfully.' });
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   // Delete a trip with the specified tripId in the request
@@ -62,7 +70,9 @@ module.exports = {
         return res.status(404).send({ message: `Trip with id ${reqTripId} not found` });
       }
       return res.status(200).send({ message: 'Trip deleted successfully.' }).end();
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   getTripsCreatedByUser(req, res) {
@@ -75,7 +85,9 @@ module.exports = {
         return res.status(404).send({ message: `Trips of User with user id ${req.session.userId} not found` });
       }
       return res.status(200).json(trips);
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   getOneTripOfUser(req, res) {
@@ -90,7 +102,9 @@ module.exports = {
         return res.status(404).send({ message: '404 not found' });
       }
       return res.status(200).json(trip);
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   updateTripOfUser(req, res) {
@@ -107,7 +121,9 @@ module.exports = {
         return res.status(404).send({ message: `Trip with id ${reqTripId} not found` });
       }
       return res.status(200).send({ message: 'Trip updated successfully.' });
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   deleteTripOfUser(req, res) {
@@ -122,7 +138,9 @@ module.exports = {
         return res.status(404).send({ message: `Trip with id ${reqTripId} not found` });
       }
       return res.status(200).send({ message: 'Trip deleted successfully.' }).end();
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   subscribeToTrip(req, res) {
@@ -132,7 +150,9 @@ module.exports = {
       tripId: reqTripId,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   unsubscribeToTrip(req, res) {
@@ -147,7 +167,9 @@ module.exports = {
         return res.status(404).send({ message: '404 not found' });
       }
       return res.status(200).send({ message: 'UserTrip deleted successfully.' }).end();
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   getTripsSubscribedByUser(req, res) {
@@ -172,7 +194,9 @@ module.exports = {
         return res.status(404).send({ message: `Trips of User with id ${req.session.userId} not found` });
       }
       return res.status(200).json(trips);
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
   getOneTripSubscribedByUser(req, res) {
@@ -198,7 +222,9 @@ module.exports = {
         return res.status(404).send({ message: `Trips with  id ${reqTripId} not found` });
       }
       return res.status(200).json(trips);
-    }).catch((err) => { res.status(500).json({ message: `Error ${err}` }); });
+    }).catch((err) => {
+      res.status(500).json({ message: `Error ${err}` });
+    });
   },
 
 };
