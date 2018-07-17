@@ -1,4 +1,5 @@
 const { Profile, User } = require('../models');
+const { updateUserAndProfile } = require('../services/updateUserAndProfile');
 
 module.exports = {
   getProfile(req, res) {
@@ -16,21 +17,31 @@ module.exports = {
 
   updateProfile(req, res) {
     const { id } = req.params;
+    const { body } = req;
+    // body and id
+    const result = updateUserAndProfile(id, body);
+    result
+      .then((value) => {
+        console.log('good');
+        console.log(value);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // return Profile.findById(id).then((userProfile) => {
+    //   if (!userProfile) {
+    //     return res.status(404).json({ message: `UserProfile with id ${req.params.id} not found.` });
+    //   }
 
-    return Profile.findById(id).then((userProfile) => {
-      if (!userProfile) {
-        return res.status(404).json({ message: `UserProfile with id ${req.params.id} not found.` });
-      }
-
-      return userProfile.update(req.body)
-        .then(() => res.status(200).json({ message: 'UserProfile updated successfully.' }));
-    })
-      .catch(error => res.status(404).json({ message: `Something went wrong with id ${id}, ${error}` }));
+    //   return userProfile.update(req.body)
+    //     .then(() => res.status(200).json({ message: 'UserProfile updated successfully.' }));
+    // })
+    //   .catch(error => res.status(404).json({ message: `Something went wrong with id ${id}, ${error}` }));
   },
 
   removeProfile(req, res) {
     const { id } = req.params;
-
+    // change profile
     Profile.findById(id)
       .then((userProfile) => {
         if (!userProfile) {

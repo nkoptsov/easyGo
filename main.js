@@ -15,7 +15,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-sequelize.sync({ force: true })
+sequelize.sync()
   .then(() => console.log('Connected to database'))
   .catch(error => console.log(error));
 
