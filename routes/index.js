@@ -7,7 +7,7 @@ const authenticationMiddleware = require('../middlewares/authenticationMiddlewar
 
 const router = express.Router();
 
-router.use('/users', authenticationMiddleware, userRouter);
+router.use('/users', userRouter);
 router.use('/users', authenticationMiddleware, profileRouter);
 router.use('/', authenticationMiddleware, tripRouter);
 
