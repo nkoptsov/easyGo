@@ -15,11 +15,12 @@ router.route('/users/trips/created')
   .get(tripController.getTripsCreatedByUser)
   .post(tripController.createTrip);
 
-router.route('/users/trips/subscribed')
-  .get(tripController.getTripsSubscribedByUser)
+router.get('/users/trips/subscribed', tripController.getTripsSubscribedByUser);
+
+router.route('/users/trips/:tripId')
+  .get(tripController.getTripById)
   .post(tripController.subscribeToTrip);
 
-router.get('/users/trips/:tripId', tripController.getTripById);
 router.get('/users/trips/', tripController.getAllTrips);
 router.get('/trips/:tripId', tripController.getTripById);
 router.get('/trips', tripController.getAllTrips);
