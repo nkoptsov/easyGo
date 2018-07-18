@@ -24,8 +24,12 @@ module.exports = {
     // body and id
     const result = updateUserAndProfile(id, body);
     result
-      .then(() => res.status(200).end())
-      .catch(err => next(err));
+      .then(() => {
+        res.status(200).end();
+      })
+      .catch((err) => {
+        next(err);
+      });
   },
 
   removeProfile(req, res, next) {
