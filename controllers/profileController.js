@@ -1,5 +1,5 @@
 const { Profile, User } = require('../models');
-const validateBody = require('../services/validateBody');
+const { updateUserAndProfile } = require('../services/updateUserAndProfile');
 
 const error = new Error();
 
@@ -7,7 +7,7 @@ module.exports = {
   getProfile(req, res, next) {
     const { id } = req.user;
 
-    Profile.findOne({ where: { userId: id }, include: [{ model: User, attributes: ['login', 'email'], required: true }] })
+    Profile.findOne({ where: { userId: id }, include: [{ model: User, attributes: ['login'], required: true }] })
       .then((userProfile) => {
         if (!userProfile) {
           error.name = 'profileNotFound';
@@ -19,27 +19,22 @@ module.exports = {
   },
 
   updateProfile(req, res, next) {
-    if (!validateBody(req)) {
-      error.name = 'profileBadRequest';
-      next(error);
-    }
     const { id } = req.user;
-
-    return Profile.findById(id).then((userProfile) => {
-      if (!userProfile) {
-        error.name = 'profileNotFound';
-        next(error);
-      }
-
-      return userProfile.update(req.body)
-        .then(() => res.status(200).json({ message: 'UserProfile updated successfully.' }));
-    })
-      .catch(err => next(err));
+    const { body } = req;
+    // body and id
+    const result = updateUserAndProfile(id, body);
+    result
+      .then(() => {
+        res.status(200).end();
+      })
+      .catch((err) => {
+        next(err);
+      });
   },
 
   removeProfile(req, res, next) {
     const { id } = req.user;
-
+    // change profile
     Profile.findById(id)
       .then((userProfile) => {
         if (!userProfile) {

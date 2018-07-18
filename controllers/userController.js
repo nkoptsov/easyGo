@@ -1,14 +1,12 @@
-const { User } = require('../models');
+const { createUserProfile } = require('../services/userService');
 
 module.exports = {
-  createUser(req, res, next) {
-    User
-      .create({
-        login: req.body.login,
-        email: req.body.email,
-        password: User.generateHash(req.body.password),
-      })
-      .then(user => res.status(200).json(user))
+  create(req, res, next) {
+    const { body } = req;
+    const result = createUserProfile(body);
+
+    result
+      .then(value => res.status(200).location(`${value.userId}`).end())
       .catch(error => next(error));
   },
 };
