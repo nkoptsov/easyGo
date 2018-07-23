@@ -5,9 +5,10 @@
   "main": "src/server/main.js",
   "scripts": {
     "start": "./node_modules/.bin/nodemon src/server/main.js",
-    "webpack" : "./node_modules/.bin/webpack -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
-    
+    "webpack": "./node_modules/.bin/webpack -w",
+    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run start & npm run client"
   },
   "repository": {
     "type": "git",
@@ -51,7 +52,8 @@
     "eslint-plugin-import": "^2.13.0",
     "nodemon": "^1.17.5",
     "webpack": "^4.16.1",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
   },
   "eslintConfig": {
     "extends": [
