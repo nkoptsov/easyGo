@@ -4,19 +4,11 @@
   "description": "application for tourists",
   "main": "src/server/main.js",
   "scripts": {
-<<<<<<< HEAD
-    "start": "./node_modules/.bin/nodemon src/server/main.js",
-    "webpack": "./node_modules/.bin/webpack -w",
-    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm run start & npm run client"
-=======
     "start": "node src/server/main.js",
     "build": "webpack --mode production",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon src/server/main.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
->>>>>>> f222850a74261b8f07dbbbf73fd51f18a7780891
   },
   "repository": {
     "type": "git",
@@ -54,6 +46,7 @@
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
@@ -66,6 +59,7 @@
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "nodemon": "^1.17.5",
