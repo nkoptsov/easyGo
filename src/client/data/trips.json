@@ -1,0 +1,7 @@
+[
+      {"id":1,"name":"USA","dateStart":"2018-07-05","dateEnd":"2018-07-25","locationStart":"Kiev","locationEnd":"New York","tripCost":200,"description":"Some trip to USA","userId":1,"createdAt":"2018-07-12T14:02:32.873Z","updatedAt":"2018-07-12T14:02:32.873Z"},
+      {"id":2,"name":"German","dateStart":"2018-07-05","dateEnd":"2018-07-25","locationStart":"Kiev","locationEnd":"Berlin","tripCost":400,"description":"berlin trip","userId":1,"createdAt":"2018-07-12T14:02:32.873Z","updatedAt":"2018-07-12T14:02:32.873Z"},
+      {"id":3,"name":"France","dateStart":"2018-07-04","dateEnd":"2018-07-25","locationStart":"Kiev","locationEnd":"Paris","tripCost":300,"description":"2 daysin Paris","userId":3,"createdAt":"2018-07-12T14:02:32.873Z","updatedAt":"2018-07-12T14:02:32.873Z"},
+      {"id":4,"name":"England","dateStart":"2018-09-15","dateEnd":"2018-09-30","locationStart":"Kiev","locationEnd":"London","tripCost":500,"description":"Kharkiv-London","userId":1,"createdAt":"2018-07-12T14:30:54.635Z","updatedAt":"2018-07-12T14:30:54.635Z"},
+      {"id":5,"name":"Italy","dateStart":"2018-09-15","dateEnd":"2018-09-30","locationStart":"Kiev","locationEnd":"Milan","tripCost":500.5,"description":"Kiev-Milan","userId":3,"createdAt":"2018-07-12T14:32:45.115Z","updatedAt":"2018-07-12T14:32:45.115Z"}
+    ]
