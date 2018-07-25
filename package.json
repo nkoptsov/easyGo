@@ -73,6 +73,6 @@
   "eslintConfig": {
     "extends": [
       "airbnb-base"
-    ]
+    ],"env":{}
   }
 }
