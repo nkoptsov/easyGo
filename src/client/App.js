@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import './App.css';
-
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import Home from './Layouts/Home/Home';
+import Register from './Layouts/Register/Register';
+import Login from './Layouts/Login/Login';
+import NotFound from './Layouts/NotFound/NotFound';
 
 class App extends Component {
   render() {
     return (
-      
+      <Router>
         <div>
-          <h1>EASY GO</h1>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route component={NotFound} />
+          </Switch>
         </div>
-      
+      </Router>
     );
   }
 }
