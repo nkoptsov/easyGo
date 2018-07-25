@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.use('/users', userRouter);
 router.use('/users', authenticationMiddleware, profileRouter);
-router.use('/', authenticationMiddleware, tripRouter);
+router.use('/', tripRouter);
 
 router.get('/', (req, res) => {
   res.render('index', { message: 'easyGo!' });
