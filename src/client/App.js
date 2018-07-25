@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import './App.css';
-import TripsList from './Pages/TripsList';
-import Trip from './Pages/Trip';
-import Toolbar from './Components/Toolbar'
-import Content from './Components/Content';
-import Home from './Pages/Home';
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import Home from './Layouts/Home/Home';
+import Register from './Layouts/Register/Register';
+import Login from './Layouts/Login/Login';
+import NotFound from './Layouts/NotFound/NotFound';
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div>
-          <Toolbar />
-          <Content>
-            <Route exact path="/" component={Home}/>
-            <Route  path="/trips/:tripId" component={Trip}/>
-            <Route exact  path="/trips" component={TripsList}/>
-          </Content>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route component={NotFound} />
+          </Switch>
         </div>
       </Router>
     );
