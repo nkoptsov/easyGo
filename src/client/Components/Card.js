@@ -15,7 +15,7 @@ const Card = ({ trip }) => {
             </div>
 
             <section className="ard__actions">
-                <Link to={`./trips/${trip.id}`}>Подробнее</Link>
+                <Link to={`/trips/${trip.id}`}>Подробнее</Link>
             </section>
 
 
