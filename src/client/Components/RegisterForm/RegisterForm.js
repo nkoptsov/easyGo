@@ -21,7 +21,8 @@ class RegisterForm extends Component {
     this.setState({data: { ...this.state.data, [e.target.name]: e.target.value } });
     console.log(this.state);
   }
-  onSubmit = () => {
+  onSubmit = (e) => {
+    e.preventDefault();
     this.props.submit(this.state.data)
   }
 
@@ -37,7 +38,7 @@ class RegisterForm extends Component {
           <FormGroup for="firstName" type="text" id="firstName" placeholder="Enter your first name" name="firstName" label="First Name" value={data.firstName} onChange={this.onChange} />
           <FormGroup for="lastName" type="text" id="lastName" placeholder="Enter your last name" name="lastName" label="Last Name" value={data.lastName} onChange={this.onChange} />
           <FormGroup for="phoneNumber" type="text" id="phoneNumber" placeholder="Enter your phone number" name="phoneNumber" label="Phone Number" value={data.phoneNumber} onChange={this.onChange} />
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button className="btn btn-primary">Submit</button>
         </form>
       </div>
      )
