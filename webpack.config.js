@@ -17,6 +17,9 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          query: {
+            plugins:[ 'transform-object-rest-spread' ]
+          }
         },
       },
       {

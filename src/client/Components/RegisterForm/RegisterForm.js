@@ -18,26 +18,26 @@ class RegisterForm extends Component {
     };
   }
   onChange = (e) => { 
-    this.setState({data: {...this.state.data, [e.target.name]: e.target.value } })
+    this.setState({data: { ...this.state.data, [e.target.name]: e.target.value } });
+    console.log(this.state);
   }
-  onSubmit = (data) => {
-     console.log(data) 
+  onSubmit = () => {
+    this.props.submit(this.state.data)
   }
 
   render() {
-
     const { data } = this.state;
  
      return (
       <div className="container col-sm-6">
-        <form>
+        <form className="regForm" onSubmit={this.onSubmit}>
           <FormGroup for="login" type="text" id="login" placeholder="Enter your login" name="login" label="Login" value={data.login} onChange={this.onChange} />
-          <FormGroup for="email" type="email" id="login" placeholder="Enter your email" name="email" label="Email" value={data.email} onChange={this.onChange} />
-          <FormGroup for="password" type="password" id="login" placeholder="Enter your password" name="password" label="Password" value={data.password} onChange={this.onChange} />
-          <FormGroup for="firstName" type="text" id="login" placeholder="Enter your first name" name="firstName" label="First Name" value={data.firstName} onChange={this.onChange} />
-          <FormGroup for="lastName" type="text" id="login" placeholder="Enter your last name" name="lastName" label="Last Name" value={data.lastName} onChange={this.onChange} />
-          <FormGroup for="phoneNumber" type="text" id="login" placeholder="Enter your phone number" name="phoneNumber" label="Phone Number" value={data.phoneNumber} onChange={this.onChange} />
-          <button type="submit" className="btn btn-primary" onSubmit={this.onSubmit}>Submit</button>
+          <FormGroup for="email" type="email" id="email" placeholder="Enter your email" name="email" label="Email" value={data.email} onChange={this.onChange} />
+          <FormGroup for="password" type="password" id="password" placeholder="Enter your password" name="password" label="Password" value={data.password} onChange={this.onChange} />
+          <FormGroup for="firstName" type="text" id="firstName" placeholder="Enter your first name" name="firstName" label="First Name" value={data.firstName} onChange={this.onChange} />
+          <FormGroup for="lastName" type="text" id="lastName" placeholder="Enter your last name" name="lastName" label="Last Name" value={data.lastName} onChange={this.onChange} />
+          <FormGroup for="phoneNumber" type="text" id="phoneNumber" placeholder="Enter your phone number" name="phoneNumber" label="Phone Number" value={data.phoneNumber} onChange={this.onChange} />
+          <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>
      )
