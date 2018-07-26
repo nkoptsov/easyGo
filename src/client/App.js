@@ -8,9 +8,22 @@ import Trips from './Layouts/Trips/Trips';
 import TripsList from './Layouts/Trips/TripsList';
 import NotFound from './Layouts/NotFound/NotFound';
 
+const routers = [{
+  layout: Trips,
+  path:'/trips',
+  page: TripsList,
+},{
+  layout:Trips,
+  path:'/trips/1',
+  page: Trip,
+}]
 
 class App extends Component {
+  constructor(props){
+    super(props)
+  }
   render() {
+    
     return (
       <Router>
         <div>
@@ -22,6 +35,19 @@ class App extends Component {
             <Route exact path="/trips/:tripId" component={Trip}/>
             <Route component={NotFound} />
           </Switch>
+          {/* <Switch>
+         <Route exact path={routers[0].path}
+         >
+           <Trips>
+             <TripsList />
+           </Trips>
+         </Route>
+         <Route exact path='/trips/1'>
+           <Trips>
+             <Trip />
+           </Trips>
+         </Route>
+         </Switch> */}
         </div>
       </Router>
     );

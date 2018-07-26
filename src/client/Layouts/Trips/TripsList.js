@@ -19,6 +19,7 @@ class TripsList extends Component {
   }
 
   render() {
+    console.log(this.props);
     const {data} =  this.state;
     return (
       <div>
