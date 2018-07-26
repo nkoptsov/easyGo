@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link, Route } from 'react-router-dom';
-import Trip from '../Pages/Trip';
 
 const Card = ({ trip }) => {
     return (

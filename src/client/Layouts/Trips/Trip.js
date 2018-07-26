@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from '../../Components/Header/Header';
 
 class Trip extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class Trip extends Component {
     const { trip } = this.state;
     return (
       <main id="trip">
+        <Header />
         <div>
           <div>
             <section>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Card from '../Components/Card';
+import Card from '../../Components/Card';
+//import Header from '../../Components/Header/Header';
 // import tripsData from '../data/trips'
 
 
@@ -21,6 +22,7 @@ class TripsList extends Component {
     const {data} =  this.state;
     return (
       <div>
+       
         {data.map(trip => {
           return (
             <Card key={trip.id} trip={trip} />
