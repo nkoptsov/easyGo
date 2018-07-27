@@ -4,18 +4,17 @@ import RegisterForm from '../../Components/RegisterForm/RegisterForm';
 
 class Register extends Component {
   constructor(props) {
-    super(props);   
+    super(props);
     
-    this.submit = this.submit.bind(this);
   } 
-  submit = (data) => {
-    console.log(data);
-    
+  handleSubmit = (data) => {      
     fetch('/api/users/register', {
-      
+      headers: {
+        'Content-Type': 'application/json'
+      },
       method: 'POST',
       body: JSON.stringify(data)
-    }).then(response => console.log(response.json())
+    }).then(response => console.log(response)
     )
   }
     render() {      
@@ -23,7 +22,7 @@ class Register extends Component {
       <div>
         <Header />
         <main>
-          <RegisterForm submit={this.submit}/>
+          <RegisterForm handleSubmit={this.handleSubmit}/>
         </main>
       </div>
     )

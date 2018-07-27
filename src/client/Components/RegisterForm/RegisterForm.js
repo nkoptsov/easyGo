@@ -19,11 +19,10 @@ class RegisterForm extends Component {
   }
   onChange = (e) => { 
     this.setState({data: { ...this.state.data, [e.target.name]: e.target.value } });
-    console.log(this.state);
   }
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.submit(this.state.data)
+    this.props.handleSubmit(this.state.data)
   }
 
   render() {

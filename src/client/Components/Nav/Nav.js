@@ -10,10 +10,10 @@ const Nav = () => (
           <Link to="/" className="nav-link">Home</Link>
         </li>
         <li className="nav-item">
-          <Link to="/register" className="nav-link">Register</Link>
+          <Link to="/users/register" className="nav-link">Register</Link>
         </li>
         <li className="nav-item">
-          <Link to="/login" className="nav-link">Login</Link>
+          <Link to="/users/login" className="nav-link">Login</Link>
         </li>
         <li className="nav-item">
           <Link to="/trips" className="nav-link">Trips</Link>
