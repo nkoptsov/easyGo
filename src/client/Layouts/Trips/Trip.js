@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Header from '../../Components/Header/Header';
+import { Link } from 'react-router-dom';
+import { Card, CardText, CardBody,
+    CardTitle, CardSubtitle, Button } from 'reactstrap';
 
 class Trip extends Component {
   constructor(props) {
@@ -23,6 +26,20 @@ class Trip extends Component {
     
     const { trip } = this.state;
     return (
+        <div>
+            <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+
+                <CardBody inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+                    <CardTitle>{trip.name}</CardTitle>
+                    <CardSubtitle>Date Start {trip.dateStart}</CardSubtitle>
+                    <CardSubtitle>Date End {trip.dateEnd}</CardSubtitle>
+                    <CardText>{trip.description}</CardText>
+                    <Button><Link to={`../trips`}>Назад</Link></Button>
+
+                </CardBody>
+            </Card>
+        </div>
+        /*
       <main id="trip">
         <Header />
         <div>
@@ -42,6 +59,7 @@ class Trip extends Component {
         </div>
 
       </main>
+      */
     )
   };
 }

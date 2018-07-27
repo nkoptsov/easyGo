@@ -41,6 +41,7 @@
     "react-dom": "^16.4.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "reactstrap": "^6.3.0",
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.0.0"
   },
