@@ -27,6 +27,7 @@ class Trip extends Component {
     const { trip } = this.state;
     return (
         <div>
+          <Header />
             <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
 
                 <CardBody inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
@@ -39,27 +40,6 @@ class Trip extends Component {
                 </CardBody>
             </Card>
         </div>
-        /*
-      <main id="trip">
-        <Header />
-        <div>
-          <div>
-            <section>
-              <h1>{trip.name}</h1>
-
-              <p>{trip.dateStart}</p>
-              <p>{trip.dateEnd}</p>
-              <p>{trip.tripCost}</p>
-              <p>{trip.locationStart}</p>
-              <p>{trip.locationEnd}</p>
-              <p>{trip.description}</p>
-              ---------------------------
-          </section>
-          </div>
-        </div>
-
-      </main>
-      */
     )
   };
 }

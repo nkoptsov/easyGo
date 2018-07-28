@@ -35,19 +35,6 @@ class App extends Component {
             <Route exact path="/trips/:tripId" component={Trip}/>
             <Route component={NotFound} />
           </Switch>
-          {/* <Switch>
-         <Route exact path={routers[0].path}
-         >
-           <Trips>
-             <TripsList />
-           </Trips>
-         </Route>
-         <Route exact path='/trips/1'>
-           <Trips>
-             <Trip />
-           </Trips>
-         </Route>
-         </Switch> */}
         </div>
       </Router>
     );
