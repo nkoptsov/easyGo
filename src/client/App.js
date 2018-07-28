@@ -5,13 +5,13 @@ import Register from './Layouts/Register/Register';
 import Login from './Layouts/Login/Login';
 import Trip from './Layouts/Trips/Trip';
 import Trips from './Layouts/Trips/Trips';
-import TripsList from './Layouts/Trips/TripsList';
+import TripsView from './Components/Trips/TripsView';
 import NotFound from './Layouts/NotFound/NotFound';
 
 const routers = [{
   layout: Trips,
   path:'/trips',
-  page: TripsList,
+  page: TripsView,
 },{
   layout:Trips,
   path:'/trips/1',
