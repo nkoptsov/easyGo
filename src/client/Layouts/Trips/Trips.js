@@ -1,34 +1,31 @@
 import React,{Component} from 'react';
 import Header from '../../Components/Header/Header';
-import TripsList from './TripsList';
+import TripsView from '../../Components/Trips/TripsView';
 
-const Trips = (props) => (
+class Trips extends Component {
+    constructor(props){
+        super(props);
+        this.state= {
+            data:[]
+        };
+    }
+    componentDidMount(){
+        fetch('/api/trips')
+            .then(res => res.json())
+            .then(res => {
+                this.setState({data: res});
+            })
+    }
+    render(){
+        return (
+            <div>
+                <Header />
+                <main>
+                    <TripsView data={this.state.data} />
+                </main>
+            </div>
+        )
+    }
+}
 
-  <div>
-    <Header />
-    <main>
-      
-      <TripsList/>
-    </main>
-  </div>
-)
-
-// class Trips extends Component{
-//   constructor(props){
-//     super(props)
-//   }
-//   render(){
-//     console.log(this.props.url);
-//     return(
-//       <div>
-//     <Header />
-//      <main>
-      
-//       {this.props.children}
-//      </main>
-//     </div>
-//     )
-//   }
-
-// } 
 export default Trips;
