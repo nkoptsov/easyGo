@@ -32,9 +32,13 @@ class Trip extends Component {
 
                 <CardBody inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
                     <CardTitle>{trip.name}</CardTitle>
-                    <CardSubtitle>Date Start {trip.dateStart}</CardSubtitle>
-                    <CardSubtitle>Date End {trip.dateEnd}</CardSubtitle>
-                    <CardText>{trip.description}</CardText>
+                    <CardText>Date Start: {trip.dateStart}</CardText>
+                    <CardText>Date End: {trip.dateEnd}</CardText>
+                    <CardText>Lacation start: {trip.locationStart}</CardText>
+                    <CardText>Lacation end: {trip.locationEnd}</CardText>
+                    <CardText>Cost of Trip: {trip.tripCost}</CardText>
+                    <CardText>Description: {trip.description}</CardText>
+
                     <Button><Link to={`../trips`}>Назад</Link></Button>
 
                 </CardBody>
