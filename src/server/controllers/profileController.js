@@ -6,14 +6,25 @@ const error = new Error();
 module.exports = {
   getProfile(req, res, next) {
     const { id } = req.user;
-
     Profile.findOne({ where: { userId: id }, include: [{ model: User, attributes: ['login'], required: true }] })
       .then((userProfile) => {
         if (!userProfile) {
           error.name = 'profileNotFound';
           next(error);
         }
-        return res.status(200).json(userProfile);
+        const userRequest = {
+          photo: userProfile.photo || '',
+          phoneNumber: userProfile.phoneNumber || '',
+          lastName: userProfile.lastName || '',
+          gender: userProfile.gender || '',
+          login: userProfile.User.login || '',
+          birthday: userProfile.birthday || '',
+          about: userProfile.about || '',
+          country: userProfile.country || '',
+          email: userProfile.email || '',
+          firstName: userProfile.firstName || '',
+        }
+        return res.status(200).json(userRequest);
       })
       .catch(err => next(err));
   },
