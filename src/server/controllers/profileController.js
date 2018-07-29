@@ -52,7 +52,7 @@ module.exports = {
           error.name = 'profileNotFound';
           next(error);
         }
-
+        req.session.destroy();
         return userProfile.destroy()
           .then(() => res.status(200).end());
       })
