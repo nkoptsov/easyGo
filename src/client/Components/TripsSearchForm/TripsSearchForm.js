@@ -5,6 +5,7 @@ import FormGroupDate from '../FormGroup/FormGroupDate';
 class TripsSearchForm extends Component {
   constructor(props) {
     super(props);
+    this.searchForm = React.createRef();
   
     this.state = {
       data: {
@@ -13,6 +14,7 @@ class TripsSearchForm extends Component {
         dateEnd: '',
         locationStart: '',
         locationEnd: '',
+        userId: '',
         tripCost: '',
         keyWords: '',
       },
@@ -23,8 +25,9 @@ class TripsSearchForm extends Component {
     this.setState({data: { ...this.state.data, [e.target.name]: e.target.value } });
   }
   onSubmit = (e) => {
+    const formData = `name=${this.data.name}&dateStart=${this.data.dateStart}&dateEnd=${this.data.dateEnd}&locationStart=${this.data.locationStart}&locationEnd=${this.data.locationEnd}&userId=${this.data.userId}&tripCost=${this.data.tripCost}&keyWords=${this.data.keyWords}`;  
     e.preventDefault();
-    this.props.handleSubmit(this.state.data)
+    this.props.handleSearchSubmit(formData);
   }
 
   render() {
@@ -32,10 +35,10 @@ class TripsSearchForm extends Component {
  
      return (
       <div className="container col-sm-6">
-        <form className="searchForm" onSubmit={this.onSubmit}>
+        <form className="searchForm" ref={this.searchForm} onSubmit={this.onSubmit}>
           <FormGroup for="name" type="text" id="name" placeholder="Enter trip name here.." name="name" label="Trip name" value={data.name} onChange={this.onChange} />
-          <FormGroupDate for="dateStart" label="Date trip starts" id="dateStart" name="dateStart" value={data.dateStart} onChange={props.onChange} />
-          <FormGroupDate for="dateEnd" label="Date trip ends" id="dateEnd" name="dateEnd" value={data.dateEnd} onChange={props.onChange} /> 
+          <FormGroupDate for="dateStart" label="Date trip starts" id="dateStart" name="dateStart" value={data.dateStart} onChange={this.onChange} />
+          <FormGroupDate for="dateEnd" label="Date trip ends" id="dateEnd" name="dateEnd" value={data.dateEnd} onChange={this.onChange} /> 
           <FormGroup for="locationStart" type="text" id="locationStart" placeholder="Where trip starts?" name="locationStart" label="Start location" value={data.locationStart} onChange={this.onChange} />
           <FormGroup for="locationEnd" type="text" id="locationEnd" placeholder="Where trip ends?" name="locationEnd" label="End location" value={data.locationEnd} onChange={this.onChange} />
           <FormGroup for="tripCost" type="number" id="tripCost" name="tripCost" label="Trip cost" value={data.tripCost} onChange={this.onChange} />
