@@ -22,6 +22,6 @@ router.route('/users/trips/subscribed')
 router.get('/users/trips/:tripId', tripController.getTripById);
 router.get('/users/trips/', tripController.getAllTrips);
 router.get('/trips/:tripId', tripController.getTripById);
-router.get('/trips', tripController.getAllTrips);
+router.get('/trips', tripController.getAllTripsUniversal);
 
 module.exports = router;

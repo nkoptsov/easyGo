@@ -1,8 +1,51 @@
-const { Trip, UsersTrips, User } = require('../models');
+const { Trip, UsersTrips, User, Sequelize } = require('../models');
+
 
 const error = new Error();
 
 module.exports = {
+
+  getAllTripsUniversal(req, res, next) {
+    const Op = Sequelize.Op;
+
+    if (req.query) {
+      if (req.query.tripCost) {
+        let arr = req.query.tripCost.split('-');
+        req.query.tripCost = {
+          [Op.between]: arr
+        }
+        
+      }
+      if (req.query.dateStart){
+        req.query.dateStart ={
+          [Op.gte]: req.query.dateStart
+        }
+        console.log(req.query.dateStart);
+        
+      }
+      if (req.query.dateEnd){
+        req.query.dateEnd ={
+          [Op.lte]: req.query.dateEnd
+        }
+      }
+      if(req.query.description){
+        req,query.description = {
+          [Op.like]: (`%${req.query.description}%`),
+        }
+      }
+      Trip.findAll({
+        where: { ...req.query }
+      }).then((trips) => {
+        res.status(200).json(trips);
+      }).catch(err => next(err));
+    } else {
+      Trip.findAll().then((trips) => {
+        res.status(200).json(trips);
+      }).catch(err => next(err));
+    };
+
+
+  },
 
   // Create and Save a new Trip
   createTrip(req, res, next) {
