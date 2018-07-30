@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './Layouts/Home/Home';
 import Register from './Layouts/Register/Register';
 import Login from './Layouts/Login/Login';
 import Trip from './Layouts/Trips/Trip';
 import Trips from './Layouts/Trips/Trips';
-import TripsList from './Layouts/Trips/TripsList';
+import TripsView from './Components/Trips/TripsView';
 import NotFound from './Layouts/NotFound/NotFound';
 
 const routers = [{
   layout: Trips,
-  path:'/trips',
-  page: TripsList,
-},{
-  layout:Trips,
-  path:'/trips/1',
+  path: '/trips',
+  page: TripsView,
+}, {
+  layout: Trips,
+  path: '/trips/1',
   page: Trip,
-}]
+}];
 
 class App extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
   }
+
   render() {
-    
     return (
       <Router>
         <div>
