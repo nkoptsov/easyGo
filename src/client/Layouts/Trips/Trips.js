@@ -11,35 +11,43 @@ class Trips extends Component {
     };
   }
 
-  componentDidMount() {
-    fetch('/api/trips')
-      .then(res => res.json())
-      .then((res) => {
-        this.setState({ data: res });
-      });
-  }
-  
+  /*  componentDidMount() {
+     fetch('/api/trips')
+       .then(res => res.json())
+       .then((res) => {
+         this.setState({ data: res });
+       });
+   } */
+
   handleSearchSubmit = (formData) => {
     console.log(formData);
-    
-    fetch(`/api/users/trips/search?${formData}`)
-    .then((res) => {
-        if (res.status === 200) this.setState({ data: res });
+
+    fetch(`/api/trips?${formData}`, {
+      headers: {
+        'Content-Type': 'application/text'
+      },
+      method: 'GET'
+    })
+      .then(res => res.json())
+      .then((res) => {
+        
+          this.setState({ data: res })
+        
       })
-    .catch(err => console.log(`request failed ${err.message}`));
+      .catch(err => console.log(`request failed ${err.message}`));
   }
 
-    render() {
-      return (
-            <div>
-                <Header />
-                <main>
-                    <TripsSearchForm handleSearchSubmit={this.handleSearchSubmit} />
-                    <TripsView data={this.state.data} />
-                </main>
-            </div>
-      );
-    }
+  render() {
+    return (
+      <div>
+        <Header />
+        <main>
+          <TripsSearchForm handleSearchSubmit={this.handleSearchSubmit} />
+          <TripsView data={this.state.data} />
+        </main>
+      </div>
+    );
+  }
 }
 
 export default Trips;
