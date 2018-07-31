@@ -19,6 +19,7 @@ class Login extends Component {
             body: JSON.stringify(data)
         }).then((res) => {
             if(res.status === 200) this.props.history.push('/');
+            sessionStorage.setItem('user-login', JSON.stringify(data.login));
         } )
     };
 
