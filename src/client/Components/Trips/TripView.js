@@ -4,7 +4,7 @@ import { Card, CardText, CardBody, CardTitle, Button } from 'reactstrap';
 
 const TripView = ({trip}) => {
     return (
-        <div>
+        
             <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
                 <CardBody inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
                     <CardTitle>{trip.name}</CardTitle>
@@ -19,7 +19,7 @@ const TripView = ({trip}) => {
                     </Button>
                 </CardBody>
             </Card>
-        </div>
+        
     );
 }
 

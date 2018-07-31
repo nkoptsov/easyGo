@@ -30,7 +30,6 @@ class TripsSearchForm extends Component {
     for (let key in this.state.data) {
       if (this.state.data[key]) {
         formData = formData + `${key}=${this.state.data[key]}&`;
-        
       }
     }
     formData = formData.slice(0, -1);

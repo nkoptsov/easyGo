@@ -5,6 +5,7 @@ const error = new Error();
 module.exports = {
 
   getAllTripsUniversal(req, res, next) {
+    
     const { Op } = Sequelize;
     if (req.query) {
       if (req.query.tripCost) {
@@ -28,6 +29,8 @@ module.exports = {
           [Op.like]: (`%${req.query.description}%`),
         };
       }
+      // console.dir(req.user.id);
+       console.log('1');
       Trip.findAll({
         where: { ...req.query },
       }).then((trips) => {
@@ -58,6 +61,7 @@ module.exports = {
 
   // Retrieve and return all trips from the database.
   getAllTrips(req, res, next) {
+    
     Trip.findAll().then((trips) => {
       res.status(200).json(trips);
     }).catch(err => next(err));

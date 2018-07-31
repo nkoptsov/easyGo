@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './Layouts/Home/Home';
-import Register from './Layouts/Register/Register';
-import Login from './Layouts/Login/Login';
-import Trip from './Layouts/Trips/Trip';
-import Trips from './Layouts/Trips/Trips';
+import Home from './Containers/Home/Home';
+import Register from './Containers/Register/Register';
+import Login from './Containers/Login/Login';
+import Trip from './Containers/Trips/Trip';
+import Trips from './Containers/Trips/Trips';
 import TripsView from './Components/Trips/TripsView';
-import NotFound from './Layouts/NotFound/NotFound';
-import Subscriptions from "./Layouts/Trips/Subscriptions";
+import NotFound from './Containers/NotFound/NotFound';
+import Subscriptions from "./Containers/Trips/Subscriptions";
+import MyTrips from "./Containers/Trips/MyTrips";
 import isAuthorized from './Utils/isAuthorized';
 import { Redirect } from 'react-router';
-import Search from './Layouts/Search/Search';
+import Search from './Containers/Search/Search';
 
 
 const routers = [{
@@ -38,6 +39,7 @@ class App extends Component {
             <Route exact path="/trips/:tripId" component={Trip}/>
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+
             <Route exact path="/subscriptions" render={() => (
                 isAuthorized() ? (
                   <Subscriptions/>
@@ -45,6 +47,15 @@ class App extends Component {
                   <Redirect to="/"/>
                 )
               )} />
+
+            <Route exact path="/mytrips" render={() => (
+                isAuthorized() ? (
+                  <MyTrips/>
+                ) : (
+                  <Redirect to="/"/>
+                )
+              )} />
+
             <Route exact path="/search" component={Search} />
             <Route component={NotFound} />
           </Switch>

@@ -7,7 +7,7 @@ const TripsView = props => (
     <Row>
       <CardDeck>
         {props.data.map(trip => (
-          <Col md="4" style={{ padding: '20px 0 0 20px' }}>
+          <Col style={{ padding: '20px 0 0 20px' }}>
             <CardTrip key={trip.id} trip={trip} />
           </Col>
         ))}
