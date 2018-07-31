@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Button, CardHeader, CardBody, CardTitle, CardText } from 'reactstrap';
+import SubControl from './SubControl';
 import isAuthorized from '../../Utils/isAuthorized';
 
 const CardTrip = ({ trip }) => (
@@ -13,6 +14,7 @@ const CardTrip = ({ trip }) => (
       <Button>
           <Link to={`./trips/${trip.id}`}> Learn more </Link>
       </Button>
+      { isAuthorized() ? <SubControl tripId={trip.id} /> : null }
     </CardBody>
   </Card>
 
