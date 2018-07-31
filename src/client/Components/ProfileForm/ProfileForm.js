@@ -1,82 +1,111 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import ListForm from '../ListForm/ListForm';
-// import Password from '../Password/Password'
+import Password from '../Password/Password';
 import Account from '../Account/Account';
 
-import { Route, Switch } from 'react-router-dom';
 class ProfileForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {
-        fistName: '',
-        lastNAme: '',
-        lonign: '',
-        photo: '',
-        phoneNumber: '',
-        lastName: '',
-        gender: '',
+      profile: {
         login: '',
-        birthday: '',
-        about: '',
-        country: '',
-        email: '',
         firstName: '',
-      }
+        lastName: '',
+        phoneNumber: '',
+        email: '',
+        birthday: '',
+        city: '',
+        country: '',
+        gender: '',
+        about: '',
+      },
+      password: {
+        lastPassword: '',
+        newPassword: '',
+        repeatPassword: '',
+      },
       // firstName: { type: text, id: firstName, placeholder: 'Enter your firstName', label: firstName, value: '' },
       // lastName: { type: text, id: lastName, placeholder: 'Enter your lastName', label: firstName, value: '' },
       // login: { type: text, id: login, placeholder: 'Enter your login', label: login, value: '' }
 
-    }
+    };
   }
+
   componentDidMount() {
     this.requestAccount();
-
   }
+
   requestAccount = () => {
-    let a;
-    fetch('/api/users/profile/3')
+    fetch('/api/users/profile', { credentials: 'include' })
       .then(value => value.json())
-      .then(profile => {
+      .then((profile) => {
         console.log(profile);
         this.setState({
-          data: { profile }
+          profile,
         });
+        // Object.assaign
       })
-
-
+      .catch((err) => { console.log(err); });
   }
+
+  accountChange = (name, value) => {
+    const { profile } = this.state;
+    this.setState({ profile: { ...profile, [name]: value } });
+  }
+
   submitAccount = (body) => {
+    console.log(body);
     fetch('/api/users/profile', {
-      mathod: 'POST',
-      headers: 'Content-type: application/jsom',
-      body: JSON.stringify(body)
-    }).then((
-      this.setState({ data: { value } })
-    ))
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(body),
+    }).then((value) => {
+    });
   }
 
-  requestPassword = () => {
-    fetch('/api/users/profile').then((value) => {
-      this.setState({ data: { value } });
-    })
+  submitPassword = (body) => {
+    console.log(body);
+    fetch('/api/users/profile/password', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(body),
+    }).then((value) => {
+      if (value.status === 200) {
+        // this.setState({ password: { body } });
+        console.log('Passworde was cheenged');
+      }
+    });
   }
+
+
+  passwordChange = (name, value) => {
+    const { password } = this.state;
+    this.setState({ password: { ...password, [name]: value } });
+  }
+
   render() {
-
+    const { password, profile } = this.state;
     return (
-      <div>
+      <div className="container">
         <ListForm />
-        <div>
-          {/* <Route path="/password" component={Password} /> */}
-          <Switch>
-            <Route exact path="/profile/:account">
-              <Account handleSubmit={this.submitAccount} requestAccount={this.requestAccount} {...this.state} />
-            </Route>
+        <Switch>
+          <Route exact path="/profile/account">
+            <Account handleSubmit={this.submitAccount} accountChange={this.accountChange} profile={profile} />
+          </Route>
+          <Route exact path="/profile/password">
+            <Password handleSubmit={this.submitPassword} passwordChange={this.passwordChange} password={password} />
+          </Route>
+        </Switch>
 
-          </Switch>
-        </div>
       </div>
-    )
+    );
   }
 }
-export default ProfileForm
+export default ProfileForm;

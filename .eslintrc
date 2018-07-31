@@ -4,7 +4,24 @@
     "node": true,
     "es6": true
   },
+  "globals": {
+    "React": true
+  },
+  "extends": [
+    "airbnb"
+  ],
   "plugins": [
     "react"
-  ]
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ]
+  }
 }

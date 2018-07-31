@@ -5,7 +5,7 @@ const ListForm = () => (
 
   <div className="list-group col-2">
     <Link
-      to="/profile/exampleTopicId"
+      to="/profile/account"
       className="list-group-item list-group-item-action"
     >
       profile

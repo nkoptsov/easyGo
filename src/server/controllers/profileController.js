@@ -13,7 +13,7 @@ module.exports = {
           next(error);
         }
         const userRequest = {
-          photo: userProfile.photo || '',
+          // photo: userProfile.photo || '',
           phoneNumber: userProfile.phoneNumber || '',
           lastName: userProfile.lastName || '',
           gender: userProfile.gender || '',
@@ -21,15 +21,17 @@ module.exports = {
           birthday: userProfile.birthday || '',
           about: userProfile.about || '',
           country: userProfile.country || '',
+          city: userProfile.city || '',
           email: userProfile.email || '',
           firstName: userProfile.firstName || '',
-        }
+        };
         return res.status(200).json(userRequest);
       })
       .catch(err => next(err));
   },
 
   updateProfile(req, res, next) {
+    console.log(req);
     const { id } = req.user;
     const { body } = req;
     // body and id
@@ -39,6 +41,7 @@ module.exports = {
         res.status(200).end();
       })
       .catch((err) => {
+        console.log(err);
         next(err);
       });
   },
