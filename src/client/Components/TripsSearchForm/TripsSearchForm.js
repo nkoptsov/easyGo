@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import FormGroup from '../FormGroup/FormGroup';
 import FormGroupDate from '../FormGroup/FormGroupDate';
+import ReactDOM from 'react-dom';
+import InputRange from 'react-input-range';
+import 'react-input-range/lib/css/index.css';
+
 
 class TripsSearchForm extends Component {
   constructor(props) {
@@ -14,7 +18,7 @@ class TripsSearchForm extends Component {
         locationStart: '',
         locationEnd: '',
         userId: '',
-        tripCost: '',
+        tripCost: {min: 0, max: 1000},
         description: '',
       },
       errors: {},
@@ -47,9 +51,13 @@ class TripsSearchForm extends Component {
           <FormGroupDate for="dateEnd" label="Date trip ends" id="dateEnd" name="dateEnd" value={data.dateEnd} onChange={this.onChange} />
           <FormGroup for="locationStart" type="text" id="locationStart" placeholder="Where trip starts?" name="locationStart" label="Start location" value={data.locationStart} onChange={this.onChange} />
           <FormGroup for="locationEnd" type="text" id="locationEnd" placeholder="Where trip ends?" name="locationEnd" label="End location" value={data.locationEnd} onChange={this.onChange} />
-          <FormGroup for="tripCost" type="number" id="tripCost" name="tripCost" label="Trip cost" value={data.tripCost} onChange={this.onChange} />
-          <FormGroup for="userId" type="text" id="userId" name="userId" placeholder="Name of trip creator" label="Trip creator" value={data.userId} onChange={this.onChange} />
-          <FormGroup for="description" type="text" id="description" placeholder="Search will match this words in trip describtion.." name="description" label="Key words" value={data.keyWords} onChange={this.onChange} />
+          <InputRange
+            maxValue={1000}
+            minValue={0}
+            value={data.tripCost}
+            formatLabel={value => `${value}$`}
+            name="tripCost"
+            onChange={tripCost => this.setState({ data: {tripCost} })} />
           <button className="btn btn-primary">Search</button>
         </form>
       </div>
