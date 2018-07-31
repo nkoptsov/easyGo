@@ -29,8 +29,6 @@ module.exports = {
           [Op.like]: (`%${req.query.description}%`),
         };
       }
-      // console.dir(req.user.id);
-       console.log('1');
       Trip.findAll({
         where: { ...req.query },
       }).then((trips) => {
@@ -169,9 +167,10 @@ module.exports = {
   },
 
   getTripsSubscribedByUser(req, res, next) {
+    ;
     UsersTrips.findAll({
       where: {
-        userId: req.session.userId,
+        userId: req.user.id,
       },
       attributes: ['tripId'],
       include: [{
@@ -188,10 +187,15 @@ module.exports = {
     }).then((trips) => {
       if (!trips.length) {
         error.name = 'tripNotFound';
+        
+        
         return next(error);
       }
+      console.log(trips);
       return res.status(200).json(trips);
-    }).catch(err => next(err));
+    }).catch(err => {
+      next(err);
+    });
   },
 
   getOneTripSubscribedByUser(req, res, next) {

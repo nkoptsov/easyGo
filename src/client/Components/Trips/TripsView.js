@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, Button } from 'react-router-dom';
 import CardTrip from './CardTrip';
 import { Container, CardDeck, Row, Col } from 'reactstrap';
 
