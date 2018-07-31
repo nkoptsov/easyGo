@@ -6,5 +6,8 @@
   },
   "plugins": [
     "react"
+  ],
+  "extends": [
+    "airbnb"
   ]
 }

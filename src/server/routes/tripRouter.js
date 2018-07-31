@@ -20,9 +20,12 @@ router.route('/users/trips/created')
 
 
 
+router.get('/users/trips/search', tripController.getAllTripsUniversal);
 router.get('/users/trips/:tripId', tripController.getTripById);
-router.get('/users/trips/', tripController.getAllTrips);
+
+router.get('/users/trips', tripController.getAllTrips);
+router.get('/trips/search', tripController.getAllTripsUniversal);
 router.get('/trips/:tripId', tripController.getTripById);
-router.get('/trips', tripController.getAllTrips);
+router.get('/trips', tripController.getAllTripsUniversal);
 
 module.exports = router;
