@@ -171,7 +171,7 @@ module.exports = {
   },
 
   getTripsSubscribedByUser(req, res, next) {
-    ;
+    
     UsersTrips.findAll({
       where: {
         userId: req.user.id,

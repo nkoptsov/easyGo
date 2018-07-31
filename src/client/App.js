@@ -6,6 +6,7 @@ import Home from './Containers/Home/Home';
 import Register from './Containers/Register/Register';
 import Login from './Containers/Login/Login';
 import Trip from './Containers/Trips/Trip';
+import TripUpdate from './Components/TripUpdate/TripUpdate';
 import Trips from './Containers/Trips/Trips';
 import NotFound from './Containers/NotFound/NotFound';
 import Subscriptions from "./Containers/Trips/Subscriptions";
@@ -28,6 +29,7 @@ class App extends Component {
             <Route exact path="/trips/:tripId" component={Trip}/>
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/mytrips/:tripId/update" component={TripUpdate} />
             <Route exact path="/subscriptions" render={() => (
                 isAuthorized() ? (
                   <Subscriptions/>
