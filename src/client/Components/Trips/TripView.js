@@ -1,6 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Card, CardText, CardBody, CardTitle, Button } from 'reactstrap';
+
 
 
 const TripView = ({trip}) => {
@@ -25,6 +26,6 @@ const TripView = ({trip}) => {
             </Card>
         </div>
     );
-}
+};
 
 export default TripView;

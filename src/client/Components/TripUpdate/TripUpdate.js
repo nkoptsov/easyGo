@@ -53,8 +53,9 @@ export default class TripUpdate extends React.Component {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
-            },
 
+            },
+            credentials:'include',
             body: JSON.stringify(data)
         }).then(res => {
             if (res.status >= 400) {
