@@ -7,6 +7,11 @@ import Trip from './Layouts/Trips/Trip';
 import Trips from './Layouts/Trips/Trips';
 import TripsView from './Components/Trips/TripsView';
 import NotFound from './Layouts/NotFound/NotFound';
+import Subscriptions from "./Layouts/Trips/Subscriptions";
+import isAuthorized from './Utils/isAuthorized';
+import { Redirect } from 'react-router';
+import Search from './Layouts/Search/Search';
+
 
 const routers = [{
   layout: Trips,
@@ -29,10 +34,18 @@ class App extends Component {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
             <Route exact path="/trips" component={Trips} />
             <Route exact path="/trips/:tripId" component={Trip}/>
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/subscriptions" render={() => (
+                isAuthorized() ? (
+                  <Subscriptions/>
+                ) : (
+                  <Redirect to="/"/>
+                )
+              )} />
+            <Route exact path="/search" component={Search} />
             <Route component={NotFound} />
           </Switch>
         </div>

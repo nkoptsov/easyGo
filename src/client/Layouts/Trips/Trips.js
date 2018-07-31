@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
-import TripsSearchForm from '../../Components/TripsSearchForm/TripsSearchForm';
+import TripsSearchForm from '../../Components/TripsSearchForm/TripsSearchForm'
 
 class Trips extends Component {
   constructor(props) {
@@ -11,28 +11,24 @@ class Trips extends Component {
     };
   }
 
-  /*  componentDidMount() {
-     fetch('/api/trips')
-       .then(res => res.json())
-       .then((res) => {
-         this.setState({ data: res });
-       });
-   } */
+  componentDidMount() {
+    fetch('/api/trips')
+      .then(res => res.json())
+      .then((res) => {
+        this.setState({ data: res });
+      });
+  }
 
   handleSearchSubmit = (formData) => {
-    console.log(formData);
-
-    fetch(`/api/trips?${formData}`, {
+    fetch(`/api/trips/search?${formData}`, {
       headers: {
         'Content-Type': 'application/text'
       },
-      method: 'GET'
+      method: 'GET',
     })
       .then(res => res.json())
-      .then((res) => {
-        
+      .then((res) => {        
           this.setState({ data: res })
-        
       })
       .catch(err => console.log(`request failed ${err.message}`));
   }

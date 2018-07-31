@@ -15,7 +15,7 @@ class TripsSearchForm extends Component {
         locationEnd: '',
         userId: '',
         tripCost: '',
-        keyWords: '',
+        description: '',
       },
       errors: {},
     };
@@ -30,9 +30,10 @@ class TripsSearchForm extends Component {
     for (let key in this.state.data) {
       if (this.state.data[key]) {
         formData = formData + `${key}=${this.state.data[key]}&`;
-        formData = formData.slice(0, -1);
+        
       }
     }
+    formData = formData.slice(0, -1);
     this.props.handleSearchSubmit(formData);
     e.preventDefault();
   }
@@ -49,7 +50,7 @@ class TripsSearchForm extends Component {
           <FormGroup for="locationEnd" type="text" id="locationEnd" placeholder="Where trip ends?" name="locationEnd" label="End location" value={data.locationEnd} onChange={this.onChange} />
           <FormGroup for="tripCost" type="number" id="tripCost" name="tripCost" label="Trip cost" value={data.tripCost} onChange={this.onChange} />
           <FormGroup for="userId" type="text" id="userId" name="userId" placeholder="Name of trip creator" label="Trip creator" value={data.userId} onChange={this.onChange} />
-          <FormGroup for="keyWords" type="text" id="keyWords" placeholder="Search will match this words in trip describtion.." name="keyWords" label="Key words" value={data.keyWords} onChange={this.onChange} />
+          <FormGroup for="description" type="text" id="description" placeholder="Search will match this words in trip describtion.." name="description" label="Key words" value={data.keyWords} onChange={this.onChange} />
           <button className="btn btn-primary">Search</button>
         </form>
       </div>
