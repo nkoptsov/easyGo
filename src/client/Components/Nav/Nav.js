@@ -4,7 +4,6 @@ import isAuthorized from '../../Utils/isAuthorized';
 
 class Nav extends React.Component {
   render() {
-    console.log(isAuthorized());
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link to="/" className="navbar-brand">EasyGo</Link>
