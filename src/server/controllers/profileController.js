@@ -13,7 +13,6 @@ module.exports = {
           next(error);
         }
         const userRequest = {
-          // photo: userProfile.photo || '',
           phoneNumber: userProfile.phoneNumber || '',
           lastName: userProfile.lastName || '',
           gender: userProfile.gender || '',

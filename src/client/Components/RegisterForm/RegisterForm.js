@@ -28,7 +28,6 @@ class RegisterForm extends Component {
 
   render() {
     const { data } = this.state;
-
     return (
       <div className="container col-sm-6">
         <form className="regForm" onSubmit={this.onSubmit}>
