@@ -1,5 +1,5 @@
 const express = require('express');
-
+const { reqValidation } = require('../services/reqValidation')
 const userRouter = express.Router();
 const { userController, authController } = require('../controllers');
 
@@ -13,7 +13,11 @@ userRouter.route('/register')
 
 userRouter.route('/login')
   .get((req, res) => res.render('login'))
-  .post((req, res) => authController.loginUser(req, res));
+  .post((req, res) => {
+    const { errors, isValide } = reqValidation(req.body);
+    if(!isValide) return res.status(400).json(errors);
+    authController.loginUser(req, res);
+  });
 
 userRouter.get('/logout', authController.logoutUser);
 
