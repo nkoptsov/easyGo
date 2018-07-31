@@ -17,10 +17,10 @@ class TripsSearchForm extends Component {
         dateEnd: '',
         locationStart: '',
         locationEnd: '',
-        userId: '',
-        tripCost: {min: 0, max: 1000},
+        userId: '',        
         description: '',
       },
+      tripCost: {min: 0, max: 1000},
       errors: {},
     };
   }
@@ -36,7 +36,7 @@ class TripsSearchForm extends Component {
         formData = formData + `${key}=${this.state.data[key]}&`;
       }
     }
-    formData = formData.slice(0, -1);
+    formData = formData + `tripCost=${this.state.tripCost.min}-${this.state.tripCost.max}`
     this.props.handleSearchSubmit(formData);
     e.preventDefault();
   }
@@ -54,10 +54,9 @@ class TripsSearchForm extends Component {
           <InputRange
             maxValue={1000}
             minValue={0}
-            value={data.tripCost}
-            formatLabel={value => `${value}$`}
-            name="tripCost"
-            onChange={tripCost => this.setState({ data: {tripCost} })} />
+            value={this.state.tripCost}
+            formatLabel={tripCost => `${tripCost}$`}
+            onChange={tripCost => this.setState({ tripCost })} />
           <button className="btn btn-primary">Search</button>
         </form>
       </div>
