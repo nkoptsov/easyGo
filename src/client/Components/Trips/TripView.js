@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { Card, CardText, CardBody, CardTitle, Button } from 'reactstrap';
 
+
 const TripView = ({trip}) => {
     return (
         <div>
@@ -16,6 +17,9 @@ const TripView = ({trip}) => {
                     <CardText>Description: {trip.description}</CardText>
                     <Button>
                         <Link to={`../trips`}>Back</Link>
+                    </Button>
+                    <Button>
+                        <Link to={`../trips/${trip.id}/update`}>edit</Link>
                     </Button>
                 </CardBody>
             </Card>

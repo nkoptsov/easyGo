@@ -3,7 +3,7 @@ const { tripController } = require('../controllers');
 
 const router = express.Router();
 
-router.route('/users/trips/created/:tripId')
+router.route('/trips/created/:tripId')
   .get(tripController.getOneTripOfUser)
   .put(tripController.updateTripOfUser)
   .delete(tripController.deleteTripOfUser);

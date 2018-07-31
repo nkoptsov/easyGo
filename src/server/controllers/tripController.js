@@ -55,17 +55,19 @@ module.exports = {
   },
 
   getOneTripOfUser(req, res, next) {
-    const { tripId: reqTripId } = req.params;
+     const { tripId: reqTripId } = req.params;
+    //console.log(req);
     Trip.findOne({
       where: {
         id: reqTripId,
-        userId: req.session.userId,
+       // userId: req.session.userId,
       },
     }).then((trip) => {
       if (!trip) {
         error.name = 'tripNotFound';
         return next(error);
       }
+
       return res.status(200).json(trip);
     }).catch(err => next(err));
   },

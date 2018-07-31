@@ -4,9 +4,11 @@ import Home from './Layouts/Home/Home';
 import Register from './Layouts/Register/Register';
 import Login from './Layouts/Login/Login';
 import Trip from './Layouts/Trips/Trip';
+import TripUpdate from './Components/TripUpdate/TripUpdate';
 import Trips from './Layouts/Trips/Trips';
 import TripsView from './Components/Trips/TripsView';
 import NotFound from './Layouts/NotFound/NotFound';
+
 
 const routers = [{
   layout: Trips,
@@ -32,6 +34,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/trips" component={Trips} />
+            <Route exact path="/trips/:tripId/update" component={TripUpdate} />
             <Route exact path="/trips/:tripId" component={Trip}/>
             <Route component={NotFound} />
           </Switch>
