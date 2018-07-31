@@ -29,12 +29,14 @@ module.exports = {
           [Op.like]: (`%${req.query.description}%`),
         };
       }
-      // console.dir(req.user.id);
-       console.log('1');
       Trip.findAll({
         where: { ...req.query },
       }).then((trips) => {
-        res.status(200).json(trips);
+        if (!trips.length) {
+          error.name = 'tripNotFound';
+          return next(error);
+        }
+        return res.status(200).json(trips);
       }).catch(err => next(err));
     } else {
       Trip.findAll().then((trips) => {
