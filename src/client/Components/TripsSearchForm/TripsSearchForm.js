@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import FormGroup from '../FormGroup/FormGroup';
 import FormGroupDate from '../FormGroup/FormGroupDate';
+import ReactDOM from 'react-dom';
+import InputRange from 'react-input-range';
+import 'react-input-range/lib/css/index.css';
 
 
 class TripsSearchForm extends Component {
@@ -14,10 +17,10 @@ class TripsSearchForm extends Component {
         dateEnd: '',
         locationStart: '',
         locationEnd: '',
-        userId: '',
-        tripCost: '',
+        userId: '',        
         description: '',
       },
+      tripCost: {min: 0, max: 1000},
       errors: {},
     };
   }
@@ -33,7 +36,7 @@ class TripsSearchForm extends Component {
         formData = formData + `${key}=${this.state.data[key]}&`;
       }
     }
-    formData = formData.slice(0, -1);
+    formData = formData + `tripCost=${this.state.tripCost.min}-${this.state.tripCost.max}`
     this.props.handleSearchSubmit(formData);
     e.preventDefault();
   }
@@ -48,6 +51,12 @@ class TripsSearchForm extends Component {
           <FormGroupDate for="dateEnd" label="Date trip ends" id="dateEnd" name="dateEnd" value={data.dateEnd} onChange={this.onChange} />
           <FormGroup for="locationStart" type="text" id="locationStart" placeholder="Where trip starts?" name="locationStart" label="Start location" value={data.locationStart} onChange={this.onChange} />
           <FormGroup for="locationEnd" type="text" id="locationEnd" placeholder="Where trip ends?" name="locationEnd" label="End location" value={data.locationEnd} onChange={this.onChange} />
+          <InputRange
+            maxValue={1000}
+            minValue={0}
+            value={this.state.tripCost}
+            formatLabel={tripCost => `${tripCost}$`}
+            onChange={tripCost => this.setState({ tripCost })} />
           <button className="btn btn-primary">Search</button>
         </form>
       </div>

@@ -147,21 +147,19 @@ module.exports = {
   },
 
   subscribeToTrip(req, res, next) {
-    const { tripId: reqTripId } = req.params;
     UsersTrips.create({
       userId: req.session.userId,
-      tripId: reqTripId,
+      tripId: req.body.tripId,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
     }).catch(err => next(err));
   },
 
   unsubscribeToTrip(req, res, next) {
-    const { tripId: reqTripId } = req.params;
-    UsersTrips.destroy({
+   UsersTrips.destroy({
       where: {
         userId: req.session.userId,
-        tripId: reqTripId,
+        tripId: req.body.tripId,
       },
     }).then((numberOfRows) => {
       if (!numberOfRows) {
