@@ -10,13 +10,9 @@ class Account extends Component {
   onChange = (event) => {
     const { name, value } = event.target;
     this.props.accountChange(name, value);
-
-    // console.log(this.state);
   }
 
-  // componentDidMount() {
-  //   this.props.requestAccount()
-  // }
+
   handelSubmit = (event) => {
     event.preventDefault();
     this.props.handleSubmit(this.props.profile);
