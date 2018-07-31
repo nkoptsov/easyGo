@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-
-import TripUpdate from './Components/TripUpdate/TripUpdate';
-
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './Containers/Home/Home';
 import Register from './Containers/Register/Register';
@@ -18,10 +14,6 @@ import isAuthorized from './Utils/isAuthorized';
 import { Redirect } from 'react-router';
 import Search from './Containers/Search/Search';
 
-
-
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +26,6 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/trips" component={Trips} />
-            <Route exact path="/trips/:tripId/update" component={TripUpdate} />
             <Route exact path="/trips/:tripId" component={Trip}/>
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />

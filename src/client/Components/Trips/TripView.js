@@ -19,9 +19,6 @@ const TripView = ({trip}) => {
                     <Button>
                         <Link to={`../trips`}>Back</Link>
                     </Button>
-                    <Button>
-                        <Link to={`../trips/${trip.id}/update`}>edit</Link>
-                    </Button>
                 </CardBody>
             </Card>
         </div>

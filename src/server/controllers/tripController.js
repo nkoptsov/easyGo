@@ -96,11 +96,10 @@ module.exports = {
 
   getOneTripOfUser(req, res, next) {
      const { tripId: reqTripId } = req.params;
-    //console.log(req);
     Trip.findOne({
       where: {
         id: reqTripId,
-       // userId: req.session.userId,
+        userId: req.session.userId,
       },
     }).then((trip) => {
       if (!trip) {
