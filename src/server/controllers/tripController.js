@@ -170,50 +170,9 @@ module.exports = {
     }).catch(err => next(err));
   },
 
-  // getTripsSubscribedByUser(req, res, next) {
-  //   UsersTrips.findAll({                             // выводит tripId и Trip: {}
-  //     where: {
-  //       userId: req.session.userId,
-  //     },
-  //     attributes: ['tripId'],
-  //     include: [{
-  //       model: Trip,
-  //       attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
-  //     },
-  //     {
-  //       model: User,
-  //       as: 'Creator',
-  //       where: {
-  //         id: req.session.userId,
-  //       },
-  //       attributes: ['login', 'email'],
-  //     }
-  //     ],
-  //   })
-  //     .then((trips) => {
-  //       if (!trips.length) {
-  //         error.name = 'tripNotFound';
-  //         return next(error);
-  //       }
-  //       return res.status(200).json(trips);
-  //     }).catch(err => next(err));
-  // },
-
-
   getTripsSubscribedByUser(req, res, next) {
-    // UsersTrips.findAll({                             // выводит tripId и Trip: {}
-    //   where: {
-    //     userId: req.session.userId,
-    //   },
-    //   attributes: ['tripId'],
-    //   include: [{
-    //     model: Trip,
-    //     attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
-    //   },
-    //   ],
-    // })
 
-    UsersTrips.findAll({                             // выводит tripId и Trip: {}
+    UsersTrips.findAll({                             
       where: {
         userId: req.session.userId,
       },
@@ -229,8 +188,9 @@ module.exports = {
           error.name = 'tripNotFound';
           return next(error);
         }
-        let j = JSON.stringify(trips);
+        let j = [];
         //console.log(j)
+
 
         return res.status(200).json(trips);
       }).catch(err => next(err));
