@@ -30,7 +30,7 @@ class LogOut extends React.Component {
     }
     return (
       <div>
-        <button className="nav-item" onClick={this.handleSearchSubmit}>
+        <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.handleSearchSubmit}>
           LogOut
         </button>
       </div>
