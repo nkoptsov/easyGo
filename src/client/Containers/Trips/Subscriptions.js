@@ -3,29 +3,52 @@ import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
 
 class Subscriptions extends Component {
-    // constructor(props){
-    //     super(props);
-    //     this.state= {
-    //         data:[]
-    //     };
-    // }
-    // componentDidMount(){
-    //     fetch('/api/users/trips/subscribed')
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             this.setState({data: res});
-    //         })
-    // }
-    render(){
-        return (
-            <div>
-                <Header />
-                <main>
-                    {/*<TripsView data={this.state.data} />*/}
-                </main>
-            </div>
-        )
+  constructor(props) {
+    super(props);
+    this.state = {
+      errorFlag: false,
+      data: []
+    };
+  }
+  componentDidMount() {
+    fetch('/api/users/trips/subscribed',
+      { credentials: 'include' })
+      .then(res => {
+        if(res.status === 200 ){
+          
+        this.setState({errorFlag:true});
+        return res.json();
+       }})
+      .then(res => {
+        let arr = [];
+        res.forEach(element => {
+          arr.push(element['Trip']);
+        });
+        this.setState({ data: arr });
+      })
+      .catch(err => console.log(`request failed ${err.message}`));
+  }
+  render() {
+    console.log(this.state);
+    if(this.state.errorFlag){
+      return(
+      <div>
+        <Header />
+        <main>
+        <TripsView data={this.state.data}/>  
+        </main>
+      </div>
+      )
     }
+    return (  
+      <div>
+        <Header />
+        <main>
+            <h1> Trips not found</h1>
+        </main>
+      </div>
+    )
+  }
 }
 
 export default Subscriptions;
