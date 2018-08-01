@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Redirect } from 'react-router';
 import Profile from './Containers/Profile/Profile';
 import Home from './Containers/Home/Home';
 import Register from './Containers/Register/Register';
@@ -29,16 +29,14 @@ class App extends Component {
             <Route exact path="/trips/:tripId" component={Trip} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/trips" component={Trips} />
-
             <Route
               path="/profile"
               render={() => (
                 isAuthorized() ? (
                   <Profile />
                 ) : (
-                    <Redirect to="/" />
-                  )
+                  <Redirect to="/" />
+                )
               )}
             />
             <Route
@@ -48,8 +46,8 @@ class App extends Component {
                 isAuthorized() ? (
                   <Subscriptions />
                 ) : (
-                    <Redirect to="/" />
-                  )
+                  <Redirect to="/" />
+                )
               )}
             />
             <Route
@@ -59,8 +57,8 @@ class App extends Component {
                 isAuthorized() ? (
                   <MyTrips />
                 ) : (
-                    <Redirect to="/" />
-                  )
+                  <Redirect to="/" />
+                )
               )}
             />
             <Route exact path="/search" component={Search} />
