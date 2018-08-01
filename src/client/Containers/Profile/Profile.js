@@ -42,12 +42,12 @@ class Profile extends Component {
         });
       })
       .catch((err) => { console.log(err); });
-  }
+  };
 
   accountChange = (name, value) => {
     const { profile } = this.state;
     this.setState({ profile: { ...profile, [name]: value } });
-  }
+  };
 
   submitAccount = (body) => {
     fetch('/api/users/profile', {
@@ -59,7 +59,7 @@ class Profile extends Component {
       body: JSON.stringify(body),
     }).then((value) => {
     });
-  }
+  };
 
   submitPassword = (body) => {
     fetch('/api/users/profile/password', {
@@ -74,7 +74,7 @@ class Profile extends Component {
         console.log('Passworde was cheenged');
       }
     });
-  }
+  };
 
 
   passwordChange = (name, value) => {
