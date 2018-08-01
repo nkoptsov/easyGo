@@ -5,7 +5,7 @@ const error = new Error();
 module.exports = {
 
   getAllTripsUniversal(req, res, next) {
-    
+
     const { Op } = Sequelize;
     if (req.query) {
       if (req.query.tripCost) {
@@ -63,7 +63,7 @@ module.exports = {
 
   // Retrieve and return all trips from the database.
   getAllTrips(req, res, next) {
-    
+
     Trip.findAll().then((trips) => {
       res.status(200).json(trips);
     }).catch(err => next(err));
@@ -97,7 +97,7 @@ module.exports = {
   },
 
   getOneTripOfUser(req, res, next) {
-     const { tripId: reqTripId } = req.params;
+    const { tripId: reqTripId } = req.params;
     Trip.findOne({
       where: {
         id: reqTripId,
@@ -156,7 +156,7 @@ module.exports = {
   },
 
   unsubscribeToTrip(req, res, next) {
-   UsersTrips.destroy({
+    UsersTrips.destroy({
       where: {
         userId: req.session.userId,
         tripId: req.body.tripId,
@@ -170,30 +170,65 @@ module.exports = {
     }).catch(err => next(err));
   },
 
+  // getTripsSubscribedByUser(req, res, next) {
+  //   UsersTrips.findAll({                             // выводит tripId и Trip: {}
+  //     where: {
+  //       userId: req.session.userId,
+  //     },
+  //     attributes: ['tripId'],
+  //     include: [{
+  //       model: Trip,
+  //       attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
+  //     },
+  //     {
+  //       model: User,
+  //       as: 'Creator',
+  //       where: {
+  //         id: req.session.userId,
+  //       },
+  //       attributes: ['login', 'email'],
+  //     }
+  //     ],
+  //   })
+  //     .then((trips) => {
+  //       if (!trips.length) {
+  //         error.name = 'tripNotFound';
+  //         return next(error);
+  //       }
+  //       return res.status(200).json(trips);
+  //     }).catch(err => next(err));
+  // },
+
+
   getTripsSubscribedByUser(req, res, next) {
-    UsersTrips.findAll({
-      where: {
-        userId: req.session.userId,
-      },
-      attributes: ['tripId'],
-      include: [{
-        model: Trip,
-        attributes: ['name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
-      }, {
-        model: User,
-        as: 'Creator',
-        where: {
-          id: req.session.userId,
-        },
-        attributes: ['login', 'email'],
-      }],
-    }).then((trips) => {
-      if (!trips.length) {
-        error.name = 'tripNotFound';
-        return next(error);
-      }
-      return res.status(200).json(trips);
-    }).catch(err => next(err));
+    // UsersTrips.findAll({                             // выводит tripId и Trip: {}
+    //   where: {
+    //     userId: req.session.userId,
+    //   },
+    //   attributes: ['tripId'],
+    //   include: [{
+    //     model: Trip,
+    //     attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
+    //   },
+    //   ],
+    // })
+
+    Trip.findAll({                             // выводит tripId и Trip: {}
+      
+      // include: [{
+      //   model: UsersTrips,
+      //   //attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
+      //   where: {useId:1}
+      // },
+      // ],
+    })
+      .then((trips) => {
+        if (!trips.length) {
+          error.name = 'tripNotFound';
+          return next(error);
+        }
+        return res.status(200).json(trips);
+      }).catch(err => next(err));
   },
 
   getOneTripSubscribedByUser(req, res, next) {
