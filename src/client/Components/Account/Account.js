@@ -10,13 +10,13 @@ class Account extends Component {
   onChange = (event) => {
     const { name, value } = event.target;
     this.props.accountChange(name, value);
-  }
+  };
 
 
   handelSubmit = (event) => {
     event.preventDefault();
     this.props.handleSubmit(this.props.profile);
-  }
+  };
 
   render() {
     const {
@@ -39,7 +39,7 @@ class Account extends Component {
           <FormGroup for="lastName" type="text" id="lastName" placeholder="Enter your lastName" name="lastName" label="LastName" value={lastName} onChange={this.onChange} />
           <FormGroup for="phoneNumber" type="tel" id="phoneNumber" placeholder="Enter your phoneNumber" name="phoneNumber" label="PhoneNumber" value={phoneNumber} onChange={this.onChange} />
           <FormGroup for="email" type="text" id="email" placeholder="Enter your email" name="email" label="Email" value={email} onChange={this.onChange} />
-          <FormGroup for="birthday" type="text" id="birthday" placeholder="Enter your birthday" name="birthday" label="Birthday" value={birthday} onChange={this.onChange} />
+          <FormGroup for="birthday" type="date" id="birthday" placeholder="Enter your birthday" name="birthday" label="Birthday" value={birthday} onChange={this.onChange} />
           <FormGroup for="city" type="text" id="city" placeholder="Enter your city" name="city" label="City" value={city} onChange={this.onChange} />
           <FormGroup for="country" type="text" id="country" placeholder="Enter your country" name="country" label="Country" value={country} onChange={this.onChange} />
           <FormDropDown for="gender" id="gender" name="gender" label="Gender" value={gender} onChange={this.onChange} />
