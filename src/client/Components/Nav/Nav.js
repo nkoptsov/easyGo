@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import isAuthorized from '../../Utils/isAuthorized';
+import LogOut from "../LogOut/LogOut";
 
 class Nav extends React.Component {
   render() {
@@ -15,6 +16,9 @@ class Nav extends React.Component {
             <li className="nav-item">
               <Link to="/trips" className="nav-link">Trips</Link>
             </li>
+              <li className="nav-item">
+                  <Link to="/search" className="nav-link">Search</Link>
+              </li>
             {isAuthorized() ?
               (
                 <ul className="navbar-nav">
@@ -24,6 +28,13 @@ class Nav extends React.Component {
                   <li className="nav-item">
                     <Link to="/mytrips" className="nav-link">My Trips</Link>
                   </li>
+
+                  <li className="nav-item">
+                    <Link to="/profile" className="nav-link">Profile</Link>
+                  </li>
+                    <li className="nav-item">
+                      <LogOut className="nav-link" />
+                    </li>
                 </ul>
               ) :
               (
@@ -37,9 +48,6 @@ class Nav extends React.Component {
                 </ul>
               )
             }
-            <li className="nav-item">
-              <Link to="/search" className="nav-link">Search</Link>
-            </li>
           </ul>
         </div>
       </nav>

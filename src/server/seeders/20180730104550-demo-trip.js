@@ -30,7 +30,6 @@ module.exports = {
     description: '2 daysin Paris',
     locationStart: 'Kiev',
     locationEnd: 'Paris',
-    description: 'Beautiful France',
     tripCost: 400,
     userId: 3,
     createdAt: new Date(),
