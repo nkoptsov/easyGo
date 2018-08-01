@@ -213,20 +213,25 @@ module.exports = {
     //   ],
     // })
 
-    Trip.findAll({                             // выводит tripId и Trip: {}
-      
-      // include: [{
-      //   model: UsersTrips,
-      //   //attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
-      //   where: {useId:1}
-      // },
-      // ],
+    UsersTrips.findAll({                             // выводит tripId и Trip: {}
+      where: {
+        userId: req.session.userId,
+      },
+      attributes: [],
+      include: [{
+        model: Trip,
+          attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
+      },
+      ],
     })
       .then((trips) => {
         if (!trips.length) {
           error.name = 'tripNotFound';
           return next(error);
         }
+        let j = JSON.stringify(trips);
+        //console.log(j)
+
         return res.status(200).json(trips);
       }).catch(err => next(err));
   },

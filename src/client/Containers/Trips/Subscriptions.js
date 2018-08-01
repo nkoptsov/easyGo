@@ -14,6 +14,8 @@ class Subscriptions extends Component {
       { credentials: 'include' })
       .then(res => res.json())
       .then(res => {
+        console.log(res);
+        
         this.setState({ data: res });
       })
       .catch(err => console.log(`request failed ${err.message}`));
