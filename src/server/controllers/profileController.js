@@ -6,19 +6,31 @@ const error = new Error();
 module.exports = {
   getProfile(req, res, next) {
     const { id } = req.user;
-
     Profile.findOne({ where: { userId: id }, include: [{ model: User, attributes: ['login'], required: true }] })
       .then((userProfile) => {
         if (!userProfile) {
           error.name = 'profileNotFound';
           next(error);
         }
-        return res.status(200).json(userProfile);
+        const userRequest = {
+          phoneNumber: userProfile.phoneNumber || '',
+          lastName: userProfile.lastName || '',
+          gender: userProfile.gender || '',
+          login: userProfile.User.login || '',
+          birthday: userProfile.birthday || '',
+          about: userProfile.about || '',
+          country: userProfile.country || '',
+          city: userProfile.city || '',
+          email: userProfile.email || '',
+          firstName: userProfile.firstName || '',
+        };
+        return res.status(200).json(userRequest);
       })
       .catch(err => next(err));
   },
 
   updateProfile(req, res, next) {
+    console.log(req);
     const { id } = req.user;
     const { body } = req;
     // body and id
@@ -28,6 +40,7 @@ module.exports = {
         res.status(200).end();
       })
       .catch((err) => {
+        console.log(err);
         next(err);
       });
   },
