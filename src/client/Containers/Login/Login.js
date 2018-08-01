@@ -33,7 +33,7 @@ class Login extends Component {
   render() {
     const { shouldRedirect } = this.state;
     if (shouldRedirect) {
-      return <Redirect to="/profile" />;
+      return <Redirect to="/" />;
     }
     return (
       <div>

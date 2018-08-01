@@ -37,8 +37,8 @@ class App extends Component {
                 isAuthorized() ? (
                   <Profile />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               )}
             />
             <Route
@@ -48,11 +48,10 @@ class App extends Component {
                 isAuthorized() ? (
                   <Subscriptions />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               )}
             />
-
             <Route
               exact
               path="/mytrips"
@@ -60,11 +59,10 @@ class App extends Component {
                 isAuthorized() ? (
                   <MyTrips />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               )}
             />
-
             <Route exact path="/search" component={Search} />
             <Route component={NotFound} />
           </Switch>
