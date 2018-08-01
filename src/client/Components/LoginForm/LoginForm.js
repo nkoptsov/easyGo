@@ -3,6 +3,8 @@ import classnames from 'classnames';
 import { withRouter } from 'react-router-dom';
 import FormGroup from '../FormGroup/FormGroup';
 
+import './LoginForm.css';
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +57,7 @@ class LoginForm extends Component {
             value={data.login} 
             onChange={this.onChange}
           />
-          {errors.login && <span className="form-text text-muted">{errors.login}</span>}
+          {errors.login && <span className="form-text error">{errors.login}</span>}
           <FormGroup 
             className={classnames('form-control', {'is-invalid': errors.password})} 
             for="password" 
@@ -67,7 +69,7 @@ class LoginForm extends Component {
             value={data.password} 
             onChange={this.onChange}
           />
-          {errors.password && <span className="form-text text-muted">{errors.password}</span>}
+          {errors.password && <span className="form-text error">{errors.password}</span>}
           <button className="btn btn-primary">Submit</button>
         </form>
       </div>
