@@ -1,25 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardText, CardBody, CardTitle, Button } from 'reactstrap';
+import { Container, Row, Col, Card, CardHeader, CardText, CardBody, CardTitle, Button } from 'reactstrap';
 
 const TripView = ({ trip }) => {
   return (
+    <Container>
+      <Row>
+          <Col sm="12" md={{ size: 8, offset: 2 }}>
+              <Card>
+                  <CardHeader tag="h3">{trip.name}</CardHeader>
+                  <CardBody>
 
-    <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
-      <CardBody inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
-        <CardTitle>{trip.name}</CardTitle>
-        <CardText>Date Start: {trip.dateStart}</CardText>
-        <CardText>Date End: {trip.dateEnd}</CardText>
-        <CardText>Location start: {trip.locationStart}</CardText>
-        <CardText>Location end: {trip.locationEnd}</CardText>
-        <CardText>Cost of Trip: {trip.tripCost}</CardText>
-        <CardText>Description: {trip.description}</CardText>
-        <Button>
-          <Link to={`../trips`}>Back</Link>
-        </Button>
-      </CardBody>
-    </Card>
+                      <CardTitle>Date Start: {trip.dateStart}</CardTitle>
+                      <CardTitle>Date End: {trip.dateEnd}</CardTitle>
+                      <CardText>Location start: {trip.locationStart}</CardText>
+                      <CardText>Location end: {trip.locationEnd}</CardText>
+                      <CardText>Cost of Trip: {trip.tripCost}</CardText>
+                      <CardText>Description: {trip.description}</CardText>
 
+                      <Link to={`../trips`}>
+                          <Button color="primary">Back</Button>
+                      </Link>
+
+                  </CardBody>
+              </Card>
+          </Col>
+      </Row>
+
+    </Container>
   );
 }
 

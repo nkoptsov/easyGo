@@ -1,17 +1,19 @@
 import React from 'react';
 import CardTrip from './CardTrip';
-import { Container, CardDeck, Row, Col } from 'reactstrap';
+import { Container, CardDeck, Row, Col, CardGroup } from 'reactstrap';
 
 const TripsView = props => (
-  <Container fluid>
+  <Container fluid main-container>
     <Row>
+        <CardGroup>
       <CardDeck>
         {props.data.map(trip => (
-          <Col style={{ padding: '20px 0 0 20px' }}>
+          <Col xs="auto" style={{ padding: '20px 0 0 20px' }}>
             <CardTrip key={trip.id} trip={trip} />
           </Col>
         ))}
       </CardDeck>
+        </CardGroup>
     </Row>
   </Container>
 );
