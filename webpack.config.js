@@ -10,6 +10,7 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
       publicPath: '/',
     filename: 'bundle.js',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -19,8 +20,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           query: {
-            plugins:[ 'transform-object-rest-spread' ]
-          }
+            plugins: ['transform-object-rest-spread'],
+          },
         },
       },
       {
@@ -40,7 +41,7 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'http://localhost:8080',
-        pathRewrite: { '^/api' : '' },
+        pathRewrite: { '^/api': '' },
       },
     },
 

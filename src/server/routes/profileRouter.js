@@ -4,8 +4,8 @@ const controller = require('../controllers/profileController');
 const router = express.Router();
 
 router.route('/profile/password')
-  .get((req, res) => res.render('password'))
   .post(controller.changePassword);
+
 
 router.route('/profile')
   .get(controller.getProfile)
