@@ -22,7 +22,7 @@ class TripsSearchForm extends Component {
         description: '',
       },
       tripCost: { min: 0, max: 1000 },
-      collapse: false
+      collapse: false,
       errors: {},
     };
   }
@@ -54,16 +54,18 @@ class TripsSearchForm extends Component {
         <form className="searchForm" onSubmit={this.onSubmit}>
           <FormGroup for="name" type="text" id="name" placeholder="Enter trip name here.." name="name" label="Trip name" value={data.name} onChange={this.onChange} />
           <InputRange maxValue={1000} minValue={0} value={this.state.tripCost} formatLabel={tripCost => `${tripCost}$`} onChange={tripCost => this.setState({ tripCost })} />
-          <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>More options</Button>
+          <Button color="info" onClick={this.toggle} style={{ marginBottom: '1rem' }}>
+            More options
+          </Button>
           <Collapse isOpen={this.state.collapse}>
             <FormGroupDate for="dateStart" label="Date trip starts" id="dateStart" name="dateStart" value={data.dateStart} onChange={this.onChange} />
             <FormGroupDate for="dateEnd" label="Date trip ends" id="dateEnd" name="dateEnd" value={data.dateEnd} onChange={this.onChange} />
             <FormGroup for="locationStart" type="text" id="locationStart" placeholder="Where trip starts?" name="locationStart" label="Start location" value={data.locationStart} onChange={this.onChange} />
             <FormGroup for="locationEnd" type="text" id="locationEnd" placeholder="Where trip ends?" name="locationEnd" label="End location" value={data.locationEnd} onChange={this.onChange} />
           </Collapse>
-          <button className="btn btn-primary">
-            Search
-          </button>
+          <Button className="float-right" type="submit" color="primary" style={{ marginBottom: '1rem' }}>
+            Submit
+          </Button>
         </form>
       </div>
     );
