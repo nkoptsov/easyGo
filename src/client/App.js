@@ -11,7 +11,6 @@ import NotFound from './Containers/NotFound/NotFound';
 import Subscriptions from "./Containers/Trips/Subscriptions";
 import MyTrips from "./Containers/Trips/MyTrips";
 import isAuthorized from './Utils/isAuthorized';
-import Search from './Containers/Search/Search';
 
 class App extends Component {
   constructor(props) {
@@ -41,8 +40,7 @@ class App extends Component {
                 ) : (
                   <Redirect to="/"/>
                 )
-              )} />
-            <Route exact path="/search" component={Search} />
+              )} />            
             <Route component={NotFound} />
           </Switch>
         </div>

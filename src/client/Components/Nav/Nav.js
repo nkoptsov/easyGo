@@ -36,10 +36,7 @@ class Nav extends React.Component {
                   </li>
                 </ul>
               )
-            }
-            <li className="nav-item">
-              <Link to="/search" className="nav-link">Search</Link>
-            </li>
+            }            
           </ul>
         </div>
       </nav>
