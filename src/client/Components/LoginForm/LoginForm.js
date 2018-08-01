@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import classnames from 'classnames';
 import { withRouter } from 'react-router-dom';
-import FormGroup from '../FormGroup/FormGroup';
+import FormGroupValidate from '../FormGroup/FormGroupValidate';
 
 import './LoginForm.css';
 
@@ -13,6 +14,7 @@ class LoginForm extends Component {
         login: '',
         password: '',
       },
+      shouldRedirect: false,
       errors: {}
     };
   }
@@ -35,18 +37,24 @@ class LoginForm extends Component {
       body: data
     })
       .then((res) => {
-        if(res.status === 200) return this.props.history.push('/');
+        if(res.status === 200) {
+          sessionStorage.setItem('user-login', JSON.stringify(data.login));
+          this.setState({ shouldRedirect: true });
+        };
         res.json()
           .then((res) => this.setState({errors : res}))
       })
   };
 
   render() {
-    const { data, errors } = this.state;
+    const { data, errors, shouldRedirect} = this.state;
+    if (shouldRedirect) {
+      return <Redirect to="/" />;
+    }
     return (
       <div className="container col-sm-6">
         <form className="logForm" onSubmit={this.onSubmit}>
-          <FormGroup 
+          <FormGroupValidate 
             className={classnames('form-control', {'is-invalid': errors.login})} 
             for="login" 
             type="text" 
@@ -58,7 +66,7 @@ class LoginForm extends Component {
             onChange={this.onChange}
           />
           {errors.login && <span className="form-text error">{errors.login}</span>}
-          <FormGroup 
+          <FormGroupValidate 
             className={classnames('form-control', {'is-invalid': errors.password})} 
             for="password" 
             type="password" 

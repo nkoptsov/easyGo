@@ -1,8 +1,9 @@
 import React, { Component }  from 'react';
+import { Redirect } from 'react-router-dom';
 import classnames from 'classnames';
-import FormGroup from '../FormGroup/FormGroup';
+import FormGroupValidate from '../FormGroup/FormGroupValidate';
 
-import './RegisterForm.css'
+import './RegisterForm.css';
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -14,9 +15,10 @@ class RegisterForm extends Component {
         login: '',
         password: '',
         email: '',
-        phoneNumber: '',        
+        phoneNumber: '',
       },
-      errors: {}
+      shouldRedirect: false,
+      errors: {},
     };
   }
 
@@ -37,20 +39,27 @@ class RegisterForm extends Component {
       body: data
     })
       .then((res) => {
-        if(res.status === 200) return this.props.history.push('/login');
-        res.json()
+        if (res.status === 200) {
+           this.setState({ shouldRedirect: true });
+        }
+        else {
+          res.json()
           .then((res) => this.setState({errors : res}))
+        }
       })
       .catch((err) => console.log(`request failed ${err.message}`));
   }
 
   render() {
-    const { data, errors } = this.state;
+    const { data, errors, shouldRedirect } = this.state;
+    if (shouldRedirect) {
+      return <Redirect to="/login" />;
+    }
  
      return (
       <div className="container col-sm-6">
         <form className="regForm" onSubmit={this.onSubmit}>
-          <FormGroup 
+          <FormGroupValidate 
             className={classnames('form-control', {'is-invalid': errors.login})} 
             for="login" 
             type="text" 
@@ -62,7 +71,7 @@ class RegisterForm extends Component {
             onChange={this.onChange} 
           />
           {errors.login && <span className="form-text error">{errors.login}</span>}
-          <FormGroup 
+          <FormGroupValidate 
             className={classnames('form-control', {'is-invalid': errors.login})} 
             for="email" 
             type="text" 
@@ -74,7 +83,7 @@ class RegisterForm extends Component {
             onChange={this.onChange} 
           />
           {errors.email && <span className="form-text error">{errors.email}</span>}
-          <FormGroup 
+          <FormGroupValidate 
             className={classnames('form-control', {'is-invalid': errors.login})} 
             for="password" 
             type="password" 
@@ -86,7 +95,7 @@ class RegisterForm extends Component {
             onChange={this.onChange} 
           />
           {errors.password && <span className="form-text error">{errors.password}</span>}
-          <FormGroup 
+          <FormGroupValidate 
             className={classnames('form-control', {'is-invalid': errors.login})} 
             for="firstName" 
             type="text" 
@@ -98,7 +107,7 @@ class RegisterForm extends Component {
             onChange={this.onChange} 
           />
           {errors.firstName && <span className="form-text error">{errors.firstName}</span>}
-          <FormGroup 
+          <FormGroupValidate 
             className={classnames('form-control', {'is-invalid': errors.login})} 
             for="lastName" 
             type="text" 
@@ -110,7 +119,7 @@ class RegisterForm extends Component {
             onChange={this.onChange} 
           />
           {errors.lastName && <span className="form-text error">{errors.lastName}</span>}
-          <FormGroup 
+          <FormGroupValidate 
             className={classnames('form-control', {'is-invalid': errors.login})} 
             for="phoneNumber" 
             type="text" 
@@ -125,9 +134,7 @@ class RegisterForm extends Component {
           <button className="btn btn-primary">Submit</button>
         </form>
       </div>
-     )
+    );
   }
-
 }
-
 export default RegisterForm;

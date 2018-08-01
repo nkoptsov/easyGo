@@ -1,8 +1,49 @@
-const { Trip, UsersTrips, User } = require('../models');
+const { Trip, UsersTrips, User, Sequelize } = require('../models');
 
 const error = new Error();
 
 module.exports = {
+
+  getAllTripsUniversal(req, res, next) {
+    
+    const { Op } = Sequelize;
+    if (req.query) {
+      if (req.query.tripCost) {
+        const arr = req.query.tripCost.split('-');
+        req.query.tripCost = {
+          [Op.between]: arr,
+        };
+      }
+      if (req.query.dateStart) {
+        req.query.dateStart = {
+          [Op.gte]: req.query.dateStart,
+        };
+      }
+      if (req.query.dateEnd) {
+        req.query.dateEnd = {
+          [Op.lte]: req.query.dateEnd,
+        };
+      }
+      if (req.query.description) {
+        req.query.description = {
+          [Op.like]: (`%${req.query.description}%`),
+        };
+      }
+      Trip.findAll({
+        where: { ...req.query },
+      }).then((trips) => {
+        if (!trips.length) {
+          error.name = 'tripNotFound';
+          return next(error);
+        }
+        return res.status(200).json(trips);
+      }).catch(err => next(err));
+    } else {
+      Trip.findAll().then((trips) => {
+        res.status(200).json(trips);
+      }).catch(err => next(err));
+    }
+  },
 
   // Create and Save a new Trip
   createTrip(req, res, next) {
@@ -22,6 +63,7 @@ module.exports = {
 
   // Retrieve and return all trips from the database.
   getAllTrips(req, res, next) {
+    
     Trip.findAll().then((trips) => {
       res.status(200).json(trips);
     }).catch(err => next(err));
@@ -55,7 +97,7 @@ module.exports = {
   },
 
   getOneTripOfUser(req, res, next) {
-    const { tripId: reqTripId } = req.params;
+     const { tripId: reqTripId } = req.params;
     Trip.findOne({
       where: {
         id: reqTripId,
@@ -66,16 +108,18 @@ module.exports = {
         error.name = 'tripNotFound';
         return next(error);
       }
+
       return res.status(200).json(trip);
     }).catch(err => next(err));
   },
 
   updateTripOfUser(req, res, next) {
     const { tripId: reqTripId } = req.params;
+
     Trip.update(req.body, {
       where: {
         id: reqTripId,
-        userId: req.session.userId,
+        userId: req.user.id,
       },
     }).then((number) => {
       if (number[0] === 0) {
@@ -103,21 +147,19 @@ module.exports = {
   },
 
   subscribeToTrip(req, res, next) {
-    const { tripId: reqTripId } = req.params;
     UsersTrips.create({
       userId: req.session.userId,
-      tripId: reqTripId,
+      tripId: req.body.tripId,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
     }).catch(err => next(err));
   },
 
   unsubscribeToTrip(req, res, next) {
-    const { tripId: reqTripId } = req.params;
-    UsersTrips.destroy({
+   UsersTrips.destroy({
       where: {
         userId: req.session.userId,
-        tripId: reqTripId,
+        tripId: req.body.tripId,
       },
     }).then((numberOfRows) => {
       if (!numberOfRows) {
