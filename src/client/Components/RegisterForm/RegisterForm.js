@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import classnames from 'classnames';
 import axios from 'axios';
-import FormGroupValidate from '../FormGroup/FormGroupValidate';
+import FormGroup from '../FormGroup/FormGroup';
 
 import { options } from './RegisterFormOptions';
 import './RegisterForm.css';
@@ -52,7 +52,7 @@ class RegisterForm extends Component {
           {
             options.map(option => (
               <div key={option.id}>
-                <FormGroupValidate
+                <FormGroup
                   className={classnames('form-control', { 'is-invalid': errors[option.name] })}
                   key={option.id}
                   htmlFor={option.htmlFor}

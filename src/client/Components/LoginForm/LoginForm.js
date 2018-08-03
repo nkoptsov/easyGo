@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import classnames from 'classnames';
-import { withRouter } from 'react-router-dom';
-import FormGroupValidate from '../FormGroup/FormGroupValidate';
+import FormGroup from '../FormGroup/FormGroup';
 
 import './LoginForm.css';
 
@@ -54,7 +53,7 @@ class LoginForm extends Component {
     return (
       <div className="container col-sm-6">
         <form className="logForm" onSubmit={this.onSubmit}>
-          <FormGroupValidate 
+          <FormGroup
             className={classnames('form-control', {'is-invalid': errors.login})} 
             for="login" 
             type="text" 
@@ -66,7 +65,7 @@ class LoginForm extends Component {
             onChange={this.onChange}
           />
           {errors.login && <span className="form-text error">{errors.login}</span>}
-          <FormGroupValidate 
+          <FormGroup
             className={classnames('form-control', {'is-invalid': errors.password})} 
             for="password" 
             type="password" 
