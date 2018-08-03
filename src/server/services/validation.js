@@ -49,7 +49,7 @@ module.exports = {
       .then(() => {
         return {
           errors,
-          isValid: _.isEmpty(errors)
+          isValid: _.isEmpty(errors),
         }
       })
   },
