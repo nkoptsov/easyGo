@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import classnames from 'classnames';
+import axios from 'axios';
 import FormGroup from '../FormGroup/FormGroup';
 
+import { options } from './LoginFormOptions';
 import './LoginForm.css';
 
 class LoginForm extends Component {
@@ -14,73 +16,68 @@ class LoginForm extends Component {
         password: '',
       },
       shouldRedirect: false,
-      errors: {}
+      errors: {},
     };
   }
 
   onChange = (e) => {
-    this.setState({data: {...this.state.data, [e.target.name]: e.target.value}});
+    this.setState({ data: { ...this.state.data, [e.target.name]: e.target.value } });
   };
 
-  onSubmit = (e) => {
-    e.preventDefault();
+  onSubmit = (event) => {
+    event.preventDefault();
     this.setState({ errors: {} });
-    const data = JSON.stringify(this.state.data); 
-    fetch('/api/users/login', {
+    const { data } = this.state;
+    axios.post('/api/users/login', data, {
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       credentials: 'same-origin',
-      method: 'POST',
-      body: data
     })
-      .then((res) => {
-        if(res.status === 200) {
-          sessionStorage.setItem('user-login', JSON.stringify(data.login));
-          this.setState({ shouldRedirect: true });
-        };
-        res.json()
-          .then((res) => this.setState({errors : res}))
+      .then(() => {
+        sessionStorage.setItem('user-login', JSON.stringify(data.login));
+        this.setState({ shouldRedirect: true });
       })
-  };
+      .catch(error => this.setState({ errors: error.response.data }));
+  }
 
   render() {
-    const { data, errors, shouldRedirect} = this.state;
+    const { data, errors, shouldRedirect } = this.state;
     if (shouldRedirect) {
       return <Redirect to="/" />;
     }
     return (
       <div className="container col-sm-6">
         <form className="logForm" onSubmit={this.onSubmit}>
-          <FormGroup
-            className={classnames('form-control', {'is-invalid': errors.login})} 
-            for="login" 
-            type="text" 
-            id="login" 
-            placeholder="Enter your login" 
-            name="login"
-            label="Login" 
-            value={data.login} 
-            onChange={this.onChange}
-          />
-          {errors.login && <span className="form-text error">{errors.login}</span>}
-          <FormGroup
-            className={classnames('form-control', {'is-invalid': errors.password})} 
-            for="password" 
-            type="password" 
-            id="password" 
-            placeholder="Enter your password"
-            name="password" 
-            label="Password" 
-            value={data.password} 
-            onChange={this.onChange}
-          />
-          {errors.password && <span className="form-text error">{errors.password}</span>}
-          <button className="btn btn-primary">Submit</button>
+          {
+            options.map(option => (
+              <div key={option.id}>
+                <FormGroup
+                  className={classnames('form-control', { 'is-invalid': errors[option.name] })}
+                  key={option.id}
+                  htmlFor={option.htmlFor}
+                  type={option.type}
+                  id={option.id}
+                  placeholder={option.placeholder}
+                  name={option.name}
+                  label={option.label}
+                  value={data[option.name]}
+                  onChange={this.onChange}
+                />
+                {errors[option.name] && (
+                  <span className="form-text error">
+                    {errors[option.name]}
+                  </span>
+                )}
+              </div>
+            ))
+          }
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
         </form>
       </div>
-    )
+    );
   }
 }
 
