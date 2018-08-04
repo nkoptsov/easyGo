@@ -7,7 +7,8 @@ module.exports = {
         // changr userId and id
         Promise.all([
           User.update(obj, { where: { id }, fields: ['login'] }, { transaction: tr }),
-          Profile.update(obj, { where: { userId: id }, fields: ['email', 'firstName', 'lastName', 'phoneNumber', 'city', 'country', 'gender', 'birthday', 'photo', 'about'] }, { transaction: tr }),
+          Profile.update(obj, { where: { userId: id }, fields: ['email', 'firstName', 'lastName', 'phoneNumber', 'city', 'country', 'gender', 'birthday', 'photo', 'about'] },
+            { transaction: tr }),
         ])
       )
         .then(value => res(value))

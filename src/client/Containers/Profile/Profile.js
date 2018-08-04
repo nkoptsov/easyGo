@@ -57,7 +57,8 @@ class Profile extends Component {
       },
       credentials: 'include',
       body: JSON.stringify(body),
-    }).then((value) => {
+    }).then(() => {
+      // I need crate handler error for this function
     });
   };
 
@@ -91,10 +92,18 @@ class Profile extends Component {
           <ListForm />
           <Switch>
             <Route exact path="/profile/account">
-              <Account handleSubmit={this.submitAccount} accountChange={this.accountChange} profile={profile} />
+              <Account
+                handleSubmit={this.submitAccount}
+                accountChange={this.accountChange}
+                profile={profile}
+              />
             </Route>
             <Route exact path="/profile/password">
-              <Password handleSubmit={this.submitPassword} passwordChange={this.passwordChange} password={password} />
+              <Password
+                handleSubmit={this.submitPassword}
+                passwordChange={this.passwordChange}
+                password={password}
+              />
             </Route>
           </Switch>
 
