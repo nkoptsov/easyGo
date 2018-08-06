@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../Components/Header/Header';
-import TripView from "../../Components/Trips/TripView";
+import TripView from '../../Components/Trips/TripView';
+import NotFound from '../NotFound/NotFound';
 
 class Trip extends Component {
   constructor(props) {
@@ -8,25 +9,47 @@ class Trip extends Component {
     this.state = {
       url: props.match.url,
       trip: {},
+      isNotFound: true,
     };
   }
-  componentDidMount() {
-    fetch(`/api/${this.state.url}`)
-      .then(res => res.json())
+
+  componentWillMount() {
+    const { url } = this.state;
+    fetch(`/api/${url}`)
       .then((res) => {
-        this.setState({ trip: res });
+        if (res.status < 400) {
+          this.setState({ isNotFound: false });
+          return res.json();
+        }
+      })
+      .then((res) => {
+        if (!res.message) {
+          this.setState({ trip: res });
+        }
       });
   }
+
   render() {
-    return (
+    const { trip, isNotFound } = this.state;
+    if (!isNotFound) {
+      return (
         <div>
-            <Header />
-            <main>
-                <TripView trip={this.state.trip} />
-            </main>
+          <Header />
+          <main>
+            <TripView trip={trip} />
+          </main>
         </div>
-    )
-  };
+      );
+    }
+    return (
+      <div>
+        <main>
+          <NotFound />
+        </main>
+      </div>
+    );
+
+  }
 }
 
 export default Trip;

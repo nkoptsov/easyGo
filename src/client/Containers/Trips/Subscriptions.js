@@ -7,47 +7,52 @@ class Subscriptions extends Component {
     super(props);
     this.state = {
       errorFlag: false,
-      data: []
+      data: [],
     };
   }
+
   componentDidMount() {
     fetch('/api/users/trips/subscribed',
       { credentials: 'include' })
-      .then(res => {
-        if(res.status === 200 ){
-          
-        this.setState({errorFlag:true});
-        return res.json();
-       }})
-      .then(res => {
-        let arr = [];
-        res.forEach(element => {
-          arr.push(element['Trip']);
+      .then((res) => {
+        if (res.status === 200) {
+          this.setState({ errorFlag: true });
+          return res.json();
+        }
+      })
+      .then((res) => {
+        const arr = [];
+        res.forEach((element) => {
+          arr.push(element.Trip);
         });
         this.setState({ data: arr });
       })
       .catch(err => console.log(`request failed ${err.message}`));
   }
+
   render() {
-    console.log(this.state);
-    if(this.state.errorFlag){
-      return(
-      <div>
-        <Header />
-        <main>
-        <TripsView data={this.state.data}/>  
-        </main>
-      </div>
-      )
+    const { errorFlag, data } = this.state;
+
+    if (errorFlag) {
+      return (
+        <div>
+          <Header />
+          <main>
+            <TripsView data={data} />
+          </main>
+        </div>
+      );
     }
-    return (  
+    return (
       <div>
         <Header />
         <main>
-            <h1> Trips not found</h1>
+          <h1>
+            Trips not found
+          </h1>
         </main>
       </div>
-    )
+    );
   }
 }
 

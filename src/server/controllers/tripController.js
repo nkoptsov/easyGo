@@ -1,11 +1,12 @@
-const { Trip, UsersTrips, User, Sequelize } = require('../models');
+const {
+  Trip, UsersTrips, User, Sequelize,
+} = require('../models');
 
 const error = new Error();
 
 module.exports = {
 
   getAllTripsUniversal(req, res, next) {
-
     const { Op } = Sequelize;
     if (req.query) {
       if (req.query.tripCost) {
@@ -63,7 +64,6 @@ module.exports = {
 
   // Retrieve and return all trips from the database.
   getAllTrips(req, res, next) {
-
     Trip.findAll().then((trips) => {
       res.status(200).json(trips);
     }).catch(err => next(err));
@@ -171,15 +171,14 @@ module.exports = {
   },
 
   getTripsSubscribedByUser(req, res, next) {
-
-    UsersTrips.findAll({                             
+    UsersTrips.findAll({
       where: {
         userId: req.session.userId,
       },
       attributes: [],
       include: [{
         model: Trip,
-          attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
+        attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
       },
       ],
     })
@@ -188,10 +187,6 @@ module.exports = {
           error.name = 'tripNotFound';
           return next(error);
         }
-        let j = [];
-        //console.log(j)
-
-
         return res.status(200).json(trips);
       }).catch(err => next(err));
   },

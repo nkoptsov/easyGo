@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
-import TripsSearchForm from '../../Components/TripsSearchForm/TripsSearchForm'
+import TripsSearchForm from '../../Components/TripsSearchForm/TripsSearchForm';
 
 class Trips extends Component {
   constructor(props) {
@@ -22,24 +22,25 @@ class Trips extends Component {
   handleSearchSubmit = (formData) => {
     fetch(`/api/trips/search?${formData}`, {
       headers: {
-        'Content-Type': 'application/text'
+        'Content-Type': 'application/text',
       },
       method: 'GET',
     })
       .then(res => res.json())
-      .then((res) => {        
-          this.setState({ data: res })
+      .then((res) => {
+        this.setState({ data: res });
       })
       .catch(err => console.log(`request failed ${err.message}`));
   }
 
   render() {
+    const { data } = this.state;
     return (
       <div>
         <Header />
         <main>
           <TripsSearchForm handleSearchSubmit={this.handleSearchSubmit} />
-          <TripsView data={this.state.data} />
+          <TripsView data={data} />
         </main>
       </div>
     );
