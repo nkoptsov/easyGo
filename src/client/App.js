@@ -59,14 +59,13 @@ class App extends Component {
                   <Redirect to="/" />
                 )
               )}
-            />          
+            />
             <Route component={NotFound} />
           </Switch>
         </div>
       </Router>
     );
   }
-
 }
 
 export default App;
