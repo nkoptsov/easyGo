@@ -1,59 +1,55 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {
+  fetchSubscriptions, fetchSubscriptionsSuccess, fetchSubscriptionsError
+} from '../../actions/index';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
 
+
 class Subscriptions extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      errorFlag: false,
-      data: [],
-    };
-  }
+  // constructor(props) {
+  // super(props);
+  // this.state = {
+  //   errorFlag: false,
+  //   data: [],
+  // };
+
 
   componentDidMount() {
-    fetch('/api/users/trips/subscribed',
-      { credentials: 'include' })
-      .then((res) => {
-        if (res.status === 200) {
-          this.setState({ errorFlag: true });
-          return res.json();
-        }
-      })
-      .then((res) => {
-        const arr = [];
-        res.forEach((element) => {
-          arr.push(element.Trip);
-        });
-        this.setState({ data: arr });
-      })
-      .catch(err => console.log(`request failed ${err.message}`));
+    this.props.getSubscriptions();
   }
 
   render() {
-    const { errorFlag, data } = this.state;
-
-    if (errorFlag) {
-      return (
-        <div>
-          <Header />
-          <main>
-            <TripsView data={data} />
-          </main>
-        </div>
-      );
-    }
+    const { subscriptions } = this.props;
     return (
       <div>
         <Header />
         <main>
-          <h1>
-            Trips not found
-          </h1>
+          <TripsView data={subscriptions} />
         </main>
       </div>
     );
   }
 }
 
-export default Subscriptions;
+const mapStateToProps = state => ({
+  subscriptions: state.subscriptions.items,
+  loading: state.subscriptions.loading,
+  error: state.subscriptions.error,
+});
+
+const mapDispatchToProps = dispatch => ({
+
+  getSubscriptions: (dispatch) => {
+    fetch('/api/trips',
+      { credentials: 'include' })
+      .then(res => res.json())
+      .then((res) => {
+        dispatch(fetchSubscriptionsSuccess(res));
+      })
+      .catch(error => dispatch(fetchSubscriptionsError(error)));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Subscriptions);
