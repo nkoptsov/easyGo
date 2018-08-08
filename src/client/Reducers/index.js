@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import TripsSearch from './Trips';
+import trips from './Trips';
 
 
 const rootReducer = combineReducers({
-  TripsSearch,
+  trips,
 });
 
 export default rootReducer;

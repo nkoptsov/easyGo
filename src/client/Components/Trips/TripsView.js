@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Container, CardDeck, Row, Col, CardGroup,
 } from 'reactstrap';
@@ -6,7 +7,7 @@ import { connect } from 'react-redux';
 import CardTrip from './CardTrip';
 
 
-const TripsView = trips => (
+const TripsView = ({ trips }) => (
   <Container fluid main-container>
     <Row>
       <CardGroup>
@@ -25,5 +26,9 @@ const TripsView = trips => (
 const mapStateToProps = state => ({
   trips: state.trips,
 });
+
+TripsView.propTypes = {
+  trips: PropTypes.array,
+};
 
 export default connect(mapStateToProps)(TripsView);
