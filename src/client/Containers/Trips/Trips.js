@@ -39,6 +39,7 @@ Trips.defaultProps = {
 Trips.propTypes = {
   trips: PropTypes.array,
   handleSearchSubmit: PropTypes.func.isRequired,
+  fetchAllTrips: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
