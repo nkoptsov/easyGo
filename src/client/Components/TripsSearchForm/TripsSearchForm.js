@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import { Collapse, Button } from 'reactstrap';
@@ -21,7 +21,7 @@ class TripsSearchForm extends Component {
         userId: '',
         description: '',
       },
-      tripCost: { min: 500, max: 700 },
+      tripCost: { min: 140, max: 700 },
       collapse: false,
     };
   }
@@ -43,6 +43,8 @@ class TripsSearchForm extends Component {
       }
     }
     formData += `tripCost=${this.state.tripCost.min}-${this.state.tripCost.max}`;
+    console.log(formData);
+
     this.props.handleSearchSubmit(formData);
   }
 
