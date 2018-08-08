@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import { Collapse, Button } from 'reactstrap';
@@ -43,8 +42,6 @@ class TripsSearchForm extends Component {
       }
     }
     formData += `tripCost=${this.state.tripCost.min}-${this.state.tripCost.max}`;
-    console.log(formData);
-
     this.props.handleSearchSubmit(formData);
   }
 
@@ -55,12 +52,14 @@ class TripsSearchForm extends Component {
         <form className="searchForm" onSubmit={this.onSubmit}>
           <FormGroup for="name" type="text" id="name" placeholder="Enter trip name here.." name="name" label="Trip name" value={data.name} onChange={this.onChange} />
           <InputRange
+            className="form-control"
             maxValue={1000}
             minValue={0}
             value={tripCost}
             formatLabel={tripCost => `${tripCost}$`}
             onChange={tripCost => this.setState({ tripCost })}
           />
+          <br />
           <Collapse isOpen={collapse}>
             <FormGroupDate for="dateStart" label="Date trip starts" id="dateStart" name="dateStart" value={data.dateStart} onChange={this.onChange} />
             <FormGroupDate for="dateEnd" label="Date trip ends" id="dateEnd" name="dateEnd" value={data.dateEnd} onChange={this.onChange} />
