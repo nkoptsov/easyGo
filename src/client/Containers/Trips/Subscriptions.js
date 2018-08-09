@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  fetchSubscriptions, fetchSubscriptionsSuccess, fetchSubscriptionsError
-} from '../../actions/index';
+import { fetchSubscriptionsSuccess, fetchSubscriptionsError } from '../../actions/index';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
 
@@ -41,12 +39,16 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 
-  getSubscriptions: (dispatch) => {
-    fetch('/api/trips',
+  getSubscriptions: () => {
+    fetch('/api/users/trips/subscribed',
       { credentials: 'include' })
       .then(res => res.json())
       .then((res) => {
-        dispatch(fetchSubscriptionsSuccess(res));
+        const arr = [];
+        res.forEach((element) => {
+          arr.push(element['Trip']);
+        });
+        dispatch(fetchSubscriptionsSuccess(arr));
       })
       .catch(error => dispatch(fetchSubscriptionsError(error)));
   },

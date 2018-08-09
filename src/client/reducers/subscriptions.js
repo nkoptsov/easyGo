@@ -18,7 +18,7 @@ const subscriptions = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        items: action.payload.subscriptions,
+        items: action.payload,
       };
     case types.FETCH_SUBSCRIPTIONS_FAILURE:
       return {

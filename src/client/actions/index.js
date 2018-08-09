@@ -14,15 +14,15 @@ export const fetchSubscriptionsError = error => ({
   payload: { error },
 });
 
-// Handle HTTP errors since fetch won't.
+//  Handle HTTP errors since fetch won't.
 // function handleErrors(response) {
 //   if (!response.ok) {
 //     throw Error(response.statusText);
 //   }
 //   return response;
-// }
+ 
 
-export function fetchSubscriptions() {
+/*export function fetchSubscriptions() {
   return (dispatch) => {
     dispatch(fetchSubscriptionsBegin());
     return fetch('/api/trips',
@@ -35,4 +35,4 @@ export function fetchSubscriptions() {
       })
       .catch(error => dispatch(fetchSubscriptionsError(error)));
   };
-}
+}*/
