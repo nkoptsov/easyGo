@@ -51,6 +51,9 @@ class TripsSearchForm extends Component {
       <div className="container col-sm-6">
         <form className="searchForm" onSubmit={this.onSubmit}>
           <FormGroup for="name" type="text" id="name" placeholder="Enter trip name here.." name="name" label="Trip name" value={data.name} onChange={this.onChange} />
+          <p>
+            Trip cost
+          </p>
           <InputRange
             className="form-control"
             maxValue={1000}
