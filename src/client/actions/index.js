@@ -1,4 +1,6 @@
+import axios from 'axios';
 import * as types from './ActionsTypes';
+
 
 export const fetchSubscriptionsBegin = () => ({
   type: types.FETCH_SUBSCRIPTIONS_BEGIN,
@@ -14,25 +16,17 @@ export const fetchSubscriptionsError = error => ({
   payload: { error },
 });
 
-//  Handle HTTP errors since fetch won't.
-// function handleErrors(response) {
-//   if (!response.ok) {
-//     throw Error(response.statusText);
-//   }
-//   return response;
- 
-
-/*export function fetchSubscriptions() {
+export function fetchSubscriptions() {
   return (dispatch) => {
-    dispatch(fetchSubscriptionsBegin());
-    return fetch('/api/trips',
-      { credentials: 'include' })
-      .then(handleErrors)
-      .then(res => res.json())
+    axios.get('/api/users/trips/subscribed')
       .then((res) => {
-        dispatch(fetchSubscriptionsSuccess(res));
-        return res;
+        const arr = [];
+        res.data.forEach((element) => {
+          arr.push(element['Trip']);
+        });
+        dispatch(fetchSubscriptionsSuccess(arr));
       })
       .catch(error => dispatch(fetchSubscriptionsError(error)));
-  };
-}*/
+  }
+
+};

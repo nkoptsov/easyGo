@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptionsSuccess, fetchSubscriptionsError } from '../../actions/index';
+import axios from 'axios';
+import { fetchSubscriptions, fetchSubscriptionsSuccess, fetchSubscriptionsError } from '../../actions/index';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
 
@@ -15,7 +16,7 @@ class Subscriptions extends Component {
 
 
   componentDidMount() {
-    this.props.getSubscriptions();
+    this.props.dispatch(fetchSubscriptions());
   }
 
   render() {
@@ -37,21 +38,22 @@ const mapStateToProps = state => ({
   error: state.subscriptions.error,
 });
 
-const mapDispatchToProps = dispatch => ({
+// const mapDispatchToProps = dispatch => ({
 
-  getSubscriptions: () => {
-    fetch('/api/users/trips/subscribed',
-      { credentials: 'include' })
-      .then(res => res.json())
-      .then((res) => {
-        const arr = [];
-        res.forEach((element) => {
-          arr.push(element['Trip']);
-        });
-        dispatch(fetchSubscriptionsSuccess(arr));
-      })
-      .catch(error => dispatch(fetchSubscriptionsError(error)));
-  },
-});
+//   getSubscriptions: () => {
+//     axios.get('/api/users/trips/subscribed')
+//       .then((res) => {
+//         const arr = [];
+//         res.data.forEach((element) => {
+//           arr.push(element['Trip']);
+//         });
+//         dispatch(fetchSubscriptionsSuccess(arr));
+//       })
+//       .catch(error => dispatch(fetchSubscriptionsError(error)));
+//   },
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Subscriptions);
+// export default connect(mapStateToProps, mapDispatchToProps)(Subscriptions);
+
+export default connect(mapStateToProps)(Subscriptions);
+
