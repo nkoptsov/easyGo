@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
 import TripsSearchForm from '../../Components/TripsSearchForm/TripsSearchForm';
-import { fetchAllTrips, searchTrips } from '../../Redux/Actions';
+import { fetchAllTrips, searchTrips } from '../../Redux/Actions/trips';
 
 class Trips extends Component {
   componentDidMount() {
