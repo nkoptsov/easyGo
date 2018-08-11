@@ -27,6 +27,5 @@ export function fetchSubscriptions() {
         dispatch(fetchSubscriptionsSuccess(arr));
       })
       .catch(error => dispatch(fetchSubscriptionsError(error)));
-  }
-
-};
+  };
+}
