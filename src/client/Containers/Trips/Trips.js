@@ -7,14 +7,13 @@ import TripsSearchForm from '../../Components/TripsSearchForm/TripsSearchForm';
 import { fetchAllTrips, searchTrips } from '../../Redux/Actions/trips';
 
 class Trips extends Component {
-  { fetchAllTrips, handleSearchSubmit, trips } = this.props;
 
   componentDidMount() {
-    fetchAllTrips();
+    this.props.fetchAllTrips();
   }
 
   handleSearchSubmit = (formData) => {
-    handleSearchSubmit(formData);
+    this.props.handleSearchSubmit(formData);
   }
 
   render() {
@@ -23,7 +22,7 @@ class Trips extends Component {
         <Header />
         <main>
           <TripsSearchForm handleSearchSubmit={this.handleSearchSubmit} />
-          <TripsView trips={trips} />
+          <TripsView trips={this.props.trips} />
         </main>
       </div>
     );
@@ -39,7 +38,7 @@ Trips.defaultProps = {
 };
 
 Trips.propTypes = {
-  trips: PropTypes.array,
+  trips: PropTypes.instanceOf(Array),
   handleSearchSubmit: PropTypes.func.isRequired,
   fetchAllTrips: PropTypes.func.isRequired,
 };
