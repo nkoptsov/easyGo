@@ -4,14 +4,14 @@ import {
 } from 'reactstrap';
 import CardTrip from './CardTrip';
 
-const TripsView = props => (
+const TripsView = trips => (
   <Container fluid>
     <Row>
       <CardGroup>
         <CardDeck>
-          {props.data.map((trip) => (
-            <Col key={trip.id} xs="auto" style={{ padding: '20px 0 0 20px' }}>
-              <CardTrip trip={trip} />
+          {trips.map((trip) => (
+            <Col xs="auto" style={{ padding: '20px 0 0 20px' }}>
+              <CardTrip key={trip.id} trip={trip} />
             </Col>
           ))}
         </CardDeck>

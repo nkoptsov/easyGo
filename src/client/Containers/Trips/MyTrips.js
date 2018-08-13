@@ -24,6 +24,7 @@ class MyTrips extends Component {
         }
       })
       .then((res) => {
+          console.log(this.props);
         this.props.showTrips(res);
       })
       .catch(err => console.log(`request failed ${err.message}`));
