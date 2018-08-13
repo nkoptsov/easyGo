@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
-import { showTrips } from '../../actions/showTrips';
+import showCreatedTrips from '../../Redux/Actions/showTrips';
 
 class MyTrips extends Component {
   constructor(props) {
@@ -18,14 +18,15 @@ class MyTrips extends Component {
     fetch('/api/users/trips/created',
       { credentials: 'include' })
       .then((res) => {
-        if (res.status === 200) {
-          this.setState({ errorFlag: true });
+        if (res.status < 400) {
           return res.json();
         }
       })
       .then((res) => {
-          console.log(this.props);
+        console.log(this.props);
+
         this.props.showTrips(res);
+        this.setState({ errorFlag: true });
       })
       .catch(err => console.log(`request failed ${err.message}`));
   }
@@ -36,7 +37,7 @@ class MyTrips extends Component {
         <div>
           <Header />
           <main>
-            <TripsView data={this.props.myTrips} />
+            <TripsView trips={this.props.myTrips} />
           </main>
         </div>
       );
@@ -46,8 +47,7 @@ class MyTrips extends Component {
         <Header />
         <main>
           <h1>
-            {' '}
-Trips not found
+            Trips not found
           </h1>
         </main>
       </div>
@@ -56,12 +56,12 @@ Trips not found
 }
 
 const mapStateToProps = state => ({
-  myTrips: state.myTrips,
+  myTrips: state.myTrips.trips,
 });
 
 const mapDispatchToProps = dispatch => ({
   showTrips(trips) {
-    dispatch(showTrips(trips));
+    dispatch(showCreatedTrips(trips));
   },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(MyTrips);
