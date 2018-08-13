@@ -6,7 +6,7 @@ import CardTrip from './CardTrip';
 
 
 const TripsView = ({ trips }) => (
-  <Container fluid main-container>
+  <Container>
     <Row>
       <CardGroup>
         <CardDeck>
