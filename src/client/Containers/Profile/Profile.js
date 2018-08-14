@@ -1,26 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import Header from '../../Components/Header/Header';
 import ListForm from '../../Components/ListForm/ListForm';
 import Password from '../../Components/Password/Password';
 import Account from '../../Components/Account/Account';
+import { successResponseProfile } from '../../redux/actionCreators';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile: {
-        login: '',
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
-        email: '',
-        birthday: '',
-        city: '',
-        country: '',
-        gender: '',
-        about: '',
-      },
       password: {
         lastPassword: '',
         newPassword: '',
@@ -30,7 +22,8 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.requestAccount();
+    const { requestToServer } = this.props;
+    requestToServer();
   }
 
   requestAccount = () => {
@@ -84,7 +77,9 @@ class Profile extends Component {
   }
 
   render() {
-    const { password, profile } = this.state;
+    const { password } = this.state;
+    const { profile } = this.props;
+    console.log(this.props);
     return (
       <div>
         <Header />
@@ -93,16 +88,16 @@ class Profile extends Component {
           <Switch>
             <Route exact path="/profile/account">
               <Account
-                handleSubmit={this.submitAccount}
+                submitAccount={this.submitAccount}
                 accountChange={this.accountChange}
                 profile={profile}
               />
             </Route>
             <Route exact path="/profile/password">
               <Password
-                handleSubmit={this.submitPassword}
                 passwordChange={this.passwordChange}
                 password={password}
+                handleSubmit={this.submitPassword}
               />
             </Route>
           </Switch>
@@ -112,4 +107,37 @@ class Profile extends Component {
     );
   }
 }
-export default Profile;
+
+const mapStateToPropps = state => ({
+  profile: state.proffff.profile,
+  routing: state.routing,
+});
+
+const mapDispatchToProps = dispatch => ({
+  requestToServer: () => {
+    fetch('/api/users/profile', { credentials: 'include' })
+      .then(value => value.json())
+      .then((profile) => {
+        dispatch(successResponseProfile(profile));
+      })
+      .catch((err) => { console.log(err); });
+  },
+});
+
+Profile.propTypes = {
+  profile: PropTypes.shape({
+    login: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    email: PropTypes.string,
+    birthday: PropTypes.string,
+    city: PropTypes.string,
+    country: PropTypes.string,
+    gender: PropTypes.string,
+    about: PropTypes.string,
+  }).isRequired,
+  requestToServer: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToPropps, mapDispatchToProps)(Profile);

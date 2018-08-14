@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FormGroup from '../FormGroup/FormGroup';
 import FormDropDown from '../FormGroup/FormDropDown';
 
 class Account extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   onChange = (event) => {
+    const { accountChange } = this.props;
     const { name, value } = event.target;
-    this.props.accountChange(name, value);
+    accountChange(name, value);
   };
 
 
   handelSubmit = (event) => {
+    const { profile, submitAccount } = this.props;
     event.preventDefault();
-    this.props.handleSubmit(this.props.profile);
+    submitAccount(profile);
   };
 
   render() {
+    const { profile } = this.props;
     const {
       login,
       firstName,
@@ -30,7 +30,7 @@ class Account extends Component {
       country,
       gender,
       about,
-    } = this.props.profile;
+    } = profile;
     return (
       <div className="container col-sm-6">
         <form onSubmit={this.handelSubmit}>
@@ -52,4 +52,22 @@ class Account extends Component {
     );
   }
 }
+
+Account.propTypes = {
+  profile: PropTypes.shape({
+    login: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    email: PropTypes.string,
+    birthday: PropTypes.string,
+    city: PropTypes.string,
+    country: PropTypes.string,
+    gender: PropTypes.string,
+    about: PropTypes.string,
+  }).isRequired,
+  accountChange: PropTypes.func.isRequired,
+  submitAccount: PropTypes.func.isRequired,
+};
+
 export default Account;
