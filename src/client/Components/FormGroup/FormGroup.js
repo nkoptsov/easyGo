@@ -1,12 +1,45 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const FormGroup = props => (
+const FormGroupValidate = ({
+  htmlFor,
+  label,
+  required,
+  type,
+  className,
+  id,
+  placeholder,
+  name,
+  value,
+  onChange,
+}) => (
   <div className="form-group">
-    <label htmlFor={props.for}>
-      {props.label}
+    <label htmlFor={htmlFor}>
+      {label}
+      {required ? <span className="red">*</span> : null}
+      <input
+        type={type}
+        className={className}
+        id={id}
+        placeholder={placeholder}
+        name={name}
+        value={value}
+        onChange={onChange}
+      />
     </label>
-    <input type={props.type} className="form-control" id={props.id} placeholder={props.placeholder} name={props.name} value={props.value} onChange={props.onChange} />
   </div>
 );
 
-export default FormGroup;
+FormGroupValidate.propTypes = {
+  htmlFor: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+export default FormGroupValidate;
