@@ -56,7 +56,7 @@ module.exports = {
       locationEnd: req.body.locationEnd,
       tripCost: req.body.tripCost,
       description: req.body.description,
-      userId: req.session.userId,
+      userId: req.user.id,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
     }).catch(err => next(err));
@@ -81,11 +81,10 @@ module.exports = {
     }).catch(err => next(err));
   },
 
-
   getTripsCreatedByUser(req, res, next) {
     Trip.findAll({
       where: {
-        userId: req.session.userId,
+        userId: req.user.id,
       },
     }).then((trips) => {
       if (!trips.length) {
@@ -101,7 +100,7 @@ module.exports = {
     Trip.findOne({
       where: {
         id: reqTripId,
-        userId: req.session.userId,
+        userId: req.user.id,
       },
     }).then((trip) => {
       if (!trip) {
@@ -135,7 +134,7 @@ module.exports = {
     Trip.destroy({
       where: {
         id: reqTripId,
-        userId: req.session.userId,
+        userId: req.user.id,
       },
     }).then((numberOfRows) => {
       if (!numberOfRows) {
@@ -148,7 +147,7 @@ module.exports = {
 
   subscribeToTrip(req, res, next) {
     UsersTrips.create({
-      userId: req.session.userId,
+      userId: req.user.id,
       tripId: req.body.tripId,
     }).then(() => {
       res.status(201).location(`${req.url}`).end();
@@ -158,7 +157,7 @@ module.exports = {
   unsubscribeToTrip(req, res, next) {
     UsersTrips.destroy({
       where: {
-        userId: req.session.userId,
+        userId: req.user.id,
         tripId: req.body.tripId,
       },
     }).then((numberOfRows) => {
@@ -173,7 +172,7 @@ module.exports = {
   getTripsSubscribedByUser(req, res, next) {
     UsersTrips.findAll({
       where: {
-        userId: req.session.userId,
+        userId: req.user.id,
       },
       attributes: [],
       include: [{
@@ -194,7 +193,7 @@ module.exports = {
     const { tripId: reqTripId } = req.params;
     UsersTrips.findAll({
       where: {
-        userId: req.session.userId,
+        userId: req.user.id,
         tripId: reqTripId,
       },
       attributes: ['tripId'],
@@ -204,7 +203,7 @@ module.exports = {
         model: User,
         as: 'Creator',
         where: {
-          id: req.session.userId,
+          id: req.user.id,
         },
         attributes: ['login', 'email'],
       }],
@@ -216,5 +215,4 @@ module.exports = {
       return res.status(200).json(trips);
     }).catch(err => next(err));
   },
-
 };

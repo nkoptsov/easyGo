@@ -20,7 +20,6 @@ module.exports = (passport) => {
         if (!User.comparePassword(password, user.password)) {
           return done(null, false);
         }
-        req.session.userId = user.id;
         return done(null, user);
       }).catch(() => done(null, false));
     },

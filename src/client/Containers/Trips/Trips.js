@@ -1,36 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
 import TripsSearchForm from '../../Components/TripsSearchForm/TripsSearchForm';
+import { fetchAllTrips, searchTrips } from '../../Redux/Actions/trips';
 
 class Trips extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-    };
-  }
-
   componentDidMount() {
-    fetch('/api/trips')
-      .then(res => res.json())
-      .then((res) => {
-        this.setState({ data: res });
-      });
+    this.props.fetchAllTrips();
   }
 
   handleSearchSubmit = (formData) => {
-    fetch(`/api/trips/search?${formData}`, {
-      headers: {
-        'Content-Type': 'application/text',
-      },
-      method: 'GET',
-    })
-      .then(res => res.json())
-      .then((res) => {
-        this.setState({ data: res });
-      })
-      .catch(err => console.log(`request failed ${err.message}`));
+    this.props.handleSearchSubmit(formData);
   }
 
   render() {
@@ -40,11 +22,34 @@ class Trips extends Component {
         <Header />
         <main>
           <TripsSearchForm handleSearchSubmit={this.handleSearchSubmit} />
-          <TripsView data={data} />
+          <TripsView trips={this.props.trips} />
         </main>
       </div>
     );
   }
 }
 
-export default Trips;
+const mapStateToProps = state => ({
+  trips: state.trips.trips,
+});
+
+Trips.defaultProps = {
+  trips: [],
+};
+
+Trips.propTypes = {
+  trips: PropTypes.array,
+  handleSearchSubmit: PropTypes.func.isRequired,
+  fetchAllTrips: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = dispatch => ({
+  fetchAllTrips: () => {
+    dispatch(fetchAllTrips());
+  },
+  handleSearchSubmit: (formData) => {
+    dispatch(searchTrips({ formData }));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Trips);
