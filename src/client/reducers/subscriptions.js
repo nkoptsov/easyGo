@@ -27,6 +27,12 @@ const subscriptions = (state = initialState, action) => {
         error: action.payload.error,
         items: [],
       };
+    case types.FETCH_ONE_TRIP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        items: [action.payload],
+      };
 
     default:
       return state;

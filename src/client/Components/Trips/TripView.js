@@ -4,7 +4,7 @@ import {
   Container, Row, Col, Card, CardHeader, CardText, CardBody, CardTitle, Button,
 } from 'reactstrap';
 
-const TripView = ({ trip }) => (
+const TripView = ({ trip = {} }) => (
   <Container>
     <Row>
       <Col sm="12" md={{ size: 8, offset: 2 }}>

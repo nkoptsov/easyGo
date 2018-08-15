@@ -16,15 +16,30 @@ export const fetchSubscriptionsError = error => ({
   payload: { error },
 });
 
+export const fetchOneTripSuccess = trip => ({
+  type: types.FETCH_ONE_TRIP_SUCCESS,
+  payload: trip,
+});
+
 export function fetchSubscriptions() {
   return (dispatch) => {
     axios.get('/api/users/trips/subscribed')
       .then((res) => {
         const arr = [];
         res.data.forEach((element) => {
-          arr.push(element['Trip']);
+          arr.push(element.Trip);
         });
         dispatch(fetchSubscriptionsSuccess(arr));
+      })
+      .catch(error => dispatch(fetchSubscriptionsError(error)));
+  };
+}
+
+export function fetchOneTrip(tripId) {
+  return (dispatch) => {
+    axios.get(`/api/trips/${tripId}`)
+      .then((res) => {
+        dispatch(fetchOneTripSuccess(res.data));
       })
       .catch(error => dispatch(fetchSubscriptionsError(error)));
   };

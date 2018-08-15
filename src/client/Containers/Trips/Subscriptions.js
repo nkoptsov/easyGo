@@ -17,6 +17,7 @@ class Subscriptions extends Component {
 
   componentDidMount() {
     this.props.dispatch(fetchSubscriptions());
+    // this.props.getSubscriptions();
   }
 
   render() {
