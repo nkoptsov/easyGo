@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import login from '../../Redux/Actions/login';
+
 import FormGroup from '../FormGroup/FormGroup';
 
 import { options } from './LoginFormOptions';
@@ -15,9 +18,14 @@ class LoginForm extends Component {
         login: '',
         password: '',
       },
-      shouldRedirect: false,
       errors: {},
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   onChange = (e) => {
@@ -28,24 +36,12 @@ class LoginForm extends Component {
     event.preventDefault();
     this.setState({ errors: {} });
     const { data } = this.state;
-    axios.post('/api/users/login', data, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'same-origin',
-    })
-      .then(() => {
-        sessionStorage.setItem('user-login', JSON.stringify(data.login));
-        this.setState({ shouldRedirect: true });
-      })
-      .catch(error => this.setState({ errors: error.response.data }));
+
+    this.props.login(data, this.props.history);
   }
 
   render() {
-    const { data, errors, shouldRedirect } = this.state;
-    if (shouldRedirect) {
-      return <Redirect to="/" />;
-    }
+    const { data, errors } = this.state;
     return (
       <div className="container col-sm-6">
         <form className="logForm" onSubmit={this.onSubmit}>
@@ -82,4 +78,13 @@ class LoginForm extends Component {
   }
 }
 
-export default withRouter(LoginForm);
+LoginForm.propTypes = {
+  login: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => ({
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { login })(withRouter(LoginForm));
