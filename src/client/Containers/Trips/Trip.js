@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import Header from '../../Components/Header/Header';
 import TripView from '../../Components/Trips/TripView';
 import NotFound from '../NotFound/NotFound';
-import oneSubscribedTripSelector from '../../selectors/index';
-import { fetchOneTrip } from '../../actions/index';
+import oneSubscribedTripSelector from '../../Redux/Selectors/index';
+import { fetchOneTrip } from '../../Redux/Actions/subscriptionsActions';
 
 
 class Trip extends Component {

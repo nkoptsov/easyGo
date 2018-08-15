@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as types from './ActionsTypes';
+import * as types from './constants';
 
 
 export const fetchSubscriptionsBegin = () => ({

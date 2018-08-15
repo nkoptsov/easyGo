@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import { fetchSubscriptions, fetchSubscriptionsSuccess, fetchSubscriptionsError } from '../../actions/index';
+import { fetchSubscriptions } from '../../Redux/Actions/subscriptionsActions';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
 
@@ -16,7 +15,8 @@ class Subscriptions extends Component {
 
 
   componentDidMount() {
-    this.props.dispatch(fetchSubscriptions());
+    const { dispatch } = this.props;
+    dispatch(fetchSubscriptions());
     // this.props.getSubscriptions();
   }
 
@@ -26,7 +26,7 @@ class Subscriptions extends Component {
       <div>
         <Header />
         <main>
-          <TripsView data={subscriptions} />
+          <TripsView trips={subscriptions} />
         </main>
       </div>
     );
@@ -57,4 +57,3 @@ const mapStateToProps = state => ({
 // export default connect(mapStateToProps, mapDispatchToProps)(Subscriptions);
 
 export default connect(mapStateToProps)(Subscriptions);
-
