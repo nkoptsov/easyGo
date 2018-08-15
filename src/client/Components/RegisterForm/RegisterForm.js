@@ -61,6 +61,7 @@ class RegisterForm extends Component {
                   placeholder={option.placeholder}
                   name={option.name}
                   label={option.label}
+                  required={true}
                   value={data[option.name]}
                   onChange={this.onChange}
                 />
@@ -73,7 +74,7 @@ class RegisterForm extends Component {
             ))
           }
           <button type="submit" className="btn btn-primary">
-            Register
+            Submit
           </button>
         </form>
       </div>

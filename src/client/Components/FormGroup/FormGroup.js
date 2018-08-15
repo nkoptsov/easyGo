@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const FormGroupValidate = ({
   htmlFor,
   label,
+  required,
   type,
   className,
   id,
@@ -15,6 +16,7 @@ const FormGroupValidate = ({
   <div className="form-group">
     <label htmlFor={htmlFor}>
       {label}
+      {required ? <span className="red">*</span> : null}
       <input
         type={type}
         className={className}
