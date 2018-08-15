@@ -7,13 +7,12 @@ import TripsSearchForm from '../../Components/TripsSearchForm/TripsSearchForm';
 import { fetchAllTrips, searchTrips } from '../../Redux/Actions/trips';
 
 class Trips extends Component {
-
   componentDidMount() {
     this.props.fetchAllTrips();
   }
 
-  handleSearchSubmit = (formData) => {
-    this.props.handleSearchSubmit(formData);
+  handleSearchSubmit = (data) => {
+    this.props.handleSearchSubmit(data);
   }
 
   render() {
@@ -47,8 +46,8 @@ const mapDispatchToProps = dispatch => ({
   fetchAllTrips: () => {
     dispatch(fetchAllTrips());
   },
-  handleSearchSubmit: (formData) => {
-    dispatch(searchTrips({ formData }));
+  handleSearchSubmit: (data) => {
+    dispatch(searchTrips(data));
   },
 });
 

@@ -19,8 +19,9 @@ class TripsSearchForm extends Component {
         locationEnd: '',
         userId: '',
         description: '',
+        tripCost: '',
       },
-      tripCost: { min: 140, max: 700 },
+      cost: { min: 140, max: 700 },
       collapse: false,
     };
   }
@@ -35,18 +36,13 @@ class TripsSearchForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    let formData = '';
-    for (const key in this.state.data) {
-      if (this.state.data[key]) {
-        formData += `${key}=${this.state.data[key]}&`;
-      }
-    }
-    formData += `tripCost=${this.state.tripCost.min}-${this.state.tripCost.max}`;
-    this.props.handleSearchSubmit(formData);
+    this.setState({ data: { ...this.state.data, tripCost: `${this.state.cost.min}-${this.state.cost.max}` } });
+    let formData = Object.entries(this.state.data).map( key => )
+    this.props.handleSearchSubmit(this.state.data);
   }
 
   render() {
-    const { data, collapse, tripCost } = this.state;
+    const { data, collapse, cost } = this.state;
     return (
       <div className="container col-sm-6">
         <form className="searchForm" onSubmit={this.onSubmit}>
@@ -58,16 +54,48 @@ class TripsSearchForm extends Component {
             className="form-control"
             maxValue={1000}
             minValue={0}
-            value={tripCost}
-            formatLabel={tripCost => `${tripCost}$`}
-            onChange={tripCost => this.setState({ tripCost })}
+            value={cost}
+            formatLabel={cost => `${cost}$`}
+            onChange={cost => this.setState({ cost })}
           />
           <br />
           <Collapse isOpen={collapse}>
-            <FormGroupDate for="dateStart" label="Date trip starts" id="dateStart" name="dateStart" value={data.dateStart} onChange={this.onChange} />
-            <FormGroupDate for="dateEnd" label="Date trip ends" id="dateEnd" name="dateEnd" value={data.dateEnd} onChange={this.onChange} />
-            <FormGroup for="locationStart" type="text" id="locationStart" placeholder="Where trip starts?" name="locationStart" label="Start location" value={data.locationStart} onChange={this.onChange} />
-            <FormGroup for="locationEnd" type="text" id="locationEnd" placeholder="Where trip ends?" name="locationEnd" label="End location" value={data.locationEnd} onChange={this.onChange} />
+            <FormGroupDate
+              for="dateStart"
+              label="Date trip starts"
+              id="dateStart"
+              name="dateStart"
+              value={data.dateStart}
+              onChange={this.onChange}
+            />
+            <FormGroupDate
+              for="dateEnd"
+              label="Date trip ends"
+              id="dateEnd"
+              name="dateEnd"
+              value={data.dateEnd}
+              onChange={this.onChange}
+            />
+            <FormGroup
+              for="locationStart"
+              type="text"
+              id="locationStart"
+              placeholder="Where trip starts?"
+              name="locationStart"
+              label="Start location"
+              value={data.locationStart}
+              onChange={this.onChange}
+            />
+            <FormGroup
+              for="locationEnd"
+              type="text"
+              id="locationEnd"
+              placeholder="Where trip ends?"
+              name="locationEnd"
+              label="End location"
+              value={data.locationEnd}
+              onChange={this.onChange}
+            />
           </Collapse>
           <Button color="info" onClick={this.onToggle} style={{ marginBottom: '1rem' }}>
             More options

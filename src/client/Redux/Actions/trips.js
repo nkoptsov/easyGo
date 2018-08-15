@@ -13,9 +13,10 @@ export const SearchTripsFailed = error => ({
   error,
 });
 
-export const searchTrips = ({ formData }) => dispatch => axios({
+export const searchTrips = formData => dispatch => axios({
   method: 'get',
-  url: `${apiUrl}?${formData}`,
+  url: '/api/trips/search',
+  params: formData,
   withCredentials: true,
   responseType: 'json',
 })
