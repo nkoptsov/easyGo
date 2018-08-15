@@ -8,6 +8,10 @@ module.exports = {
   entry: './src/client/index.js',
   output: {
     path: path.join(__dirname, 'dist'),
+<<<<<<< HEAD
+=======
+    filename: 'bundle.js',
+>>>>>>> dev
     publicPath: '/',
     filename: 'bundle.js',
   },
