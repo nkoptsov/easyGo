@@ -32,6 +32,7 @@ export const fetchOneTripError = error => ({
 
 export function fetchSubscriptions() {
   return (dispatch) => {
+    dispatch(fetchSubscriptionsBegin());
     axios.get('/api/users/trips/subscribed')
       .then((res) => {
         const arr = [];

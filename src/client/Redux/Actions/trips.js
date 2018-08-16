@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_SEARCH_TRIPS } from './constants';
+import { FETCH_SEARCH_TRIPS, FETCH_SEARCH_FAILED } from './constants';
 
 const apiUrl = '/api/trips/';
 
@@ -8,9 +8,14 @@ export const SearchTripsSuccess = trips => ({
   trips,
 });
 
-export const searchTrips = ({ formData }) => dispatch => axios({
+export const SearchTripsFailed = error => ({
+  type: FETCH_SEARCH_FAILED,
+  error,
+});
+
+export const searchTrips = formData => dispatch => axios({
   method: 'get',
-  url: `${apiUrl}?${formData}`,
+  url: `${apiUrl}search?${formData}`,
   withCredentials: true,
   responseType: 'json',
 })
@@ -18,7 +23,7 @@ export const searchTrips = ({ formData }) => dispatch => axios({
     dispatch(SearchTripsSuccess(trips.data));
   })
   .catch((error) => {
-    throw (error);
+    dispatch(SearchTripsFailed(error));
   });
 
 

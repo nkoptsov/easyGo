@@ -1,4 +1,7 @@
 export const FETCH_SEARCH_TRIPS = 'FETCH_SEARCH_TRIPS';
+export const FETCH_SEARCH_FAILED = 'FETCH_SEARCH_FAILED';
+export const GET_ERRORS = 'GET_ERRORS';
+export const SUCCESS_REGISTER = 'SUCCESS_REGISTER';
 
 // constants for the subscrptions
 export const FETCH_SUBSCRIPTIONS_BEGIN = 'FETCH_SUBSCRIPTIONS_BEGIN';

@@ -3,7 +3,6 @@ const { User, Profile, sequelize } = require('../models');
 module.exports = {
   createUserProfile(reqBody) {
     return new Promise((res, rej) => {
-      console.log(reqBody);
       sequelize.transaction(tr => (
         User.create({
           login: reqBody.login,
