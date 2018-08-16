@@ -50,7 +50,17 @@ class TripsSearchForm extends Component {
     return (
       <div className="container col-sm-6">
         <form className="searchForm" onSubmit={this.onSubmit}>
-          <FormGroup for="name" type="text" id="name" placeholder="Enter trip name here.." name="name" label="Trip name" value={data.name} onChange={this.onChange} />
+          <FormGroup
+            htmlFor="name"
+            type="text"
+            id="name"
+            placeholder="Enter trip name here.."
+            name="name"
+            label="Trip name"
+            value={data.name}
+            onChange={this.onChange}
+            className="form-control"
+          />
           <p>
             Trip cost
           </p>
@@ -65,7 +75,7 @@ class TripsSearchForm extends Component {
           <br />
           <Collapse isOpen={collapse}>
             <FormGroupDate
-              for="dateStart"
+              htmlFor="dateStart"
               label="Date trip starts"
               id="dateStart"
               name="dateStart"
@@ -73,7 +83,7 @@ class TripsSearchForm extends Component {
               onChange={this.onChange}
             />
             <FormGroupDate
-              for="dateEnd"
+              htmlFor="dateEnd"
               label="Date trip ends"
               id="dateEnd"
               name="dateEnd"
@@ -81,7 +91,8 @@ class TripsSearchForm extends Component {
               onChange={this.onChange}
             />
             <FormGroup
-              for="locationStart"
+              className="form-control"
+              htmlFor="locationStart"
               type="text"
               id="locationStart"
               placeholder="Where trip starts?"
@@ -91,7 +102,8 @@ class TripsSearchForm extends Component {
               onChange={this.onChange}
             />
             <FormGroup
-              for="locationEnd"
+              className="form-control"
+              htmlFor="locationEnd"
               type="text"
               id="locationEnd"
               placeholder="Where trip ends?"
