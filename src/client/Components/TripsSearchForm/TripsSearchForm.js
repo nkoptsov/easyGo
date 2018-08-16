@@ -19,9 +19,8 @@ class TripsSearchForm extends Component {
         locationEnd: '',
         userId: '',
         description: '',
-        tripCost: '',
       },
-      cost: { min: 140, max: 700 },
+      tripCost: { min: 140, max: 700 },
       collapse: false,
     };
   }
@@ -36,13 +35,18 @@ class TripsSearchForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.setState({ data: { ...this.state.data, tripCost: `${this.state.cost.min}-${this.state.cost.max}` } });
-    let formData = Object.entries(this.state.data).map( key => )
-    this.props.handleSearchSubmit(this.state.data);
+    let formData = '';
+    for (const key in this.state.data) {
+      if (this.state.data[key]) {
+        formData += `${key}=${this.state.data[key]}&`;
+      }
+    }
+    formData += `tripCost=${this.state.tripCost.min}-${this.state.tripCost.max}`;
+    this.props.handleSearchSubmit(formData);
   }
 
   render() {
-    const { data, collapse, cost } = this.state;
+    const { data, collapse, tripCost } = this.state;
     return (
       <div className="container col-sm-6">
         <form className="searchForm" onSubmit={this.onSubmit}>
@@ -54,9 +58,9 @@ class TripsSearchForm extends Component {
             className="form-control"
             maxValue={1000}
             minValue={0}
-            value={cost}
-            formatLabel={cost => `${cost}$`}
-            onChange={cost => this.setState({ cost })}
+            value={tripCost}
+            formatLabel={tripCost => `${tripCost}$`}
+            onChange={tripCost => this.setState({ tripCost })}
           />
           <br />
           <Collapse isOpen={collapse}>
