@@ -16,7 +16,11 @@ const FormGroupValidate = ({
   <div className="form-group">
     <label htmlFor={htmlFor}>
       {label}
-      {required ? <span className="red">*</span> : null}
+      {required ? (
+        <span className="red">
+          *
+        </span>
+      ) : null}
       <input
         type={type}
         className={className}
@@ -34,6 +38,7 @@ FormGroupValidate.propTypes = {
   htmlFor: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  required: PropTypes.bool,
   className: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
