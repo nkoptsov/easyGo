@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../../Components/Header/Header';
-import TripView from "../../Components/Trips/TripView";
+import TripView from '../../Components/Trips/TripView';
 
 class Trip extends Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class Trip extends Component {
       trip: {},
     };
   }
+
   componentDidMount() {
     fetch(`/api/${this.state.url}`)
       .then(res => res.json())
@@ -17,16 +18,17 @@ class Trip extends Component {
         this.setState({ trip: res });
       });
   }
+
   render() {
     return (
-        <div>
-            <Header />
-            <main>
-                <TripView trip={this.state.trip} />
-            </main>
-        </div>
-    )
-  };
+      <div>
+        <Header />
+        <main>
+          <TripView trip={this.state.trip} />
+        </main>
+      </div>
+    );
+  }
 }
 
 export default Trip;

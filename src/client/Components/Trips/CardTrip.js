@@ -13,18 +13,18 @@ const CardTrip = ({ trip }) => (
     </CardHeader>
     <CardBody>
       <CardTitle>
-Start:
-        {trip.dateStart}
+Start: {' '}
+        { trip.dateStart }
       </CardTitle>
       <CardTitle>
-End:
-        {trip.dateEnd}
+End: {' '}
+        { trip.dateEnd }
       </CardTitle>
       <CardText>
-        {trip.description}
+        { trip.description }
       </CardText>
       <Link to={`./trips/${trip.id}`}>
-        <Button color="primary">
+        <Button color="primary" style={{ marginRight: '10px' }}>
 Learn more
         </Button>
       </Link>

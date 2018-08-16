@@ -1,12 +1,24 @@
 import React from 'react';
+import {
+  FormGroup, Label, Input,
+} from 'reactstrap';
 
-const FormGroup = props => (
-  <div className="form-group">
-    <label htmlFor={props.for}>
+const FormsGroup = props => (
+
+  <FormGroup>
+    <Label htmlFor={props.for}>
       {props.label}
-    </label>
-    <input type={props.type} className="form-control" id={props.id} placeholder={props.placeholder} name={props.name} value={props.value} onChange={props.onChange} />
-  </div>
+    </Label>
+    <Input
+      type={props.type}
+      className="form-control"
+      id={props.id}
+      placeholder={props.placeholder}
+      name={props.name}
+      value={props.value}
+      onChange={props.onChange}
+    />
+  </FormGroup>
 );
 
-export default FormGroup;
+export default FormsGroup;
