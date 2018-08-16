@@ -17,7 +17,26 @@ class Trip extends Component {
   }
 
   render() {
-    const { trip } = this.props;
+    const { trip, loading, error } = this.props;
+
+    if (loading) {
+      return (
+        <div>
+          <Header />
+          <main>
+            <h1>LOADING</h1>
+          </main>
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div>
+          <NotFound />
+        </div>
+      );
+    }
 
     return (
       <div>
@@ -33,6 +52,7 @@ class Trip extends Component {
 const mapStateToProps = (state, ownProps) => ({
   trip: oneSubscribedTripSelector(state, ownProps),
   loading: state.subscriptions.loading,
+  error: state.subscriptions.error,
 });
 
 export default connect(mapStateToProps)(Trip);

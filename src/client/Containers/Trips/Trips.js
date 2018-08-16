@@ -16,7 +16,6 @@ class Trips extends Component {
   }
 
   render() {
-    //  const { data } = this.state;
     const { trips } = this.props;
     return (
       <div>

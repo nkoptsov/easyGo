@@ -16,9 +16,18 @@ export const fetchSubscriptionsError = error => ({
   payload: { error },
 });
 
+export const fetchOneTripBegin = () => ({
+  type: types.FETCH_ONE_TRIP_BEGIN,
+});
+
 export const fetchOneTripSuccess = trip => ({
   type: types.FETCH_ONE_TRIP_SUCCESS,
   payload: trip,
+});
+
+export const fetchOneTripError = error => ({
+  type: types.FETCH_ONE_TRIP_FAILURE,
+  payload: { error },
 });
 
 export function fetchSubscriptions() {
@@ -37,10 +46,11 @@ export function fetchSubscriptions() {
 
 export function fetchOneTrip(tripId) {
   return (dispatch) => {
+    dispatch(fetchOneTripBegin());
     axios.get(`/api/trips/${tripId}`)
       .then((res) => {
         dispatch(fetchOneTripSuccess(res.data));
       })
-      .catch(error => dispatch(fetchSubscriptionsError(error)));
+      .catch(error => dispatch(fetchOneTripError(error)));
   };
 }
