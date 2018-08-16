@@ -45,4 +45,6 @@ app.use('/', routes);
 
 app.use(errorHandler);
 
-app.listen(8080);
+app.listen(8080, () => { console.log('Success, server started'); }).on('error', (err) => {
+  if (err.errno === 'EADDRINUSE') { console.log('The port is busy'); } else { console.log(err); }
+});
