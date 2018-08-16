@@ -177,7 +177,6 @@ module.exports = {
       attributes: [],
       include: [{
         model: Trip,
-        attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
       },
       ],
     })

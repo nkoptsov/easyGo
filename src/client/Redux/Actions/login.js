@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS } from './types';
+import { GET_ERRORS } from './constants';
 
 const login = (userData, history) => (dispatch) => {
   axios.post('/api/users/login', userData, {

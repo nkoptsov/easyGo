@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_SEARCH_TRIPS, FETCH_SEARCH_FAILED } from './types';
+import { FETCH_SEARCH_TRIPS, FETCH_SEARCH_FAILED } from './constants';
 
 const apiUrl = '/api/trips/';
 

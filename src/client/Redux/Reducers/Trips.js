@@ -1,4 +1,4 @@
-import { FETCH_SEARCH_TRIPS, FETCH_SEARCH_FAILED } from '../Actions/types';
+import { FETCH_SEARCH_TRIPS, FETCH_SEARCH_FAILED } from '../Actions/constants';
 
 const initialState = { trips: [] };
 

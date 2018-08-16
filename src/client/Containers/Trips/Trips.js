@@ -16,12 +16,13 @@ class Trips extends Component {
   }
 
   render() {
+    const { trips } = this.props;
     return (
       <div>
         <Header />
         <main>
           <TripsSearchForm handleSearchSubmit={this.handleSearchSubmit} />
-          <TripsView trips={this.props.trips} />
+          <TripsView trips={trips} />
         </main>
       </div>
     );
