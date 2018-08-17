@@ -1,2 +1,0 @@
-export const FETCH_SEARCH_TRIPS = 'FETCH_SEARCH_TRIPS';
-export const SHOW_TRIPS = 'SHOW_TRIPS';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import isAuthorized from '../../Utils/isAuthorized';
 import LogOut from '../LogOut/LogOut';
 
@@ -7,38 +7,74 @@ class Nav extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <Link to="/" className="navbar-brand">
+        <NavLink to="/" className="navbar-brand">
           EasyGo
-        </Link>
+        </NavLink>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/" className="nav-link">
+              <NavLink
+                exact
+                to="/"
+                className="nav-link"
+                activeStyle={{
+                  fontWeight: ' bold ',
+                  color: ' green ',
+                }}
+              >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link to="/trips" className="nav-link">
+              <NavLink
+                to="/trips"
+                className="nav-link"
+                activeStyle={{
+                  fontWeight: ' bold ',
+                  color: ' green ',
+                }}
+              >
                 Trips
-              </Link>
+              </NavLink>
             </li>
             {isAuthorized()
               ? (
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link to="/subscriptions" className="nav-link">
+                    <NavLink
+                      to="/subscriptions"
+                      className="nav-link"
+                      activeStyle={{
+                        fontWeight: ' bold ',
+                        color: ' green ',
+                      }}
+                    >
                       Subscriptions
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <Link to="/mytrips" className="nav-link">
+                    <NavLink
+                      to="/mytrips"
+                      className="nav-link"
+                      activeStyle={{
+                        fontWeight: ' bold ',
+                        color: ' green ',
+                      }}
+                    >
                       My Trips
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <Link to="/profile" className="nav-link">
+                    <NavLink
+                      to="/profile"
+                      className="nav-link"
+                      activeStyle={{
+                        fontWeight: ' bold ',
+                        color: ' green ',
+                      }}
+                    >
                       Profile
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
                     <LogOut className="nav-link" />
@@ -48,14 +84,28 @@ class Nav extends React.Component {
               : (
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link to="/register" className="nav-link">
+                    <NavLink
+                      to="/register"
+                      className="nav-link"
+                      activeStyle={{
+                        fontWeight: ' bold ',
+                        color: ' green ',
+                      }}
+                    >
                       Register
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <Link to="/login" className="nav-link">
+                    <NavLink
+                      to="/login"
+                      className="nav-link"
+                      activeStyle={{
+                        fontWeight: ' bold ',
+                        color: ' green ',
+                      }}
+                    >
                       Login
-                    </Link>
+                    </NavLink>
                   </li>
                 </ul>
               )

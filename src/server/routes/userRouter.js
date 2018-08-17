@@ -1,6 +1,12 @@
 const express = require('express');
-const _ = require('lodash');
-const { registerValidation, loginValidation, validateInput, validateLoginInput } = require('../services/validation');
+
+const {
+  registerValidation,
+  loginValidation,
+  validateInput,
+  validateLoginInput,
+} = require('../services/validation');
+
 const userRouter = express.Router();
 const { userController, authController } = require('../controllers');
 
@@ -10,10 +16,10 @@ userRouter.get('/', (req, res) => {
 
 userRouter.route('/register')
   .get((req, res) => res.render('register'))
-  .post((req, res) => {
+  .post((req, res, next) => {
     validateInput(req.body, registerValidation).then(({ errors, isValid }) => {
       if (isValid) {
-        userController.create(req, res);
+        userController.create(req, res, next);
       } else {
         res.status(400).json(errors);
       }
@@ -25,7 +31,7 @@ userRouter.route('/login')
   .post((req, res) => {
     validateLoginInput(req.body, loginValidation).then(({ errors, isValid }) => {
       if (isValid) {
-        console.log(authController.loginUser(req, res))
+        authController.loginUser(req, res);
       } else {
         res.status(400).json(errors);
       }
