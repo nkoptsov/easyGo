@@ -5,7 +5,4 @@ const isAuthorized = () => {
   return false;
 };
 
-  }
-  return false;
-};
 export default isAuthorized;

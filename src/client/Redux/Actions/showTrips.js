@@ -1,4 +1,4 @@
-import { SHOW_TRIPS } from './types';
+import { SHOW_TRIPS } from './constants';
 
 const showCreatedTrips = trips => ({
   type: SHOW_TRIPS,

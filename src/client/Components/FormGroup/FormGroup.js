@@ -4,6 +4,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 
+/*
 const FormsGroup = props => (
 
   <FormGroup>
@@ -20,6 +21,8 @@ const FormsGroup = props => (
       onChange={props.onChange}
     />
   </FormGroup>
+
+  */
 const FormGroupValidate = ({
   htmlFor,
   label,
@@ -53,7 +56,7 @@ const FormGroupValidate = ({
   </div>
 );
 
-export default FormsGroup;
+// export default FormsGroup;
 FormGroupValidate.propTypes = {
   htmlFor: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,

@@ -1,4 +1,4 @@
-import { SHOW_TRIPS } from '../Actions/types';
+import { SHOW_TRIPS } from '../Actions/constants';
 
 const initialState = { trips: [] };
 

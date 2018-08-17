@@ -4,7 +4,7 @@ import {
   Container, Row, Col, Card, CardHeader, CardText, CardBody, CardTitle, Button,
 } from 'reactstrap';
 
-const TripView = ({ trip }) => (
+const TripView = ({ trip = {} }) => (
   <Container>
     <Row>
       <Col sm="12" md={{ size: 8, offset: 2 }}>
@@ -15,27 +15,39 @@ const TripView = ({ trip }) => (
           <CardBody>
 
             <CardTitle>
-Date Start: {' '}
+Date Start:
+              {' '}
+              {' '}
               {trip.dateStart}
             </CardTitle>
             <CardTitle>
-Date End: {' '}
+Date End:
+              {' '}
+              {' '}
               {trip.dateEnd}
             </CardTitle>
             <CardText>
-Location start: {' '}
+Location start:
+              {' '}
+              {' '}
               {trip.locationStart}
             </CardText>
             <CardText>
-Location end: {' '}
+Location end:
+              {' '}
+              {' '}
               {trip.locationEnd}
             </CardText>
             <CardText>
-Cost of Trip: {' '}
+Cost of Trip:
+              {' '}
+              {' '}
               {trip.tripCost}
             </CardText>
             <CardText>
-Description: {' '}
+Description:
+              {' '}
+              {' '}
               {trip.description}
             </CardText>
 
