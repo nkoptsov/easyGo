@@ -6,6 +6,8 @@ const router = express.Router();
 router.route('/profile/password')
   .post(controller.changePassword);
 
+router.route('/profile/photo')
+  .post(controller.savePhoto);
 
 router.route('/profile')
   .get(controller.getProfile)
