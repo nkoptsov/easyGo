@@ -89,9 +89,6 @@ module.exports = {
     const { id } = req.user;
     const buffer = req.files.file.data;
     const imgName = id + Math.random().toString(36).substr(2, 5);
-    const photoUrl = `http://localhost:3000/public/images/${imgName}.jpg`;
-
-    fs.writeFile(`./public/images/${imgName}.jpg`, buffer, err => console.log(err));
 
     return Profile.find({
       where: {
@@ -103,6 +100,8 @@ module.exports = {
           error.name = 'profileNotFound';
           next(error);
         }
+        const photoUrl = `http://localhost:3000/public/images/${imgName}.jpg`;
+        fs.writeFile(`./public/images/${imgName}.jpg`, buffer, err => console.log(err));
         profile.update({ photo: photoUrl });
         return res.status(200).json('Password successfully changed');
       });

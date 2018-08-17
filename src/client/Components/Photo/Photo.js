@@ -14,13 +14,10 @@ class Photo extends Component {
 
   handleChange = (event) => {
     const { files } = event.target;
-    console.log(files[0]);
     this.props.photoChange(files[0]);
   };
 
   render() {
-    // const { photo } = this.props;
-
     return (
       <div className="container col-sm-6">
         <form onSubmit={this.handleSubmit}>

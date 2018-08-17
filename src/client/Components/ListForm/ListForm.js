@@ -15,7 +15,7 @@ const ListForm = () => (
       to="/profile/password"
       className="list-group-item list-group-item-action"
     >
-    password
+      password
     </Link>
 
     <Link

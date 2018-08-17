@@ -51,7 +51,6 @@ class Profile extends Component {
   };
 
   submitAccount = (body) => {
-    console.log(body);
     fetch('/api/users/profile', {
       method: 'PUT',
       headers: {
@@ -64,7 +63,6 @@ class Profile extends Component {
   };
 
   submitPassword = (body) => {
-    console.log(body);
     fetch('/api/users/profile/password', {
       method: 'POST',
       headers: {
