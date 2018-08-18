@@ -2,6 +2,9 @@ const {
   Trip, UsersTrips, User, Sequelize,
 } = require('../models');
 
+const { sendMail } = require('../services/sendMail');
+
+
 const error = new Error();
 
 module.exports = {
@@ -32,17 +35,23 @@ module.exports = {
       }
       Trip.findAll({
         where: { ...req.query },
-      }).then((trips) => {
-        if (!trips.length) {
-          error.name = 'tripNotFound';
-          return next(error);
-        }
-        return res.status(200).json(trips);
-      }).catch(err => next(err));
+      })
+        .then((trips) => {
+          if (!trips.length) {
+            error.name = 'tripNotFound';
+            return next(error);
+          }
+          return res.status(200)
+            .json(trips);
+        })
+        .catch(err => next(err));
     } else {
-      Trip.findAll().then((trips) => {
-        res.status(200).json(trips);
-      }).catch(err => next(err));
+      Trip.findAll()
+        .then((trips) => {
+          res.status(200)
+            .json(trips);
+        })
+        .catch(err => next(err));
     }
   },
 
@@ -57,28 +66,38 @@ module.exports = {
       tripCost: req.body.tripCost,
       description: req.body.description,
       userId: req.user.id,
-    }).then(() => {
-      res.status(201).location(`${req.url}`).end();
-    }).catch(err => next(err));
+    })
+      .then(() => {
+        res.status(201)
+          .location(`${req.url}`)
+          .end();
+      })
+      .catch(err => next(err));
   },
 
   // Retrieve and return all trips from the database.
   getAllTrips(req, res, next) {
-    Trip.findAll().then((trips) => {
-      res.status(200).json(trips);
-    }).catch(err => next(err));
+    Trip.findAll()
+      .then((trips) => {
+        res.status(200)
+          .json(trips);
+      })
+      .catch(err => next(err));
   },
 
   // Find a single trip with a tripId
   getTripById(req, res, next) {
     const { tripId: reqTripId } = req.params;
-    Trip.findById(reqTripId).then((trip) => {
-      if (!trip) {
-        error.name = 'tripNotFound';
-        return next(error);
-      }
-      return res.status(200).json(trip);
-    }).catch(err => next(err));
+    Trip.findById(reqTripId)
+      .then((trip) => {
+        if (!trip) {
+          error.name = 'tripNotFound';
+          return next(error);
+        }
+        return res.status(200)
+          .json(trip);
+      })
+      .catch(err => next(err));
   },
 
   getTripsCreatedByUser(req, res, next) {
@@ -86,13 +105,16 @@ module.exports = {
       where: {
         userId: req.user.id,
       },
-    }).then((trips) => {
-      if (!trips.length) {
-        error.name = 'tripNotFound';
-        return next(error);
-      }
-      return res.status(200).json(trips);
-    }).catch(err => next(err));
+    })
+      .then((trips) => {
+        if (!trips.length) {
+          error.name = 'tripNotFound';
+          return next(error);
+        }
+        return res.status(200)
+          .json(trips);
+      })
+      .catch(err => next(err));
   },
 
   getOneTripOfUser(req, res, next) {
@@ -102,14 +124,17 @@ module.exports = {
         id: reqTripId,
         userId: req.user.id,
       },
-    }).then((trip) => {
-      if (!trip) {
-        error.name = 'tripNotFound';
-        return next(error);
-      }
+    })
+      .then((trip) => {
+        if (!trip) {
+          error.name = 'tripNotFound';
+          return next(error);
+        }
 
-      return res.status(200).json(trip);
-    }).catch(err => next(err));
+        return res.status(200)
+          .json(trip);
+      })
+      .catch(err => next(err));
   },
 
   updateTripOfUser(req, res, next) {
@@ -120,13 +145,16 @@ module.exports = {
         id: reqTripId,
         userId: req.user.id,
       },
-    }).then((number) => {
-      if (number[0] === 0) {
-        error.name = 'tripNotFound';
-        return next(error);
-      }
-      return res.status(200).send({ message: 'Trip updated successfully.' });
-    }).catch(err => next(err));
+    })
+      .then((number) => {
+        if (number[0] === 0) {
+          error.name = 'tripNotFound';
+          return next(error);
+        }
+        return res.status(200)
+          .send({ message: 'Trip updated successfully.' });
+      })
+      .catch(err => next(err));
   },
 
   deleteTripOfUser(req, res, next) {
@@ -136,22 +164,32 @@ module.exports = {
         id: reqTripId,
         userId: req.user.id,
       },
-    }).then((numberOfRows) => {
-      if (!numberOfRows) {
-        error.name = 'tripNotFound';
-        return next(error);
-      }
-      return res.status(200).send({ message: 'Trip deleted successfully.' }).end();
-    }).catch(err => next(err));
+    })
+      .then((numberOfRows) => {
+        if (!numberOfRows) {
+          error.name = 'tripNotFound';
+          return next(error);
+        }
+        return res.status(200)
+          .send({ message: 'Trip deleted successfully.' })
+          .end();
+      })
+      .catch(err => next(err));
   },
 
   subscribeToTrip(req, res, next) {
+    sendMail(req);
+
     UsersTrips.create({
       userId: req.user.id,
       tripId: req.body.tripId,
-    }).then(() => {
-      res.status(201).location(`${req.url}`).end();
-    }).catch(err => next(err));
+    })
+      .then(() => {
+        res.status(201)
+          .location(`${req.url}`)
+          .end();
+      })
+      .catch(err => next(err));
   },
 
   unsubscribeToTrip(req, res, next) {
@@ -160,13 +198,17 @@ module.exports = {
         userId: req.user.id,
         tripId: req.body.tripId,
       },
-    }).then((numberOfRows) => {
-      if (!numberOfRows) {
-        error.name = 'tripNotFound';
-        return next(error);
-      }
-      return res.status(200).send({ message: 'UserTrip deleted successfully.' }).end();
-    }).catch(err => next(err));
+    })
+      .then((numberOfRows) => {
+        if (!numberOfRows) {
+          error.name = 'tripNotFound';
+          return next(error);
+        }
+        return res.status(200)
+          .send({ message: 'UserTrip deleted successfully.' })
+          .end();
+      })
+      .catch(err => next(err));
   },
 
   getTripsSubscribedByUser(req, res, next) {
@@ -186,8 +228,10 @@ module.exports = {
           error.name = 'tripNotFound';
           return next(error);
         }
-        return res.status(200).json(trips);
-      }).catch(err => next(err));
+        return res.status(200)
+          .json(trips);
+      })
+      .catch(err => next(err));
   },
 
   getOneTripSubscribedByUser(req, res, next) {
@@ -208,12 +252,15 @@ module.exports = {
         },
         attributes: ['login', 'email'],
       }],
-    }).then((trips) => {
-      if (!trips.length) {
-        error.name = 'tripNotFound';
-        return next(error);
-      }
-      return res.status(200).json(trips);
-    }).catch(err => next(err));
+    })
+      .then((trips) => {
+        if (!trips.length) {
+          error.name = 'tripNotFound';
+          return next(error);
+        }
+        return res.status(200)
+          .json(trips);
+      })
+      .catch(err => next(err));
   },
 };

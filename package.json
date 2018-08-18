@@ -37,6 +37,8 @@
     "express-session": "^1.15.6",
     "jade": "^1.11.0",
     "lodash": "^4.17.10",
+    "nodemailer": "^4.6.8",
+    "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
