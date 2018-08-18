@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FormGroup from '../FormGroup/FormGroup';
 import FormDropDown from '../FormGroup/FormDropDown';
+import './Account.css';
 
 class Account extends Component {
   constructor(props) {

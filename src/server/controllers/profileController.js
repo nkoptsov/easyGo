@@ -100,7 +100,7 @@ module.exports = {
           error.name = 'profileNotFound';
           next(error);
         }
-        const photoUrl = `http://localhost:3000/public/images/${imgName}.jpg`;
+        const photoUrl = `/public/images/${imgName}.jpg`;
         fs.writeFile(`./public/images/${imgName}.jpg`, buffer, err => console.log(err));
         profile.update({ photo: photoUrl });
         return res.status(200).json('Password successfully changed');

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import isAuthorized from '../../Utils/isAuthorized';
 import LogOut from '../LogOut/LogOut';
+import './Nav.css';
 
 class Nav extends React.Component {
   render() {
@@ -77,7 +78,7 @@ class Nav extends React.Component {
                       Profile
                     </NavLink>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item" id="logout">
                     <LogOut className="nav-link" />
                   </li>
                 </ul>

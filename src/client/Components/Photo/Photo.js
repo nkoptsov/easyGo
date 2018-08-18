@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormGroup from '../FormGroup/FormGroup';
+import './Photo.css';
 
 class Photo extends Component {
   constructor(props) {
