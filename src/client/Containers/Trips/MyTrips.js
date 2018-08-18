@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
-import { FetchMyTrips } from '../../Redux/Actions/showTrips';
+import { FetchMyTrips } from '../../Redux/Actions/showMyTrips';
 
 class MyTrips extends Component {
   componentDidMount() {
