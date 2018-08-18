@@ -33,7 +33,6 @@ Learn more
       { isAuthorized() ? <SubControl tripId={trip.id} /> : null }
     </CardBody>
   </Card>
-
 );
 
 export default CardTrip;

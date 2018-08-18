@@ -3,7 +3,6 @@ import {
   Container, CardDeck, Row, Col, CardGroup,
 } from 'reactstrap';
 import CardTrip from './CardTrip';
-import myTrips from '../../Redux/Reducers/myTrips';
 
 const TripsView = ({ trips }) => (
   <Container fluid>

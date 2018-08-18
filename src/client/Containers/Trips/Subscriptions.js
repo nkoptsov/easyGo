@@ -14,13 +14,15 @@ class Subscriptions extends Component {
   }
 
   render() {
-    const { subscriptions, loading,  error } = this.props;
+    const { subscriptions, loading, error } = this.props;
     if (loading) {
       return (
         <div>
           <Header />
           <main>
-            <h1>LOADING</h1>
+            <h1>
+LOADING
+            </h1>
           </main>
         </div>
       );
