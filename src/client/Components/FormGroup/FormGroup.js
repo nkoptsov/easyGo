@@ -34,6 +34,7 @@ const FormGroupValidate = ({
   </div>
 );
 
+// export default FormsGroup;
 FormGroupValidate.propTypes = {
   htmlFor: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,

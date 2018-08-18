@@ -4,9 +4,8 @@ import {
 } from 'reactstrap';
 import CardTrip from './CardTrip';
 
-
 const TripsView = ({ trips }) => (
-  <Container>
+  <Container fluid>
     <Row>
       <CardGroup>
         <CardDeck>

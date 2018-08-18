@@ -1,54 +1,45 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
+import { fetchMyTrips } from '../../Redux/Actions/showMyTrips';
 
 class MyTrips extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      errorFlag: false,
-      data: [],
-    };
-  }
-
   componentDidMount() {
-    fetch('/api/users/trips/created',
-      { credentials: 'include' })
-      .then((res) => {
-        if (res.status === 200) {
-          this.setState({ errorFlag: true });
-          return res.json();
-        }
-      })
-      .then((res) => {
-        this.setState({ data: res });
-      })
-      .catch(err => console.log(`request failed ${err.message}`));
+    this.props.fetchMyTrips();
   }
 
-  render() {
-    const { errorFlag, data } = this.state;
-    if (errorFlag) {
-      return (
-        <div>
-          <Header />
-          <main>
-            <TripsView data={data} />
-          </main>
-        </div>
-      );
-    }
+render() {
     return (
       <div>
         <Header />
         <main>
-          <h1>
-            Trips not found
-          </h1>
+          <TripsView trips={this.props.myTrips} />
         </main>
       </div>
     );
   }
 }
 
-export default MyTrips;
+const mapStateToProps = state => ({
+  myTrips: state.myTrips.trips,
+});
+
+MyTrips.defaultProps = {
+  myTrips: [],
+};
+
+MyTrips.propTypes = {
+  myTrips: PropTypes.instanceOf(Array),
+  fetchMyTrips: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = dispatch => ({
+  fetchMyTrips() {
+    dispatch(fetchMyTrips());
+  },
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyTrips);
