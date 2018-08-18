@@ -11,7 +11,7 @@ export const myTripsFailed = err => ({
   err,
 });
 
-export const FetchMyTrips = () => dispatch => axios({
+export const fetchMyTrips = () => dispatch => axios({
   method: 'get',
   url: '/api/users/trips/created',
   withCredentials: true,

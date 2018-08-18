@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
-import { FetchMyTrips } from '../../Redux/Actions/showMyTrips';
+import { fetchMyTrips } from '../../Redux/Actions/showMyTrips';
 
 class MyTrips extends Component {
   componentDidMount() {
-    this.props.FetchMyTrips();
+    this.props.fetchMyTrips();
   }
 
 render() {
@@ -32,12 +32,12 @@ MyTrips.defaultProps = {
 
 MyTrips.propTypes = {
   myTrips: PropTypes.instanceOf(Array),
-  FetchMyTrips: PropTypes.func.isRequired,
+  fetchMyTrips: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-  FetchMyTrips() {
-    dispatch(FetchMyTrips());
+  fetchMyTrips() {
+    dispatch(fetchMyTrips());
   },
 
 });
