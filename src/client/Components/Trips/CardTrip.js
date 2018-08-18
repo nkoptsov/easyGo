@@ -13,11 +13,13 @@ const CardTrip = ({ trip }) => (
     </CardHeader>
     <CardBody>
       <CardTitle>
-Start: {' '}
+          Start:
+          {' '}
         { trip.dateStart }
       </CardTitle>
       <CardTitle>
-End: {' '}
+          End:
+          {' '}
         { trip.dateEnd }
       </CardTitle>
       <CardText>

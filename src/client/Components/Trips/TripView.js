@@ -15,45 +15,39 @@ const TripView = ({ trip = {} }) => (
           <CardBody>
 
             <CardTitle>
-Date Start:
-              {' '}
+              Date Start:
               {' '}
               {trip.dateStart}
             </CardTitle>
             <CardTitle>
-Date End:
-              {' '}
-              {' '}
+               Date End:
+               {' '}
               {trip.dateEnd}
             </CardTitle>
             <CardText>
-Location start:
-              {' '}
-              {' '}
+               Location start:
+               {' '}
               {trip.locationStart}
             </CardText>
             <CardText>
-Location end:
-              {' '}
+              Location end:
               {' '}
               {trip.locationEnd}
             </CardText>
             <CardText>
-Cost of Trip:
-              {' '}
+              Cost of Trip:
               {' '}
               {trip.tripCost}
             </CardText>
             <CardText>
-Description:
-              {' '}
+              Description:
               {' '}
               {trip.description}
             </CardText>
 
             <Link to="../trips">
               <Button color="primary">
-Back
+                Back
               </Button>
             </Link>
           </CardBody>

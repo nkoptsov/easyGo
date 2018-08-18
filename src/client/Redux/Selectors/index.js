@@ -7,7 +7,6 @@ const getTripId = (state, props) => {
   return match.params.tripId;
 };
 
-
 const oneSubscribedTripSelector = createSelector(
   [getOneSubscribedTrip, getTripId],
   (trips, tripId) => trips.find(elem => elem.id === parseInt(tripId, 10)),
