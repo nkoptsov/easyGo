@@ -29,6 +29,7 @@ class Account extends Component {
       city,
       country,
       gender,
+      photo,
       about,
     } = this.props.profile;
     return (

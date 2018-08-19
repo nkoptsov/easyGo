@@ -28,7 +28,6 @@ class Photo extends Component {
             id="photo"
             name="photo"
             label="Photo"
-            // value={photo}
             onChange={this.handleChange}
           />
           <button type="submit" className="btn btn-primary">

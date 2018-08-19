@@ -20,6 +20,7 @@ class Profile extends Component {
         city: '',
         country: '',
         gender: '',
+        photo: '',
         about: '',
       },
       password: {
