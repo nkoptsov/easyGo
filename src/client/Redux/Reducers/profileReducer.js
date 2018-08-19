@@ -17,7 +17,7 @@ const initialState = {
   error: {},
 
 };
-const Profile = (state = initialState, action) => {
+const profile = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PROFILE_SUCCESS:
       return Object.assign({}, state, { profile: action.profile });
@@ -28,4 +28,4 @@ const Profile = (state = initialState, action) => {
   }
 };
 
-export default Profile;
+export default profile;

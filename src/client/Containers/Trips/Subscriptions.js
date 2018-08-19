@@ -1,54 +1,55 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchSubscriptions } from '../../Redux/Actions/subscriptionsActions';
 import Header from '../../Components/Header/Header';
 import TripsView from '../../Components/Trips/TripsView';
+import NotFound from '../NotFound/NotFound';
+
 
 class Subscriptions extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      errorFlag: false,
-      data: []
-    };
-  }
   componentDidMount() {
-    fetch('/api/users/trips/subscribed',
-      { credentials: 'include' })
-      .then(res => {
-        if(res.status === 200 ){
-          
-        this.setState({errorFlag:true});
-        return res.json();
-       }})
-      .then(res => {
-        let arr = [];
-        res.forEach(element => {
-          arr.push(element['Trip']);
-        });
-        this.setState({ data: arr });
-      })
-      .catch(err => console.log(`request failed ${err.message}`));
+    const { dispatch } = this.props;
+    dispatch(fetchSubscriptions());
+    // this.props.getSubscriptions();
   }
+
   render() {
-    console.log(this.state);
-    if(this.state.errorFlag){
-      return(
-      <div>
-        <Header />
-        <main>
-        <TripsView data={this.state.data}/>  
-        </main>
-      </div>
-      )
+    const { subscriptions, loading, error } = this.props;
+    if (loading) {
+      return (
+        <div>
+          <Header />
+          <main>
+            <h1>
+              LOADING
+            </h1>
+          </main>
+        </div>
+      );
     }
-    return (  
+
+    if (error) {
+      return (
+        <div>
+          <NotFound />
+        </div>
+      );
+    }
+    return (
       <div>
         <Header />
         <main>
-            <h1> Trips not found</h1>
+          <TripsView trips={subscriptions} />
         </main>
       </div>
-    )
+    );
   }
 }
 
-export default Subscriptions;
+const mapStateToProps = state => ({
+  subscriptions: state.subscriptions.items,
+  loading: state.subscriptions.loading,
+  error: state.subscriptions.error,
+});
+
+export default connect(mapStateToProps)(Subscriptions);

@@ -80,9 +80,8 @@ class Profile extends Component {
     );
   }
 }
-
 const mapStateToPropps = state => ({
-  profile: state.Profile.profile,
+  profile: state.profile.profile,
 });
 
 const mapDispatchToProps = {

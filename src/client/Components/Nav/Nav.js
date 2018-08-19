@@ -64,7 +64,6 @@ class Nav extends React.Component {
                       My Trips
                     </NavLink>
                   </li>
-
                   <li className="nav-item">
                     <NavLink
                       to="/profile"
@@ -117,6 +116,5 @@ class Nav extends React.Component {
     );
   }
 }
-
 
 export default Nav;
