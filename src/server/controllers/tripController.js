@@ -1,11 +1,12 @@
-const { Trip, UsersTrips, User, Sequelize } = require('../models');
+const {
+  Trip, UsersTrips, User, Sequelize,
+} = require('../models');
 
 const error = new Error();
 
 module.exports = {
 
   getAllTripsUniversal(req, res, next) {
-
     const { Op } = Sequelize;
     if (req.query) {
       if (req.query.tripCost) {
@@ -31,13 +32,32 @@ module.exports = {
       }
       Trip.findAll({
         where: { ...req.query },
-      }).then((trips) => {
-        if (!trips.length) {
-          error.name = 'tripNotFound';
-          return next(error);
-        }
-        return res.status(200).json(trips);
-      }).catch(err => next(err));
+      })
+        .then((trips) => {
+          if (!trips.length) {
+            error.name = 'tripNotFound';
+            return next(error);
+          }
+          const tripsPromises = [];
+          trips.forEach((trip) => {
+            tripsPromises.push(UsersTrips.findOne({
+              where: {
+                userId: req.session.userId,
+                tripId: trip.getDataValue('id'),
+              },
+            }).then((item) => {
+              if (item) {
+                trip.setDataValue('isSubscribed', 'true');
+              } else {
+                trip.setDataValue('isSubscribed', 'false');
+              }
+            }));
+          });
+          Promise.all(tripsPromises)
+            .then((result) => {
+              return res.status(200).json(trips);
+            });
+        });
     } else {
       Trip.findAll().then((trips) => {
         res.status(200).json(trips);
@@ -63,7 +83,6 @@ module.exports = {
 
   // Retrieve and return all trips from the database.
   getAllTrips(req, res, next) {
-
     Trip.findAll().then((trips) => {
       res.status(200).json(trips);
     }).catch(err => next(err));
@@ -171,15 +190,14 @@ module.exports = {
   },
 
   getTripsSubscribedByUser(req, res, next) {
-
-    UsersTrips.findAll({                             
+    UsersTrips.findAll({
       where: {
         userId: req.session.userId,
       },
       attributes: [],
       include: [{
         model: Trip,
-          attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
+        attributes: ['id', 'name', 'dateStart', 'dateEnd', 'locationStart', 'locationEnd', 'tripCost'],
       },
       ],
     })
@@ -188,8 +206,8 @@ module.exports = {
           error.name = 'tripNotFound';
           return next(error);
         }
-        let j = [];
-        //console.log(j)
+        const j = [];
+        // console.log(j)
 
 
         return res.status(200).json(trips);
