@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
+import trips from './Trips';
+import Profile from './profileReducer';
 
-
-import proffff from './profile';
 
 const rootReducer = combineReducers({
-  proffff,
+  trips,
+  Profile,
 });
 
 export default rootReducer;

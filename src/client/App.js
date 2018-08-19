@@ -26,9 +26,9 @@ const App = () => (
         <Route exact path="/login" component={Login} />
         <Route
           path="/profile"
-          render={props => (
+          render={({ location }) => (
             isAuthorized() ? (
-              <Profile location={props.location} />
+              <Profile location={location} />
             ) : (
               <Redirect to="/" />
             )
@@ -61,7 +61,7 @@ const App = () => (
     </div>
   </Router>
 );
-App.propTypes = {
+Profile.propTypes = {
   location: PropTypes.shape({
     hash: PropTypes.string.isRequired,
     pathname: PropTypes.string.isRequired,

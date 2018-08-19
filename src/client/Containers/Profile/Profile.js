@@ -7,11 +7,12 @@ import Header from '../../Components/Header/Header';
 import ListForm from '../../Components/ListForm/ListForm';
 import Password from '../../Components/Password/Password';
 import Account from '../../Components/Account/Account';
-import { successResponseProfile } from '../../redux/actionCreators';
+import { fetchProfie, submitProfile } from '../../Redux/Actions/profileAction';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       password: {
         lastPassword: '',
@@ -22,37 +23,11 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { requestToServer } = this.props;
-    requestToServer();
+    this.props.fetchProfie();
   }
 
-  requestAccount = () => {
-    fetch('/api/users/profile', { credentials: 'include' })
-      .then(value => value.json())
-      .then((profile) => {
-        this.setState({
-          profile,
-        });
-      })
-      .catch((err) => { console.log(err); });
-  };
-
-  accountChange = (name, value) => {
-    const { profile } = this.state;
-    this.setState({ profile: { ...profile, [name]: value } });
-  };
-
-  submitAccount = (body) => {
-    fetch('/api/users/profile', {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(body),
-    }).then(() => {
-      // I need crate handler error for this function
-    });
+  submitAccount = (data) => {
+    this.props.submitProfile(data);
   };
 
   submitPassword = (body) => {
@@ -79,7 +54,6 @@ class Profile extends Component {
   render() {
     const { password } = this.state;
     const { profile } = this.props;
-    console.log(this.props);
     return (
       <div>
         <Header />
@@ -89,7 +63,6 @@ class Profile extends Component {
             <Route exact path="/profile/account">
               <Account
                 submitAccount={this.submitAccount}
-                accountChange={this.accountChange}
                 profile={profile}
               />
             </Route>
@@ -109,20 +82,13 @@ class Profile extends Component {
 }
 
 const mapStateToPropps = state => ({
-  profile: state.proffff.profile,
-  routing: state.routing,
+  profile: state.Profile.profile,
 });
 
-const mapDispatchToProps = dispatch => ({
-  requestToServer: () => {
-    fetch('/api/users/profile', { credentials: 'include' })
-      .then(value => value.json())
-      .then((profile) => {
-        dispatch(successResponseProfile(profile));
-      })
-      .catch((err) => { console.log(err); });
-  },
-});
+const mapDispatchToProps = {
+  fetchProfie,
+  submitProfile,
+};
 
 Profile.propTypes = {
   profile: PropTypes.shape({
@@ -137,7 +103,7 @@ Profile.propTypes = {
     gender: PropTypes.string,
     about: PropTypes.string,
   }).isRequired,
-  requestToServer: PropTypes.func.isRequired,
+
 };
 
 export default connect(mapStateToPropps, mapDispatchToProps)(Profile);

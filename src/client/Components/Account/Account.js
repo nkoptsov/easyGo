@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FormGroup from '../FormGroup/FormGroup';
+// import classnames from 'classnames';
+import FormGroupProfile from '../FormGroup/FormGroup';
 import FormDropDown from '../FormGroup/FormDropDown';
 
 class Account extends Component {
-  onChange = (event) => {
-    const { accountChange } = this.props;
-    const { name, value } = event.target;
-    accountChange(name, value);
-  };
-
+  constructor(props) {
+    super(props);
+    this.login = React.createRef();
+    this.firstName = React.createRef();
+    this.lastName = React.createRef();
+    this.phoneNumber = React.createRef();
+    this.email = React.createRef();
+    this.birthday = React.createRef();
+    this.city = React.createRef();
+    this.country = React.createRef();
+    this.gender = React.createRef();
+    this.about = React.createRef();
+  }
 
   handelSubmit = (event) => {
-    const { profile, submitAccount } = this.props;
+    const { submitAccount, profile } = this.props;
+    const profileArray = Object.keys(profile);
+    const accountChange = {};
+    profileArray.forEach((element) => {
+      accountChange[element] = this[element].current.value;
+    });
     event.preventDefault();
-    submitAccount(profile);
+    submitAccount(accountChange);
   };
 
   render() {
-    const { profile } = this.props;
     const {
       login,
       firstName,
@@ -30,20 +42,121 @@ class Account extends Component {
       country,
       gender,
       about,
-    } = profile;
+    } = this.props.profile;
+
     return (
       <div className="container col-sm-6">
         <form onSubmit={this.handelSubmit}>
-          <FormGroup for="login" type="text" id="login" placeholder="Enter your login" name="login" label="Login" value={login} onChange={this.onChange} />
-          <FormGroup for="firstName" type="text" id="firstName" placeholder="Enter your firstName" name="firstName" label="FirstName" value={firstName} onChange={this.onChange} />
-          <FormGroup for="lastName" type="text" id="lastName" placeholder="Enter your lastName" name="lastName" label="LastName" value={lastName} onChange={this.onChange} />
-          <FormGroup for="phoneNumber" type="tel" id="phoneNumber" placeholder="Enter your phoneNumber" name="phoneNumber" label="PhoneNumber" value={phoneNumber} onChange={this.onChange} />
-          <FormGroup for="email" type="text" id="email" placeholder="Enter your email" name="email" label="Email" value={email} onChange={this.onChange} />
-          <FormGroup for="birthday" type="date" id="birthday" placeholder="Enter your birthday" name="birthday" label="Birthday" value={birthday} onChange={this.onChange} />
-          <FormGroup for="city" type="text" id="city" placeholder="Enter your city" name="city" label="City" value={city} onChange={this.onChange} />
-          <FormGroup for="country" type="text" id="country" placeholder="Enter your country" name="country" label="Country" value={country} onChange={this.onChange} />
-          <FormDropDown for="gender" id="gender" name="gender" label="Gender" value={gender} onChange={this.onChange} />
-          <FormGroup for="about" type="text" id="about" placeholder="Enter your about" name="about" label="About" value={about} onChange={this.onChange} />
+          <FormGroupProfile
+            className="form-control"
+            // className={classnames('form-control', { 'is-invalid': errors.login })}
+            htmlFor="login"
+            type="text"
+            id="login"
+            placeholder="Enter your login"
+            name="login"
+            label="Login"
+            defaultValue={login}
+            ref={this.login}
+          />
+          <FormGroupProfile
+            className="form-control"
+            htmlFor="firstName"
+            type="text"
+            id="firstName"
+            placeholder="Enter your firstName"
+            name="firstName"
+            label="FirstName"
+            defaultValue={firstName}
+            ref={this.firstName}
+          />
+          <FormGroupProfile
+            className="form-control"
+            htmlFor="lastName"
+            type="text"
+            id="lastName"
+            placeholder="Enter your lastName"
+            name="lastName"
+            label="LastName"
+            defaultValue={lastName}
+            ref={this.lastName}
+          />
+          <FormGroupProfile
+            className="form-control"
+            htmlFor="phoneNumber"
+            type="tel"
+            id="phoneNumber"
+            placeholder="Enter your phoneNumber"
+            name="phoneNumber"
+            label="PhoneNumber"
+            defaultValue={phoneNumber}
+            ref={this.phoneNumber}
+          />
+          <FormGroupProfile
+            className="form-control"
+            htmlFor="email"
+            type="text"
+            id="email"
+            placeholder="Enter your email"
+            name="email"
+            label="Email"
+            defaultValue={email}
+            ref={this.email}
+          />
+          <FormGroupProfile
+            className="form-control"
+            htmlFor="birthday"
+            type="date"
+            id="birthday"
+            placeholder="Enter your birthday"
+            name="birthday"
+            label="Birthday"
+            defaultValue={birthday}
+            ref={this.birthday}
+          />
+          <FormGroupProfile
+            className="form-control"
+            htmlFor="city"
+            type="text"
+            id="city"
+            placeholder="Enter your city"
+            name="city"
+            label="City"
+            defaultValue={city}
+            ref={this.city}
+          />
+          <FormGroupProfile
+            className="form-control"
+            htmlFor="country"
+            type="text"
+            id="country"
+            placeholder="Enter your country"
+            name="country"
+            label="Country"
+            defaultValue={country}
+            ref={this.country}
+          />
+          <FormDropDown
+            className="form-control"
+            htmlFor="gender"
+            id="gender"
+            name="gender"
+            label="Gender"
+            defaultValue={gender}
+            ref={this.gender}
+            type="select"
+          />
+          <FormGroupProfile
+            className="form-control"
+            htmlFor="about"
+            type="text"
+            id="about"
+            placeholder="Enter your about"
+            name="about"
+            label="About"
+            defaultValue={about}
+            ref={this.about}
+          />
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
@@ -66,7 +179,6 @@ Account.propTypes = {
     gender: PropTypes.string,
     about: PropTypes.string,
   }).isRequired,
-  accountChange: PropTypes.func.isRequired,
   submitAccount: PropTypes.func.isRequired,
 };
 

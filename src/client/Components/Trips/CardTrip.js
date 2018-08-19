@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Button, CardHeader, CardBody, CardTitle, CardText } from 'reactstrap';
+import {
+ Card, Button, CardHeader, CardBody, CardTitle, CardText 
+} from 'reactstrap';
 import SubControl from './SubControl';
 import isAuthorized from '../../Utils/isAuthorized';
 
-const CardTrip = ({ trip }) => {
-    return (
+const CardTrip = ({ trip }) => (
         <Card>
             <CardHeader tag="h3">{trip.name}</CardHeader>
             <CardBody>
@@ -20,6 +21,5 @@ const CardTrip = ({ trip }) => {
         </Card>
 
 );
-}
 
 export default CardTrip;

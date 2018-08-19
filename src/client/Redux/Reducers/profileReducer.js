@@ -1,4 +1,5 @@
-import { SUCCESS_RESPONSE_TO_PROFILE } from '../actions';
+import { FETCH_PROFILE_SUCCESS, PROFILE_UPDATE_SUCCESS, PROFILE_UPDATE_FAILURE } from '../Actions/constants';
+
 
 const initialState = {
   profile: {
@@ -13,14 +14,18 @@ const initialState = {
     gender: '',
     about: '',
   },
+  error: {},
+
 };
-const proffff = (state = initialState, action) => {
+const Profile = (state = initialState, action) => {
   switch (action.type) {
-    case SUCCESS_RESPONSE_TO_PROFILE:
+    case FETCH_PROFILE_SUCCESS:
+      return Object.assign({}, state, { profile: action.profile });
+    case PROFILE_UPDATE_SUCCESS:
       return Object.assign({}, state, { profile: action.profile });
     default:
       return state;
   }
 };
 
-export default proffff;
+export default Profile;
