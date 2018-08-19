@@ -9,7 +9,7 @@ import {
   oneMyTripSelector,
 }
   from '../../Redux/Selectors/index';
-import { fetchOneTrip } from '../../Redux/Actions/subscriptionsActions';
+import { fetchOneTrip } from '../../Redux/Actions/tripActions';
 
 class Trip extends Component {
   componentDidMount() {
@@ -64,22 +64,22 @@ const mapStateToProps = (state, ownProps) => ({
     } if (ownProps.match.path === '/mytrips/:tripId') {
       return oneMyTripSelector(state, ownProps);
     }
-    return undefined;
+    return {};
   })(),
-  loading: (() => {
-    let load = false;
-    if (ownProps.match.path === '/subscriptions/:tripId') {
-      load = state.subscriptions.loading;
-    }
-    return load;
-  })(),
-  error: (() => {
-    let err;
-    if (ownProps.match.path === '/subscriptions/:tripId') {
-      err = state.subscriptions.error;
-    }
-    return err;
-  })(),
+  // loading: (() => {
+  //   let load = false;
+  //   if (ownProps.match.path === '/subscriptions/:tripId') {
+  //     load = state.subscriptions.loading;
+  //   }
+  //   return load;
+  // })(),
+  // error: (() => {
+  //   let err;
+  //   if (ownProps.match.path === '/subscriptions/:tripId') {
+  //     err = state.subscriptions.error;
+  //   }
+  //   return err;
+  // })(),
 });
 
 export default connect(mapStateToProps)(Trip);

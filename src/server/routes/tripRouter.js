@@ -18,8 +18,6 @@ router.route('/users/trips/created')
   .get(tripController.getTripsCreatedByUser)
   .post(tripController.createTrip);
 
-
-
 router.get('/users/trips/search', tripController.getAllTripsUniversal);
 router.get('/users/trips/:tripId', tripController.getTripById);
 
