@@ -26,9 +26,11 @@ class Account extends Component {
     const { submitAccount, profile } = this.props;
     const profileArray = Object.keys(profile);
     const accountChange = {};
+
     profileArray.forEach((element) => {
       accountChange[element] = this[element].current.value;
     });
+
     event.preventDefault();
     submitAccount(accountChange);
   };

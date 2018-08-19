@@ -1,4 +1,10 @@
-import { FETCH_PROFILE_SUCCESS, PROFILE_UPDATE_SUCCESS, PROFILE_UPDATE_FAILURE } from '../Actions/constants';
+import {
+  FETCH_PROFILE_SUCCESS,
+  PROFILE_UPDATE_SUCCESS,
+  PROFILE_UPDATE_FAILURE,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAILURE,
+} from '../Actions/constants';
 
 
 const initialState = {
@@ -24,6 +30,7 @@ const profile = (state = initialState, action) => {
     case PROFILE_UPDATE_SUCCESS:
       return Object.assign({}, state, { profile: action.profile });
     default:
+
       return state;
   }
 };

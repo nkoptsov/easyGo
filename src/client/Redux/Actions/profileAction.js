@@ -44,7 +44,7 @@ export const profileUpdateFailure = error => ({
   error,
 });
 
-export const submitProfile = data => dispatch => axios({
+export const changeProfile = data => dispatch => axios({
   method: 'PUT',
   url: PROFILE,
   withCredentials: true,
@@ -57,4 +57,24 @@ export const submitProfile = data => dispatch => axios({
     if (res.status === 200) dispatch(profileUpdate(data));
   })
   .catch((err) => {
+  });
+
+export const changePassword = newPassword => dispatch => axios({
+  method: 'POST',
+  url: PASSWORD,
+  withCredentials: true,
+  headers: {
+    'content-type': 'application/json',
+  },
+  data: JSON.stringify(newPassword),
+
+})
+  .then((res) => {
+    if (res.status === 200) {
+      console.log('good');
+    }
+    // dispatch(fetchProfileSuccess(res.data));
+  })
+  .catch((err) => {
+    // dispatch(fetchProfileFailure(err));
   });

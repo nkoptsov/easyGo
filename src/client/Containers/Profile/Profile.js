@@ -7,7 +7,7 @@ import Header from '../../Components/Header/Header';
 import ListForm from '../../Components/ListForm/ListForm';
 import Password from '../../Components/Password/Password';
 import Account from '../../Components/Account/Account';
-import { fetchProfie, submitProfile } from '../../Redux/Actions/profileAction';
+import { fetchProfie, changeProfile, changePassword } from '../../Redux/Actions/profileAction';
 
 class Profile extends Component {
   constructor(props) {
@@ -27,33 +27,16 @@ class Profile extends Component {
   }
 
   submitAccount = (data) => {
-    this.props.submitProfile(data);
+    this.props.changeProfile(data);
   };
 
-  submitPassword = (body) => {
-    fetch('/api/users/profile/password', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(body),
-    }).then((value) => {
-      if (value.status === 200) {
-        console.log('Passworde was cheenged');
-      }
-    });
+  submitPassword = (newPassword) => {
+    this.props.changePassword(newPassword);
   };
-
-
-  passwordChange = (name, value) => {
-    const { password } = this.state;
-    this.setState({ password: { ...password, [name]: value } });
-  }
 
   render() {
-    const { password } = this.state;
     const { profile } = this.props;
+    const { password } = this.state;
     return (
       <div>
         <Header />
@@ -68,9 +51,9 @@ class Profile extends Component {
             </Route>
             <Route exact path="/profile/password">
               <Password
-                passwordChange={this.passwordChange}
+                submitPassword={this.submitPassword}
                 password={password}
-                handleSubmit={this.submitPassword}
+
               />
             </Route>
           </Switch>
@@ -86,7 +69,8 @@ const mapStateToPropps = state => ({
 
 const mapDispatchToProps = {
   fetchProfie,
-  submitProfile,
+  changeProfile,
+  changePassword,
 };
 
 Profile.propTypes = {
