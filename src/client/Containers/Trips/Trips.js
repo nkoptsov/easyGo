@@ -16,13 +16,13 @@ class Trips extends Component {
   }
 
   render() {
-    const { trips } = this.props;
+    const { trips, path } = this.props;
     return (
       <div>
         <Header />
         <main>
           <TripsSearchForm handleSearchSubmit={this.handleSearchSubmit} />
-          <TripsView trips={trips} />
+          <TripsView trips={trips} path={path} />
         </main>
       </div>
     );
@@ -31,6 +31,7 @@ class Trips extends Component {
 
 const mapStateToProps = state => ({
   trips: state.trips.trips,
+  path: state.router.location.pathname,
 });
 
 Trips.defaultProps = {

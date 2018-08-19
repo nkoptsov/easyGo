@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 
 import Profile from './Containers/Profile/Profile';
 import Home from './Containers/Home/Home';
@@ -13,6 +15,8 @@ import Subscriptions from './Containers/Trips/Subscriptions';
 import MyTrips from './Containers/Trips/MyTrips';
 import isAuthorized from './Utils/isAuthorized';
 
+const history = createBrowserHistory();
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -20,12 +24,14 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <ConnectedRouter history={history}>
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/trips" component={Trips} />
             <Route exact path="/trips/:tripId" component={Trip} />
+            <Route exact path="/subscriptions/:tripId" component={Trip} />
+            <Route exact path="/mytrips/:tripId" component={Trip} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route
@@ -39,7 +45,7 @@ class App extends Component {
               )}
             />
             <Route
-              exact
+              
               path="/subscriptions"
               render={() => (
                 isAuthorized() ? (
@@ -50,7 +56,7 @@ class App extends Component {
               )}
             />
             <Route
-              exact
+              
               path="/mytrips"
               render={() => (
                 isAuthorized() ? (
@@ -63,7 +69,7 @@ class App extends Component {
             <Route component={NotFound} />
           </Switch>
         </div>
-      </Router>
+      </ConnectedRouter>
     );
   }
 }

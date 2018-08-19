@@ -8,8 +8,8 @@ router.route('/users/trips/created/:tripId')
   .put(tripController.updateTripOfUser)
   .delete(tripController.deleteTripOfUser);
 router.route('/users/trips/subscribed')
-    .get(tripController.getTripsSubscribedByUser)
-    .post(tripController.subscribeToTrip);
+  .get(tripController.getTripsSubscribedByUser)
+  .post(tripController.subscribeToTrip);
 router.route('/users/trips/subscribed/:tripId')
   .get(tripController.getOneTripSubscribedByUser)
   .delete(tripController.unsubscribeToTrip);
