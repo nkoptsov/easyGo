@@ -25,6 +25,6 @@ const ListForm = () => (
       avatar
     </Link>
   </div>
-
 );
+
 export default ListForm;

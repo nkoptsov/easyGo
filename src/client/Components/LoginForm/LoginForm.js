@@ -57,7 +57,7 @@ class LoginForm extends Component {
                   placeholder={option.placeholder}
                   name={option.name}
                   label={option.label}
-                  required={true}
+                  required
                   value={data[option.name]}
                   onChange={this.onChange}
                 />

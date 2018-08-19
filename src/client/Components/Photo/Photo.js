@@ -23,11 +23,12 @@ class Photo extends Component {
       <div className="container col-sm-6">
         <form onSubmit={this.handleSubmit}>
           <FormGroup
-            for="photo"
+            htmlFor="photo"
             type="file"
             id="photo"
             name="photo"
-            label="Photo"
+            label="Photo: "
+            className="form-group"
             onChange={this.handleChange}
           />
           <button type="submit" className="btn btn-primary">

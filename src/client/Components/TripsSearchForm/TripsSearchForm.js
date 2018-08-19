@@ -5,7 +5,6 @@ import { Collapse, Button } from 'reactstrap';
 import FormGroupDate from '../FormGroup/FormGroupDate';
 import FormGroup from '../FormGroup/FormGroup';
 
-
 class TripsSearchForm extends Component {
   constructor(props) {
     super(props);

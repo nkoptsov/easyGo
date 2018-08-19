@@ -6,7 +6,6 @@ import NotFound from '../NotFound/NotFound';
 import oneSubscribedTripSelector from '../../Redux/Selectors/index';
 import { fetchOneTrip } from '../../Redux/Actions/subscriptionsActions';
 
-
 class Trip extends Component {
   componentDidMount() {
     const { trip, match, dispatch } = this.props;
@@ -24,7 +23,9 @@ class Trip extends Component {
         <div>
           <Header />
           <main>
-            <h1>LOADING</h1>
+            <h1>
+LOADING
+            </h1>
           </main>
         </div>
       );
