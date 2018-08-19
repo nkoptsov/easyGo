@@ -206,10 +206,6 @@ module.exports = {
           error.name = 'tripNotFound';
           return next(error);
         }
-        const j = [];
-        // console.log(j)
-
-
         return res.status(200).json(trips);
       }).catch(err => next(err));
   },
