@@ -42,7 +42,8 @@ class Account extends Component {
           <Col xs="6" float left>
             <Form onSubmit={this.handelSubmit}>
               <FormsGroup
-                for="login"
+                className="form-control"
+                htmlFor="login"
                 type="text"
                 id="login"
                 placeholder="Enter your login"
@@ -52,7 +53,8 @@ class Account extends Component {
                 onChange={this.onChange}
               />
               <FormsGroup
-                for="firstName"
+                className="form-control"
+                htmlFor="firstName"
                 type="text"
                 id="firstName"
                 placeholder="Enter your firstName"
@@ -62,7 +64,8 @@ class Account extends Component {
                 onChange={this.onChange}
               />
               <FormsGroup
-                for="lastName"
+                className="form-control"
+                htmlFor="lastName"
                 type="text"
                 id="lastName"
                 placeholder="Enter your lastName"
@@ -72,7 +75,8 @@ class Account extends Component {
                 onChange={this.onChange}
               />
               <FormsGroup
-                for="phoneNumber"
+                className="form-control"
+                htmlFor="phoneNumber"
                 type="tel"
                 id="phoneNumber"
                 placeholder="Enter your phoneNumber"
@@ -82,7 +86,8 @@ class Account extends Component {
                 onChange={this.onChange}
               />
               <FormsGroup
-                for="email"
+                className="form-control"
+                htmlFor="email"
                 type="text"
                 id="email"
                 placeholder="Enter your email"
@@ -92,7 +97,8 @@ class Account extends Component {
                 onChange={this.onChange}
               />
               <FormsGroup
-                for="birthday"
+                className="form-control"
+                htmlFor="birthday"
                 type="date"
                 id="birthday"
                 placeholder="Enter your birthday"
@@ -102,7 +108,8 @@ class Account extends Component {
                 onChange={this.onChange}
               />
               <FormsGroup
-                for="city"
+                className="form-control"
+                htmlFor="city"
                 type="text"
                 id="city"
                 placeholder="Enter your city"
@@ -112,7 +119,8 @@ class Account extends Component {
                 onChange={this.onChange}
               />
               <FormsGroup
-                for="country"
+                className="form-control"
+                htmlFor="country"
                 type="text"
                 id="country"
                 placeholder="Enter your country"
@@ -122,7 +130,8 @@ class Account extends Component {
                 onChange={this.onChange}
               />
               <FormDropDown
-                for="gender"
+                className="form-control"
+                htmlFor="gender"
                 id="gender"
                 name="gender"
                 label="Gender"
@@ -130,7 +139,8 @@ class Account extends Component {
                 onChange={this.onChange}
               />
               <FormsGroup
-                for="about"
+                className="form-control"
+                htmlFor="about"
                 type="text"
                 id="about"
                 placeholder="Enter your about"
