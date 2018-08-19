@@ -7,46 +7,47 @@ class MyTrips extends Component {
     super(props);
     this.state = {
       errorFlag: false,
-      data: []
+      data: [],
     };
   }
+
   componentDidMount() {
     fetch('/api/users/trips/created',
       { credentials: 'include' })
-      .then(res => {
-        if(res.status === 200 ){
-          
-           this.setState({errorFlag:true});
-           return res.json();
-          }})
-      .then(res => {
-
-       
-        this.setState({ data: res});
-        console.log(this.state);
+      .then((res) => {
+        if (res.status === 200) {
+          this.setState({ errorFlag: true });
+          return res.json();
+        }
+      })
+      .then((res) => {
+        this.setState({ data: res });
       })
       .catch(err => console.log(`request failed ${err.message}`));
   }
+
   render() {
-    console.log(this.state);
-    if(this.state.errorFlag){
-      return(
-      <div>
-        <Header />
-        <main>
-        <TripsView data={this.state.data}/>  
-        </main>
-      </div>
-      )
+    const { errorFlag, data } = this.state;
+    if (errorFlag) {
+      return (
+        <div>
+          <Header />
+          <main>
+            <TripsView data={data} />
+          </main>
+        </div>
+      );
     }
-    return (  
+    return (
       <div>
         <Header />
         <main>
-            <h1> Trips not found</h1>
+          <h1>
+            Trips not found
+          </h1>
         </main>
       </div>
-    )
+    );
   }
 }
 

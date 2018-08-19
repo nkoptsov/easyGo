@@ -1,9 +1,13 @@
 import React from 'react';
+import Header from '../../Components/Header/Header';
 
 const NotFound = () => (
   <div>
-    <h1>Page Not Found</h1>
+    <Header />
+    <h1>
+      Page Not Found
+    </h1>
   </div>
-)
+);
 
 export default NotFound;
