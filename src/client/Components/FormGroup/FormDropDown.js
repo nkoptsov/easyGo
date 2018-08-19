@@ -1,20 +1,23 @@
 import React from 'react';
+import {
+  FormGroup, Label, Input,
+} from 'reactstrap';
 
 const FormDropDown = props => (
-  <div className="form-group">
-    <label htmlFor={props.for}>
+
+  <FormGroup>
+    <Label htmlFor={props.for}>
       {props.label}
-    </label>
-    <select className="form-control" id={props.id} name={props.name} value={props.value} onChange={props.onChange}>
-      <option selected>Select your gender</option>
-      <option value="male">
-        Male
+    </Label>
+    <Input type="select" id={props.id} name={props.name} value={props.value} onChange={props.onChange}>
+      <option>
+            male
       </option>
-      <option value="female">
-        Female
+      <option>
+            female
       </option>
-    </select>
-  </div>
+    </Input>
+  </FormGroup>
 );
 
 export default FormDropDown;
