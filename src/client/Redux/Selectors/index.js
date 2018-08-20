@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 const getOneSubscribedTrip = state => state.subscriptions.items;
 const getOneTrip = state => state.trips.trips;
 const getOneMyTrip = state => state.myTrips.trips;
+const getOneTripRefresh = state => state.trip.trip;
 
 const getTripId = (state, props) => {
   const { match } = props;
@@ -29,6 +30,9 @@ export const oneMyTripSelector = createSelector(
   (trips, tripId) => trips.find(elem => elem.id === parseInt(tripId, 10)),
 );
 
-
+export const oneTripRefresh = createSelector(
+  [getOneTripRefresh],
+  trip => trip,
+);
 
 // export default oneTripSelector;
