@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 class SubControl extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isSubscribe: false };
+    this.state = { isSubscribed: this.props.isSubscribed };
   }
 
     handleSubscribeClick = () => {
@@ -16,8 +16,8 @@ class SubControl extends React.Component {
         credentials: 'include',
         body: JSON.stringify({ tripId: this.props.tripId }),
       }).then((res) => {
-        if (res.status === 201) {
-          this.setState({ isSubscribe: true });
+        if (res.status == 201) {
+          this.setState({ isSubscribed: 'true' });
         }
       });
     };
@@ -31,27 +31,23 @@ class SubControl extends React.Component {
         credentials: 'include',
         body: JSON.stringify({ tripId: this.props.tripId }),
       }).then((res) => {
-        if (res.status === 200) {
-          this.setState({ isSubscribe: false });
+        if (res.status == 200) {
+          this.setState({ isSubscribed: 'false' });
         }
       });
     };
 
     render() {
       let button = null;
-      if (this.state.isSubscribe) {
+      if (this.state.isSubscribed == 'true') {
         button = (
           <Button bsStyle="primary" onClick={this.handleUnsubscribeClick}>
-            {' '}
-Unsubscribe
-            {' '}
+             Unsubscribe
           </Button>);
       } else {
         button = (
           <Button bsStyle="primary" onClick={this.handleSubscribeClick}>
-            {' '}
-Subscribe
-            {' '}
+             Subscribe
           </Button>);
       }
 
