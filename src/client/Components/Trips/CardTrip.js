@@ -25,6 +25,9 @@ const CardTrip = ({ trip, path }) => (
       <CardText>
         { trip.description }
       </CardText>
+      <CardText>
+        { trip.tripCost }
+      </CardText>
       <Link to={`${path}/${trip.id}`}>
         <Button color="primary" style={{ marginRight: '10px' }}>
           Learn more
