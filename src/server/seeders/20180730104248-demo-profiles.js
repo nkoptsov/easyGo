@@ -24,7 +24,7 @@ module.exports = {
     gender: 'male',
     birthday: '1938-06-01',
     photo: 'https://upload.wikimedia.org/wikipedia/ru/thumb/6/68/Superman01.jpg/250px-Superman01.jpg',
-    about: 'I am a fictional superhero. He appears regularly in comic books published by DC Comics.',
+    about: 'I am a fictional superhero. I\'m appear regularly in comic books published by DC Comics.',
     userId: 2,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -40,7 +40,7 @@ module.exports = {
     birthday: '1940-04-25',
     photo: 'https://upload.wikimedia.org/wikipedia/en/9/98/Joker_%28DC_Comics_character%29.jpg',
     about: 'I am a fictional supervillain of the universe DC Comics, the main and sworn enemy of Batman. '
-      + 'The Joker wears a purple suit and fights with objects that are stylized under the props of a clown and an '
+      + 'I\'m wear a purple suit and fights with objects that are stylized under the props of a clown and an '
       + 'illusionist.',
     userId: 3,
     createdAt: new Date(),
@@ -56,8 +56,8 @@ module.exports = {
     gender: 'male',
     birthday: '1941-09-01',
     photo: 'https://upload.wikimedia.org/wikipedia/en/d/de/DETECTIVE_COMICS_-23.3_THE_SCARECROW_%28vol.2_2013%29.jpg',
-    about: 'I\'m a fictional supervillain appearing in American comic books published by DC Comics, commonly as an ' +
-      'adversary of the superhero Batman.',
+    about: 'I\'m a fictional supervillain appearing in American comic books published by DC Comics, commonly as an '
+      + 'adversary of the superhero Batman.',
     userId: 4,
     createdAt: new Date(),
     updatedAt: new Date(),
