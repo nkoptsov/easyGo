@@ -6,7 +6,7 @@ import {
 import SubControl from './SubControl';
 import isAuthorized from '../../Utils/isAuthorized';
 
-const CardTrip = ({ trip }) => (
+const CardTrip = ({ trip, path }) => (
   <Card>
     <CardHeader tag="h3">
       {trip.name}
@@ -25,7 +25,10 @@ const CardTrip = ({ trip }) => (
       <CardText>
         { trip.description }
       </CardText>
-      <Link to={`./trips/${trip.id}`}>
+      <CardText>
+        { trip.tripCost }
+      </CardText>
+      <Link to={`${path}/${trip.id}`}>
         <Button color="primary" style={{ marginRight: '10px' }}>
           Learn more
         </Button>

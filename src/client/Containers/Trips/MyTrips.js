@@ -15,7 +15,7 @@ render() {
       <div>
         <Header />
         <main>
-          <TripsView trips={this.props.myTrips} />
+          <TripsView trips={this.props.myTrips} path={this.props.path} />
         </main>
       </div>
     );
@@ -24,6 +24,7 @@ render() {
 
 const mapStateToProps = state => ({
   myTrips: state.myTrips.trips,
+  path: state.router.location.pathname,
 });
 
 MyTrips.defaultProps = {
