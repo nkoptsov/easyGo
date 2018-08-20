@@ -66,6 +66,18 @@ class Nav extends React.Component {
                   </li>
                   <li className="nav-item">
                     <NavLink
+                      to="/createtrip"
+                      className="nav-link"
+                      activeStyle={{
+                        fontWeight: ' bold ',
+                        color: ' green ',
+                      }}
+                    >
+                            Create Trip
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink
                       to="/profile"
                       className="nav-link"
                       activeStyle={{

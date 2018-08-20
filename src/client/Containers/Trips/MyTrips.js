@@ -10,7 +10,7 @@ class MyTrips extends Component {
     this.props.fetchMyTrips();
   }
 
-render() {
+  render() {
     return (
       <div>
         <Header />

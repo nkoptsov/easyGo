@@ -12,6 +12,7 @@ import NotFound from './Containers/NotFound/NotFound';
 import Subscriptions from './Containers/Trips/Subscriptions';
 import MyTrips from './Containers/Trips/MyTrips';
 import isAuthorized from './Utils/isAuthorized';
+import TripCreate from './Containers/Trips/TripCreate';
 
 class App extends Component {
   constructor(props) {
@@ -55,6 +56,17 @@ class App extends Component {
               render={() => (
                 isAuthorized() ? (
                   <MyTrips />
+                ) : (
+                  <Redirect to="/" />
+                )
+              )}
+            />
+            <Route
+              exact
+              path="/createtrip"
+              render={() => (
+                isAuthorized() ? (
+                  <TripCreate />
                 ) : (
                   <Redirect to="/" />
                 )
