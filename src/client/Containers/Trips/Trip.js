@@ -24,7 +24,7 @@ class Trip extends Component {
           <Header />
           <main>
             <h1>
-LOADING
+              LOADING
             </h1>
           </main>
         </div>

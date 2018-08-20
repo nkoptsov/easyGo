@@ -5,7 +5,8 @@ import {
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE,
 } from './constants';
-import Api from '../../api/Api';
+
+import errorCreate from '../../api/errorHandler';
 
 const PROFILE = '/api/users/profile';
 const PASSWORD = '/api/users/profile/password';
@@ -53,10 +54,12 @@ export const changeProfile = data => dispatch => axios({
   },
   data: JSON.stringify(data),
 })
-  .then((res) => {
-    if (res.status === 200) dispatch(profileUpdate(data));
+  .then(() => {
+    dispatch(profileUpdate(data));
   })
   .catch((err) => {
+    const error = errorCreate(err.response.data);
+    dispatch(profileUpdateFailure(error));
   });
 
 export const changePassword = newPassword => dispatch => axios({
@@ -73,7 +76,6 @@ export const changePassword = newPassword => dispatch => axios({
     if (res.status === 200) {
       console.log('good');
     }
-    // dispatch(fetchProfileSuccess(res.data));
   })
   .catch((err) => {
     // dispatch(fetchProfileFailure(err));

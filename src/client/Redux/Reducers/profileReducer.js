@@ -20,7 +20,9 @@ const initialState = {
     gender: '',
     about: '',
   },
-  error: {},
+  error: {
+
+  },
 
 };
 const profile = (state = initialState, action) => {
@@ -29,6 +31,8 @@ const profile = (state = initialState, action) => {
       return Object.assign({}, state, { profile: action.profile });
     case PROFILE_UPDATE_SUCCESS:
       return Object.assign({}, state, { profile: action.profile });
+    case PROFILE_UPDATE_FAILURE:
+      return Object.assign({}, state, { error: action.error });
     default:
 
       return state;

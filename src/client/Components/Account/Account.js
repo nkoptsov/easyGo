@@ -28,7 +28,8 @@ class Account extends Component {
     const accountChange = {};
 
     profileArray.forEach((element) => {
-      accountChange[element] = this[element].current.value;
+      (this[element].current.value === '') ? accountChange[element] = null
+        : accountChange[element] = this[element].current.value;
     });
 
     event.preventDefault();

@@ -35,7 +35,7 @@ class Profile extends Component {
   };
 
   render() {
-    const { profile } = this.props;
+    const { profile, error } = this.props;
     const { password } = this.state;
     return (
       <div>
@@ -47,6 +47,7 @@ class Profile extends Component {
               <Account
                 submitAccount={this.submitAccount}
                 profile={profile}
+                error={error}
               />
             </Route>
             <Route exact path="/profile/password">
@@ -63,8 +64,9 @@ class Profile extends Component {
     );
   }
 }
-const mapStateToPropps = state => ({
+const mapStateToProps = state => ({
   profile: state.profile.profile,
+  error: state.profile.profile,
 });
 
 const mapDispatchToProps = {
@@ -89,4 +91,4 @@ Profile.propTypes = {
 
 };
 
-export default connect(mapStateToPropps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
