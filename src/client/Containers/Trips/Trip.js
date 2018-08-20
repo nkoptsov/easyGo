@@ -21,28 +21,7 @@ class Trip extends Component {
   }
 
   render() {
-    const { trip, loading, error } = this.props;
-
-    if (loading) {
-      return (
-        <div>
-          <Header />
-          <main>
-            <h1>
-              LOADING
-            </h1>
-          </main>
-        </div>
-      );
-    }
-
-    if (error) {
-      return (
-        <div>
-          <NotFound />
-        </div>
-      );
-    }
+    const { trip } = this.props;
 
     return (
       <div>
@@ -66,20 +45,6 @@ const mapStateToProps = (state, ownProps) => ({
     }
     return {};
   })(),
-  // loading: (() => {
-  //   let load = false;
-  //   if (ownProps.match.path === '/subscriptions/:tripId') {
-  //     load = state.subscriptions.loading;
-  //   }
-  //   return load;
-  // })(),
-  // error: (() => {
-  //   let err;
-  //   if (ownProps.match.path === '/subscriptions/:tripId') {
-  //     err = state.subscriptions.error;
-  //   }
-  //   return err;
-  // })(),
 });
 
 export default connect(mapStateToProps)(Trip);
