@@ -42,7 +42,7 @@ module.exports = {
           trips.forEach((trip) => {
             tripsPromises.push(UsersTrips.findOne({
               where: {
-                userId: req.session.userId,
+                userId: req.user.id,
                 tripId: trip.getDataValue('id'),
               },
             }).then((item) => {
