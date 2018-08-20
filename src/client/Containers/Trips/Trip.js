@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import Header from '../../Components/Header/Header';
 import TripView from '../../Components/Trips/TripView';
 import NotFound from '../NotFound/NotFound';
-import oneSubscribedTripSelector from '../../Redux/Selectors/index';
-import { fetchOneTrip } from '../../Redux/Actions/subscriptionsActions';
+import {
+  oneSubcribedTripSelector,
+  oneTripSelector,
+  oneMyTripSelector,
+}
+  from '../../Redux/Selectors/index';
+import { fetchOneTrip } from '../../Redux/Actions/tripActions';
 
 class Trip extends Component {
   componentDidMount() {
@@ -16,28 +21,7 @@ class Trip extends Component {
   }
 
   render() {
-    const { trip, loading, error } = this.props;
-
-    if (loading) {
-      return (
-        <div>
-          <Header />
-          <main>
-            <h1>
-              LOADING
-            </h1>
-          </main>
-        </div>
-      );
-    }
-
-    if (error) {
-      return (
-        <div>
-          <NotFound />
-        </div>
-      );
-    }
+    const { trip } = this.props;
 
     return (
       <div>
@@ -51,9 +35,16 @@ class Trip extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  trip: oneSubscribedTripSelector(state, ownProps),
-  loading: state.subscriptions.loading,
-  error: state.subscriptions.error,
+  trip: (() => {
+    if (ownProps.match.path === '/subscriptions/:tripId') {
+      return oneSubcribedTripSelector(state, ownProps);
+    } if (ownProps.match.path === '/trips/:tripId') {
+      return oneTripSelector(state, ownProps);
+    } if (ownProps.match.path === '/mytrips/:tripId') {
+      return oneMyTripSelector(state, ownProps);
+    }
+    return {};
+  })(),
 });
 
 export default connect(mapStateToProps)(Trip);

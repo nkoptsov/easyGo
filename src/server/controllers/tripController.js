@@ -32,13 +32,32 @@ module.exports = {
       }
       Trip.findAll({
         where: { ...req.query },
-      }).then((trips) => {
-        if (!trips.length) {
-          error.name = 'tripNotFound';
-          return next(error);
-        }
-        return res.status(200).json(trips);
-      }).catch(err => next(err));
+      })
+        .then((trips) => {
+          if (!trips.length) {
+            error.name = 'tripNotFound';
+            return next(error);
+          }
+          const tripsPromises = [];
+          trips.forEach((trip) => {
+            tripsPromises.push(UsersTrips.findOne({
+              where: {
+                userId: req.session.userId,
+                tripId: trip.getDataValue('id'),
+              },
+            }).then((item) => {
+              if (item) {
+                trip.setDataValue('isSubscribed', 'true');
+              } else {
+                trip.setDataValue('isSubscribed', 'false');
+              }
+            }));
+          });
+          Promise.all(tripsPromises)
+            .then((result) => {
+              return res.status(200).json(trips);
+            });
+        });
     } else {
       Trip.findAll().then((trips) => {
         res.status(200).json(trips);

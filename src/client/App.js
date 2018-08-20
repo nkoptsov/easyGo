@@ -1,6 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 import PropTypes from 'prop-types';
 
 import Profile from './Containers/Profile/Profile';
@@ -14,14 +16,16 @@ import Subscriptions from './Containers/Trips/Subscriptions';
 import MyTrips from './Containers/Trips/MyTrips';
 import isAuthorized from './Utils/isAuthorized';
 
-
+const history = createBrowserHistory();
 const App = () => (
-  <Router>
+  <ConnectedRouter history={history}>
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/trips" component={Trips} />
         <Route exact path="/trips/:tripId" component={Trip} />
+        <Route exact path="/subscriptions/:tripId" component={Trip} />
+        <Route exact path="/mytrips/:tripId" component={Trip} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route
@@ -59,14 +63,13 @@ const App = () => (
         <Route component={NotFound} />
       </Switch>
     </div>
-  </Router>
+  </ConnectedRouter>
 );
+
 Profile.propTypes = {
   location: PropTypes.shape({
     hash: PropTypes.string.isRequired,
     pathname: PropTypes.string.isRequired,
   }).isRequired,
 };
-
-
 export default App;

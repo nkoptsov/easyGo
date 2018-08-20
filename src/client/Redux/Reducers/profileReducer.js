@@ -19,6 +19,7 @@ const initialState = {
     country: '',
     gender: '',
     about: '',
+    photo: '',
   },
   error: {
 

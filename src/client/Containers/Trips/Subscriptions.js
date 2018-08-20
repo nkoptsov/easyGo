@@ -14,7 +14,7 @@ class Subscriptions extends Component {
   }
 
   render() {
-    const { subscriptions, loading, error } = this.props;
+    const { subscriptions, loading, error, path } = this.props;
     if (loading) {
       return (
         <div>
@@ -39,7 +39,7 @@ class Subscriptions extends Component {
       <div>
         <Header />
         <main>
-          <TripsView trips={subscriptions} />
+          <TripsView trips={subscriptions} path={path} />
         </main>
       </div>
     );
@@ -50,6 +50,7 @@ const mapStateToProps = state => ({
   subscriptions: state.subscriptions.items,
   loading: state.subscriptions.loading,
   error: state.subscriptions.error,
+  path: state.router.location.pathname,
 });
 
 export default connect(mapStateToProps)(Subscriptions);

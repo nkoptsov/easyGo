@@ -34,7 +34,7 @@ class RegisterForm extends Component {
 
   onChange = (e) => {
     this.setState({ data: { ...this.state.data, [e.target.name]: e.target.value } });
-  }
+  };
 
   onSubmit = (event) => {
     event.preventDefault();
@@ -42,7 +42,7 @@ class RegisterForm extends Component {
     const { data } = this.state;
 
     this.props.register(data, this.props.history);
-  }
+  };
 
   render() {
     const { data, errors } = this.state;
