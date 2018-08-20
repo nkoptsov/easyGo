@@ -17,6 +17,13 @@ const ListForm = () => (
     >
       password
     </Link>
+
+    <Link
+      to="/profile/photo"
+      className="list-group-item list-group-item-action"
+    >
+      avatar
+    </Link>
   </div>
 );
 

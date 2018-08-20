@@ -13,24 +13,24 @@ const CardTrip = ({ trip }) => (
     </CardHeader>
     <CardBody>
       <CardTitle>
-          Start:
+        Start:
           {' '}
-        { trip.dateStart }
+          { trip.dateStart }
       </CardTitle>
       <CardTitle>
-          End:
+        End:
           {' '}
-        { trip.dateEnd }
+          { trip.dateEnd }
       </CardTitle>
       <CardText>
         { trip.description }
       </CardText>
       <Link to={`./trips/${trip.id}`}>
         <Button color="primary" style={{ marginRight: '10px' }}>
-Learn more
+          Learn more
         </Button>
       </Link>
-      { isAuthorized() ? <SubControl tripId={trip.id} /> : null }
+      { isAuthorized() ? <SubControl tripId={trip.id} isSubscribed={trip.isSubscribed} /> : null }
     </CardBody>
   </Card>
 );
