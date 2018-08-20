@@ -7,14 +7,19 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const expressMessages = require('express-messages');
 
+const fileUpload = require('express-fileupload');
+
 const { errorHandler } = require('./middlewares');
 const { sequelize } = require('./models');
 const routes = require('./routes');
 
 const app = express();
 
+app.use(fileUpload());
+app.use(cookieParser());
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded());
 
 sequelize.sync()
   .then(() => console.log('Connected to database'))
@@ -32,7 +37,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash());
@@ -45,4 +49,6 @@ app.use('/', routes);
 
 app.use(errorHandler);
 
-app.listen(8080);
+app.listen(8080, () => { console.log('Success, server started'); }).on('error', (err) => {
+  if (err.errno === 'EADDRINUSE') { console.log('The port is busy'); } else { console.log(err); }
+});

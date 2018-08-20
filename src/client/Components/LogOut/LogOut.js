@@ -16,7 +16,6 @@ class LogOut extends React.Component {
       },
       credentials: 'include',
       method: 'GET',
-
     }).then(() => {
       sessionStorage.clear();
       this.setState({ shouldRedirect: true });

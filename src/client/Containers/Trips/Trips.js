@@ -11,17 +11,18 @@ class Trips extends Component {
     this.props.fetchAllTrips();
   }
 
-  handleSearchSubmit = (formData) => {
-    this.props.handleSearchSubmit(formData);
+  handleSearchSubmit = (data) => {
+    this.props.handleSearchSubmit(data);
   }
 
   render() {
+    const { trips } = this.props;
     return (
       <div>
         <Header />
         <main>
           <TripsSearchForm handleSearchSubmit={this.handleSearchSubmit} />
-          <TripsView trips={this.props.trips} />
+          <TripsView trips={trips} />
         </main>
       </div>
     );
@@ -37,7 +38,7 @@ Trips.defaultProps = {
 };
 
 Trips.propTypes = {
-  trips: PropTypes.array,
+  trips: PropTypes.instanceOf(Array),
   handleSearchSubmit: PropTypes.func.isRequired,
   fetchAllTrips: PropTypes.func.isRequired,
 };
@@ -46,8 +47,8 @@ const mapDispatchToProps = dispatch => ({
   fetchAllTrips: () => {
     dispatch(fetchAllTrips());
   },
-  handleSearchSubmit: (formData) => {
-    dispatch(searchTrips({ formData }));
+  handleSearchSubmit: (data) => {
+    dispatch(searchTrips(data));
   },
 });
 

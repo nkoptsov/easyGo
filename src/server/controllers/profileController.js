@@ -1,5 +1,6 @@
-const { Profile, User } = require('../models');
+const fs = require('fs');
 const { updateUserAndProfile } = require('../services/updateUserAndProfile');
+const { Profile, User } = require('../models');
 
 const error = new Error();
 
@@ -23,6 +24,7 @@ module.exports = {
           city: userProfile.city || '',
           email: userProfile.email || '',
           firstName: userProfile.firstName || '',
+          photo: userProfile.photo || '',
         };
         return res.status(200).json(userRequest);
       })
@@ -30,7 +32,6 @@ module.exports = {
   },
 
   updateProfile(req, res, next) {
-    console.log(req);
     const { id } = req.user;
     const { body } = req;
     // body and id
@@ -61,7 +62,6 @@ module.exports = {
       .catch(err => next(err));
   },
 
-
   changePassword(req, res, next) {
     const { id } = req.user;
 
@@ -83,5 +83,27 @@ module.exports = {
       user.update({ password: User.generateHash(newPassword) });
       return res.status(200).json('Password successfully changed');
     });
+  },
+
+  savePhoto(req, res, next) {
+    const { id } = req.user;
+    const buffer = req.files.file.data;
+    const imgName = id + Math.random().toString(36).substr(2, 5);
+
+    return Profile.find({
+      where: {
+        userId: id,
+      },
+    })
+      .then((profile) => {
+        if (!profile) {
+          error.name = 'profileNotFound';
+          next(error);
+        }
+        const photoUrl = `/public/images/${imgName}.jpg`;
+        fs.writeFile(`./public/images/${imgName}.jpg`, buffer, err => console.log(err));
+        profile.update({ photo: photoUrl });
+        return res.status(200).json('Password successfully changed');
+      });
   },
 };

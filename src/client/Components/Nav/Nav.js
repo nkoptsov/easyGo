@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import isAuthorized from '../../Utils/isAuthorized';
 import LogOut from '../LogOut/LogOut';
+import './Nav.css';
 
 class Nav extends React.Component {
   render() {
@@ -64,7 +65,6 @@ class Nav extends React.Component {
                       My Trips
                     </NavLink>
                   </li>
-
                   <li className="nav-item">
                     <NavLink
                       to="/profile"
@@ -77,7 +77,7 @@ class Nav extends React.Component {
                       Profile
                     </NavLink>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item" id="logout">
                     <LogOut className="nav-link" />
                   </li>
                 </ul>
@@ -117,6 +117,5 @@ class Nav extends React.Component {
     );
   }
 }
-
 
 export default Nav;
