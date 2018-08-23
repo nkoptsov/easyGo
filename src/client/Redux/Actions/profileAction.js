@@ -80,3 +80,15 @@ export const changePassword = newPassword => dispatch => axios({
   .catch((err) => {
     // dispatch(fetchProfileFailure(err));
   });
+
+export const uploadPhoto = data => dispatch => axios({
+  mathod: 'POST',
+  withCredentials: true,
+  // data:,
+})
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
