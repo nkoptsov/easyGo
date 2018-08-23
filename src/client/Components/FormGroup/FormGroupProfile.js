@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  FormGroup, Label, Input,
+} from 'reactstrap';
 
 const FormGroupProfile = React.forwardRef((props, ref) => {
   const {
@@ -7,11 +10,11 @@ const FormGroupProfile = React.forwardRef((props, ref) => {
     name, defaultValue, label,
   } = props;
   return (
-    <div className="form-group">
-      <label htmlFor={htmlFor}>
+    <FormGroup>
+      <Label htmlFor={htmlFor}>
         {label}
-      </label>
-      <input
+      </Label>
+      <Input
         type={type}
         className={className}
         id={id}
@@ -20,7 +23,7 @@ const FormGroupProfile = React.forwardRef((props, ref) => {
         defaultValue={defaultValue}
         ref={ref}
       />
-    </div>
+    </FormGroup>
   );
 });
 

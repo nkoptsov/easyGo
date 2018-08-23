@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  FormGroup, Label, Input,
+} from 'reactstrap';
 
 const FormDropDown = React.forwardRef((props, ref) => {
   const {
     id, name, defaultValue, label, htmlFor, className, type,
   } = props;
   return (
-    <div className="form-group">
-      <label htmlFor={htmlFor}>
+    <FormGroup>
+      <Label htmlFor={htmlFor}>
         {label}
-      </label>
-      <select
+      </Label>
+      <Input
         type={type}
         className={className}
         id={id}
@@ -24,8 +27,8 @@ const FormDropDown = React.forwardRef((props, ref) => {
         <option value="female">
           Female
         </option>
-      </select>
-    </div>
+      </Input>
+    </FormGroup>
   );
 });
 
