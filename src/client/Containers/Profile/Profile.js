@@ -7,7 +7,7 @@ import Header from '../../Components/Header/Header';
 import ListForm from '../../Components/ListForm/ListForm';
 import Password from '../../Components/Password/Password';
 import Account from '../../Components/Account/Account';
-import { fetchProfie, changeProfile, changePassword } from '../../Redux/Actions/profileAction';
+import { fetchProfie, changeProfile, changePassword, uploadPhoto } from '../../Redux/Actions/profileAction';
 import Photo from '../../Components/Photo/Photo';
 
 class Profile extends Component {
@@ -37,19 +37,10 @@ class Profile extends Component {
 
   submitPhoto = (file) => {
     const data = new FormData();
-    data.append('file', file.file);
-    fetch('/api/users/profile/photo', {
-      method: 'POST',
-      credentials: 'include',
-      body: data,
-    }).then((value) => {
-    });
+    data.append('file', file);
+    this.props.uploadPhoto(data);
   };
 
-  photoChange = (file) => {
-    const { photo } = this.state;
-    this.setState({ photo: { ...photo, file } });
-  };
 
   render() {
     const { profile, error } = this.props;
@@ -78,7 +69,6 @@ class Profile extends Component {
             <Route exact path="/profile/photo">
               <Photo
                 handleSubmit={this.submitPhoto}
-                photoChange={this.photoChange}
                 photo={photo}
               />
             </Route>
@@ -98,6 +88,7 @@ const mapDispatchToProps = {
   fetchProfie,
   changeProfile,
   changePassword,
+  uploadPhoto,
 };
 
 Profile.propTypes = {

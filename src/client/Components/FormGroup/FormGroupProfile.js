@@ -30,7 +30,7 @@ FormGroupProfile.propTypes = {
   type: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   name: PropTypes.string.isRequired,
   defaultValue: PropTypes.string,
 };

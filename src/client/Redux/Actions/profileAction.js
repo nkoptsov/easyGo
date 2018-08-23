@@ -10,6 +10,7 @@ import errorCreate from '../../api/errorHandler';
 
 const PROFILE = '/api/users/profile';
 const PASSWORD = '/api/users/profile/password';
+const PHOTO = '/api/users/profile/photo';
 
 export const fetchProfileSuccess = profile => ({
   type: FETCH_PROFILE_SUCCESS,
@@ -82,9 +83,10 @@ export const changePassword = newPassword => dispatch => axios({
   });
 
 export const uploadPhoto = data => dispatch => axios({
-  mathod: 'POST',
+  method: 'POST',
+  url: PHOTO,
   withCredentials: true,
-  // data:,
+  data,
 })
   .then((res) => {
     console.log(res);

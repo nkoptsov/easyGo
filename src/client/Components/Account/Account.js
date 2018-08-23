@@ -59,7 +59,7 @@ class Account extends Component {
 
       <Container>
         <Row>
-          <Col xs="6" left>
+          <Col xs="6">
             <Form onSubmit={this.handelSubmit}>
               <FormGroupProfile
                 className="form-control"
@@ -175,7 +175,7 @@ class Account extends Component {
               </Button>
             </Form>
           </Col>
-          <Col xs="3" right>
+          <Col xs="3">
             <CardImg src={this.props.profile.photo} />
             <p>
               {this.props.profile.about}
