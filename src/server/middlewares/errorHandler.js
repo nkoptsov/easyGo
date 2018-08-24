@@ -1,9 +1,11 @@
 
 module.exports = (err, req, res, next) => {
   switch (err.name) {
-    case 'SequelizeValidationError':
-      res.status(400).send({ message: `${err.message}` });
+    case 'SequelizeValidationError': {
+      const objectErrors = err.errors.map(validationObject => validationObject.path);
+      res.status(400).json(objectErrors);
       break;
+    }
     case 'SequelizeUniqueConstraintError':
       res.status(400).send({ message: `${err.message}` });
       break;

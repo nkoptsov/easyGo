@@ -13,26 +13,26 @@ const FormGroupValidate = ({
   value,
   onChange,
 }) => (
-  <div className="form-group">
-    <label htmlFor={htmlFor}>
-      {label}
-      {required ? (
-        <span className="red">
-          *
+    <div className="form-group">
+      <label htmlFor={htmlFor}>
+        {label}
+        {required ? (
+          <span className="red">
+            *
         </span>
-      ) : null}
-      <input
-        type={type}
-        className={className}
-        id={id}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChange}
-      />
-    </label>
-  </div>
-);
+        ) : null}
+        <input
+          type={type}
+          className={className}
+          id={id}
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          onChange={onChange}
+        />
+      </label>
+    </div>
+  );
 
 // export default FormsGroup;
 FormGroupValidate.propTypes = {

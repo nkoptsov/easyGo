@@ -1,28 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import Header from '../../Components/Header/Header';
 import ListForm from '../../Components/ListForm/ListForm';
 import Password from '../../Components/Password/Password';
 import Account from '../../Components/Account/Account';
+import { fetchProfie, changeProfile, changePassword, uploadPhoto } from '../../Redux/Actions/profileAction';
 import Photo from '../../Components/Photo/Photo';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      profile: {
-        login: '',
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
-        email: '',
-        birthday: '',
-        city: '',
-        country: '',
-        gender: '',
-        photo: '',
-        about: '',
-      },
       password: {
         lastPassword: '',
         newPassword: '',
@@ -32,75 +24,29 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.requestAccount();
+    this.props.fetchProfie();
   }
 
-  requestAccount = () => {
-    fetch('/api/users/profile', { credentials: 'include' })
-      .then(value => value.json())
-      .then((profile) => {
-        this.setState({
-          profile,
-        });
-      })
-      .catch((err) => { console.log(err); });
+  submitAccount = (data) => {
+    this.props.changeProfile(data);
   };
 
-  accountChange = (name, value) => {
-    const { profile } = this.state;
-    this.setState({ profile: { ...profile, [name]: value } });
-  };
-
-  submitAccount = (body) => {
-    fetch('/api/users/profile', {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(body),
-    }).then((value) => {
-    });
-  };
-
-  submitPassword = (body) => {
-    fetch('/api/users/profile/password', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(body),
-    }).then((value) => {
-      if (value.status === 200) {
-        console.log('Password was changed');
-      }
-    });
-  };
-
-  passwordChange = (name, value) => {
-    const { password } = this.state;
-    this.setState({ password: { ...password, [name]: value } });
+  submitPassword = (newPassword) => {
+    this.props.changePassword(newPassword);
   };
 
   submitPhoto = (file) => {
     const data = new FormData();
-    data.append('file', file.file);
-    fetch('/api/users/profile/photo', {
-      method: 'POST',
-      credentials: 'include',
-      body: data,
-    }).then((value) => {
-    });
+    data.append('file', file);
+    this.props.uploadPhoto(data);
   };
 
-  photoChange = (file) => {
-    const { photo } = this.state;
-    this.setState({ photo: { ...photo, file } });
-  };
 
   render() {
-    const { password, profile, photo } = this.state;
+    const { profile, error } = this.props;
+    const { photo } = this.props.profile;
+    const { password } = this.state;
+
     return (
       <div>
         <Header />
@@ -109,22 +55,20 @@ class Profile extends Component {
           <Switch>
             <Route exact path="/profile/account">
               <Account
-                handleSubmit={this.submitAccount}
-                accountChange={this.accountChange}
+                submitAccount={this.submitAccount}
                 profile={profile}
+                error={error}
               />
             </Route>
             <Route exact path="/profile/password">
               <Password
-                handleSubmit={this.submitPassword}
-                passwordChange={this.passwordChange}
+                submitPassword={this.submitPassword}
                 password={password}
               />
             </Route>
             <Route exact path="/profile/photo">
               <Photo
                 handleSubmit={this.submitPhoto}
-                photoChange={this.photoChange}
                 photo={photo}
               />
             </Route>
@@ -135,5 +79,33 @@ class Profile extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  profile: state.profile.profile,
+  error: state.profile.profile,
+});
 
-export default Profile;
+const mapDispatchToProps = {
+  fetchProfie,
+  changeProfile,
+  changePassword,
+  uploadPhoto,
+};
+
+Profile.propTypes = {
+  profile: PropTypes.shape({
+    login: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    email: PropTypes.string,
+    birthday: PropTypes.string,
+    city: PropTypes.string,
+    country: PropTypes.string,
+    gender: PropTypes.string,
+    about: PropTypes.string,
+    photo: PropTypes.string,
+  }).isRequired,
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

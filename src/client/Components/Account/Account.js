@@ -2,23 +2,42 @@ import React, { Component } from 'react';
 import {
   Container, Col, Row, CardImg, Form, Button,
 } from 'reactstrap';
-import FormsGroup from '../FormGroup/FormGroup';
+import PropTypes from 'prop-types';
+
+import FormGroupProfile from '../FormGroup/FormGroupProfile';
 import FormDropDown from '../FormGroup/FormDropDown';
 import './Account.css';
 
 class Account extends Component {
   constructor(props) {
     super(props);
+    this.login = React.createRef();
+    this.firstName = React.createRef();
+    this.lastName = React.createRef();
+    this.phoneNumber = React.createRef();
+    this.email = React.createRef();
+    this.birthday = React.createRef();
+    this.city = React.createRef();
+    this.country = React.createRef();
+    this.gender = React.createRef();
+    this.about = React.createRef();
   }
 
-  onChange = (event) => {
-    const { name, value } = event.target;
-    this.props.accountChange(name, value);
-  };
-
   handelSubmit = (event) => {
+    const { submitAccount, profile } = this.props;
+    const profileArray = Object.keys(profile);
+    const accountChange = {};
+
+    profileArray.forEach((element) => {
+      if (element === 'photo') {
+        return;
+      }
+      (this[element].current.value === '') ? accountChange[element] = null
+        : accountChange[element] = this[element].current.value;
+    });
+
     event.preventDefault();
-    this.props.handleSubmit(this.props.profile);
+    submitAccount(accountChange);
   };
 
   render() {
@@ -35,116 +54,128 @@ class Account extends Component {
       photo,
       about,
     } = this.props.profile;
+
     return (
 
       <Container>
         <Row>
-          <Col xs="6" float left>
+          <Col xs="6">
             <Form onSubmit={this.handelSubmit}>
-              <FormsGroup
-                for="login"
+              <FormGroupProfile
+                className="form-control"
+                htmlFor="login"
                 type="text"
                 id="login"
                 placeholder="Enter your login"
                 name="login"
                 label="Login"
-                value={login}
-                onChange={this.onChange}
+                defaultValue={login}
+                ref={this.login}
               />
-              <FormsGroup
-                for="firstName"
+              <FormGroupProfile
+                className="form-control"
+                htmlFor="firstName"
                 type="text"
                 id="firstName"
                 placeholder="Enter your firstName"
                 name="firstName"
                 label="FirstName"
-                value={firstName}
-                onChange={this.onChange}
+                defaultValue={firstName}
+                ref={this.firstName}
               />
-              <FormsGroup
-                for="lastName"
+              <FormGroupProfile
+                className="form-control"
+                htmlFor="lastName"
                 type="text"
                 id="lastName"
                 placeholder="Enter your lastName"
                 name="lastName"
                 label="LastName"
-                value={lastName}
-                onChange={this.onChange}
+                defaultValue={lastName}
+                ref={this.lastName}
               />
-              <FormsGroup
-                for="phoneNumber"
+              <FormGroupProfile
+                className="form-control"
+                htmlFor="phoneNumber"
                 type="tel"
                 id="phoneNumber"
                 placeholder="Enter your phoneNumber"
                 name="phoneNumber"
                 label="PhoneNumber"
-                value={phoneNumber}
-                onChange={this.onChange}
+                defaultValue={phoneNumber}
+                ref={this.phoneNumber}
               />
-              <FormsGroup
-                for="email"
+              <FormGroupProfile
+                className="form-control"
+                htmlFor="email"
                 type="text"
                 id="email"
                 placeholder="Enter your email"
                 name="email"
                 label="Email"
-                value={email}
-                onChange={this.onChange}
+                defaultValue={email}
+                ref={this.email}
               />
-              <FormsGroup
-                for="birthday"
+              <FormGroupProfile
+                className="form-control"
+                htmlFor="birthday"
                 type="date"
                 id="birthday"
                 placeholder="Enter your birthday"
                 name="birthday"
                 label="Birthday"
-                value={birthday}
-                onChange={this.onChange}
+                defaultValue={birthday}
+                ref={this.birthday}
               />
-              <FormsGroup
-                for="city"
+              <FormGroupProfile
+                className="form-control"
+                htmlFor="city"
                 type="text"
                 id="city"
                 placeholder="Enter your city"
                 name="city"
                 label="City"
-                value={city}
-                onChange={this.onChange}
+                defaultValue={city}
+                ref={this.city}
               />
-              <FormsGroup
-                for="country"
+              <FormGroupProfile
+                className="form-control"
+                htmlFor="country"
                 type="text"
                 id="country"
                 placeholder="Enter your country"
                 name="country"
                 label="Country"
-                value={country}
-                onChange={this.onChange}
+                defaultValue={country}
+                ref={this.country}
               />
               <FormDropDown
-                for="gender"
+                className="form-control"
+                htmlFor="gender"
                 id="gender"
                 name="gender"
                 label="Gender"
-                value={gender}
-                onChange={this.onChange}
+                defaultValue={gender}
+                ref={this.gender}
+                type="select"
               />
-              <FormsGroup
-                for="about"
+              <FormGroupProfile
+                className="form-control"
+                htmlFor="about"
                 type="text"
                 id="about"
                 placeholder="Enter your about"
                 name="about"
                 label="About"
-                value={about}
-                onChange={this.onChange}
+                defaultValue={about}
+                ref={this.about}
               />
               <Button color="primary">
-              Submit
+                Submit
               </Button>
             </Form>
           </Col>
-          <Col xs="3" float-right>
+          <Col xs="3">
             <CardImg src={this.props.profile.photo} />
             <p>
               {this.props.profile.about}
@@ -155,4 +186,21 @@ class Account extends Component {
     );
   }
 }
+
+Account.propTypes = {
+  profile: PropTypes.shape({
+    login: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    email: PropTypes.string,
+    birthday: PropTypes.string,
+    city: PropTypes.string,
+    country: PropTypes.string,
+    gender: PropTypes.string,
+    about: PropTypes.string,
+  }).isRequired,
+  submitAccount: PropTypes.func.isRequired,
+};
+
 export default Account;
