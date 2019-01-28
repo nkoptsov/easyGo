@@ -51,8 +51,9 @@ module.exports = function (app, express) {
 
   app.listen(8080, () => {
     console.log('Success, server started');
-    // ßprocess.send('Success, server started');
-
+  
+    if(process.send) process.send('Success, server started');
+    
     // this use for testing
   })
     .on('error', (err) => {
