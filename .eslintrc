@@ -3,7 +3,8 @@
   "env": {
     "node": true,
     "es6": true,
-    "browser": true
+    "browser": true,
+    "mocha": true
   },
   "globals": {
     "React": true
@@ -29,6 +30,10 @@
       {
         "allowTernary": true
       }
+    ],
+    "func-names": [
+      "error",
+      "never"
     ]
   }
 }
