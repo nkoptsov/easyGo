@@ -13,7 +13,7 @@ const { errorHandler } = require('./middlewares');
 const { sequelize } = require('./models');
 const routes = require('./routes');
 
-// const app = express();
+// const app = express();ƒ
 module.exports = function (app, express) {
   app.use(fileUpload());
   app.use(cookieParser());
@@ -51,12 +51,12 @@ module.exports = function (app, express) {
 
   app.listen(8080, () => {
     console.log('Success, server started');
-    process.send('Success, server started');
+    // ßprocess.send('Success, server started');
 
     // this use for testing
   })
     .on('error', (err) => {
-      if (err.errno === 'EADDRINUSE') {
+      if (err.errno === 'EADDRINUSE') {ß
         console.log('The port is busy');
       } else {
         console.log(err);
