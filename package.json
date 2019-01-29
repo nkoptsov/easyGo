@@ -4,7 +4,7 @@
   "description": "application for tourists",
   "main": "src/server/main.js",
   "scripts": {
-    "test:acceptance": "./node_modules/.bin/mocha ./src/server/test/*/*.test.js ",
+    "test:acceptance": "./node_modules/.bin/mocha \"./test/acceptance/*.test.js\" ",
     "start": "node src/server/app.js",
     "build": "webpack --mode production",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",

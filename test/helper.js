@@ -1,8 +1,9 @@
 
-const LocalService = require('./local-service.js');
+// const LocalService = require('./local-service.js');
 
-const localService = new LocalService();
+// const localService = new LocalService();
+// console.log(1111);
 
-before(() => localService.start());
+// before(() => localService.start());
 
-after(() => localService.stop());
+// after(() => localService.stop());
