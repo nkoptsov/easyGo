@@ -1,17 +1,14 @@
-
-// const LocalService = require('./local-service.js');
-
-// const localService = new LocalService();
 const Server = require('../../src/server/main');
-let server;
-before(() => {
 
-  const newServer = new Server();
-  server = newServer.start();
+let testServer;
+before(async () => {
+  const s = new Server();
+  testServer = await s.start();
 });
 
 after(() => {
-  console.log(1111, server);
+  const { server, sequelize } = testServer;
   
   server.close();
+  sequelize.close();
 });

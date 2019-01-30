@@ -10,14 +10,12 @@ describe('Get course', () => {
     try {
       response = await axios.get(url);
     } catch (error) {
-      console.log(error);
       
       response = error.response;
     }
   });
 
   it('should return ', () => {
-    console.log('aaaa');
-    assert.equal(response.status, 200);
+    assert.equal(response.status, 401);
   });
 });
