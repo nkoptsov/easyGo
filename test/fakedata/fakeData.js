@@ -15,9 +15,9 @@ module.exports = {
       about: faker.random.words()
     }
   },
-  fakeUser() {
+  fakeUserData() {
     return {
-      login: faker.
+      login: faker.random.word(),
       password: '1111'
     }
   }

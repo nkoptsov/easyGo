@@ -22,9 +22,9 @@ module.exports = class Server {
     app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'jade');
     app.use(session({
-      secret: 'secret',
+      secret: config.secret,
       resave: true,
-      saveUninitialized: false,
+      // saveUninitialized: false,
     }));
     app.use(passport.initialize());
     app.use(passport.session());
@@ -40,6 +40,7 @@ module.exports = class Server {
   }
 
   async start() {
+    // ?? then 
     await sequelize.sync()
       .then(() => console.log('Connected to database'))
       .catch(error => console.log(error));

@@ -2,7 +2,7 @@ const assert = require('assert');
 const axios = require('axios');
 const fakeData = require('../fakedata/fakeData.js');
 const {
-  Trip, UsersTrips, User, Sequelize,Profile
+  Trip, UsersTrips, User, Sequelize, Profile
 } = require('../../src/server/models');
 
 require('./helper.js');
@@ -11,10 +11,10 @@ const url = 'http://localhost:8080/users/profile';
 let response;
 
 describe('Get course', () => {
-  console.log(fakeData.fakeProfile());
-  
-  Profile.create(fakeData.fakeProfile());
+
   before(async () => {
+    User.create(fakeData.fakeUserData());
+    Profile.create(fakeData.fakeProfile());
     try {
       response = await axios.get(url);
     } catch (error) {
@@ -22,11 +22,15 @@ describe('Get course', () => {
     }
   });
 
-  after(() => {
-    Profile.destroy({
-      where: {}
-    })
-  })
+  after(async () => {
+    User.destroy({ where: {}, force: true }).then(function () {
+      console.log('destroy all data');
+    });
+
+    Profile.destroy({ where: {}, force: true }).then(function () {
+      console.log('destroy all data');
+    });
+  });
 
   it('should return status 401', () => {
     assert.equal(response.status, 401);
