@@ -10,11 +10,16 @@ require('./helper.js');
 const url = 'http://localhost:8080/users/profile';
 let response;
 
-describe('Get course', () => {
+
+describe.only('Get course', () => {
 
   before(async () => {
-    User.create(fakeData.fakeUserData());
-    Profile.create(fakeData.fakeProfile());
+    await User.create(fakeData.fakeUserData()).then(record => {
+      const obj = fakeData.fakeProfile();
+      obj.userId = record.id;
+      Profile.create(obj);
+    });
+  
     try {
       response = await axios.get(url);
     } catch (error) {
@@ -22,15 +27,15 @@ describe('Get course', () => {
     }
   });
 
-  after(async () => {
-    User.destroy({ where: {}, force: true }).then(function () {
-      console.log('destroy all data');
-    });
+  // after(async () => {
+  //   User.destroy({ where: {}, force: true }).then(function () {
+  //     console.log('destroy all data');
+  //   });
 
-    Profile.destroy({ where: {}, force: true }).then(function () {
-      console.log('destroy all data');
-    });
-  });
+  //   Profile.destroy({ where: {}, force: true }).then(function () {
+  //     console.log('destroy all data');
+  //   });
+  // });
 
   it('should return status 401', () => {
     assert.equal(response.status, 401);

@@ -5,7 +5,6 @@ passportLocal(passport);
 
 module.exports = {
   loginUser(req, res) {
-    console.log(222, req);
     passport.authenticate('local', {
       successRedirect: '/',
       failureRedirect: '/users/login',
