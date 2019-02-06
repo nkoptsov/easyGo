@@ -5,7 +5,7 @@ module.exports = {
     return {
       email: faker.internet.email(),
       firstName: faker.name.firstName(),
-      lastName: 'Kopcdr',
+      lastName: faker.name.firstName(),
       phoneNumber: '+380995786675',
       city: faker.address.cityPrefix(),
       country: faker.address.county(),

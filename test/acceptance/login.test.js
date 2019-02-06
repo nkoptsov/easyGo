@@ -24,45 +24,43 @@ describe.only('Log in', () => {
 
   });
 
-  // after(async () => {
-  //   User.destroy({ where: {}, force: true }).then(function () {
-  //     console.log('destroy all data');
-  //   });
+  after(async () => {
+    User.destroy({ where: {}, force: true }).then(function () {
+      console.log('destroy all data');
+    });
 
-  //   Profile.destroy({ where: {}, force: true }).then(function () {
-  //     console.log('destroy all data');
-  //   });
-  // });
+    Profile.destroy({ where: {}, force: true }).then(function () {
+      console.log('destroy all data');
+    });
+  });
 
   context('when pass the correct parameters', () => {
-    let responce;
+    let response;
     before(async () => {
       try {
-        responce = await axios.post(url, { password: fakeUser.password, login: fakeUser.login })
+        response = await axios.post(url, { password: fakeUser.password, login: fakeUser.login })
       } catch (error) {
-        responce = error.responce;
+        response = error.response;
       }
     });
 
     it('should return status 200', () => {
-      assert.equal(responce.status, 200);
+      assert.equal(response.status, 200);
     })
   });
 
   context('when pass the incorrect parameters', () => {
-    let responce;ы
+    let response;
     before(async () => {
       try {
-        responce = await axios.post(url, { password: faker.random.word(), login: faker.random.word() })
+        response = await axios.post(url, { password: faker.random.word(), login: faker.random.word() })
       } catch (error) {
-        responce = error;
+        response = error.response;
       }
     });
 
-    it('should return status 200', () => {
-      console.log(1111, responce);
-
-      // assert.equal(responce.status, 200);
+    it('should return status 400', () => {
+      assert.equal(response.status, 400);
     })
   });
 });

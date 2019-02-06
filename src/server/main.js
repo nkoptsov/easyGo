@@ -41,6 +41,7 @@ module.exports = class Server {
 
   async start() {
     // ?? then 
+
     await sequelize.sync()
       .then(() => console.log('Connected to database'))
       .catch(error => console.log(error));

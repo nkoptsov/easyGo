@@ -27,15 +27,15 @@ describe.only('Get course', () => {
     }
   });
 
-  // after(async () => {
-  //   User.destroy({ where: {}, force: true }).then(function () {
-  //     console.log('destroy all data');
-  //   });
+  after(async () => {
+    User.destroy({ where: {}, force: true }).then(function () {
+      console.log('destroy all data');
+    });
 
-  //   Profile.destroy({ where: {}, force: true }).then(function () {
-  //     console.log('destroy all data');
-  //   });
-  // });
+    Profile.destroy({ where: {}, force: true }).then(function () {
+      console.log('destroy all data');
+    });
+  });
 
   it('should return status 401', () => {
     assert.equal(response.status, 401);
